@@ -44,6 +44,7 @@ def run_quickstart():
 
     # Performs label detection on the image file
     response = client.label_detection(image=image)
+    print(response)
     labels = response.label_annotations
 
     print('Labels:')
