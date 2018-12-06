@@ -106,6 +106,7 @@ if __name__ == '__main__':
                 input_array = input_array[:args.length]
 
         for n in range(args.versions):
+            print(input_array)
             im = array_to_image(input_array, args.size)
             if args.outfile is not None:
                 outfile = args.outfile
