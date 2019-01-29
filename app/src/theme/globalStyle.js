@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Oswald:300|Roboto:300');
+  @import url('https://fonts.googleapis.com/css?family=Oswald:300|Roboto:300,400');
 
   html, body {
     padding: 0;
@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5rem;
   }
 
-  button {
+  button, select {
     font-family: 'Roboto', sans-serif;
     &:focus {
       outline: none;
@@ -32,11 +32,16 @@ const GlobalStyle = createGlobalStyle`
 
   }
 
-  header, h1, h2, h3, h4, h5, h6 {
+  header, h1, h2, h3 {
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     margin: 0;
     line-height: 9rem;
+  }
+
+  p, ul, li, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
   }
 
   ul, li {

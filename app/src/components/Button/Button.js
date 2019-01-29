@@ -13,14 +13,16 @@ export const Button = styled.button`
   display: block;
   min-height: 65px;
   min-width: 220px;
-  background-color: ${props => props.theme.green };
+  background-color: ${props => props.primary ? props.theme.green : props.secondary ? props.theme.gold : props.theme.red };
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+  font-weight: lighter;
 
+  margin: 0 1em;
   transition: .5s;
 
   /* light */
   &:hover {
-    background-color: #4EC691;
+    background-color: lighten(${props => props.primary ? props.theme.green : props.secondary ? props.theme.gold : props.theme.red }, 20%);
   }
 
   /* dark */

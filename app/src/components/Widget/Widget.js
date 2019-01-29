@@ -1,58 +1,101 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 
-import Button from './../Button/Button'
+import Introduction from './Introduction'
+import LabelSelection from './LabelSelection'
+import Rendering from './Rendering'
+import Output from './Output'
 
-const WidgetContainer = styled.div`
-  position: relative;
-  padding: 6em 0 4em 0;
-  box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
-  top: -22vh;
-  background: white;
-  z-index: 2;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-`
-
-const WidgetContent = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  font-size: 1.375rem;
-  margin: 0em 6em 2em 6em;
-`
-
-const FlexItem = styled.div`
-  flex-basis: 50%;
-  margin: 0 1em;
-`
 
 class Widget extends Component {
+  //constructor? 
+
+  state = {
+    step: 1,
+    label: '',
+    //percent: '',
+    //stopped: false,
+    //download/startover
+  }
+
+  reset = () => {
+    const { step } = this.state
+    this.setState({
+      step: 1,
+      label: ''
+    })
+  }
+
+  nextStep = () => {
+    const { step } = this.state
+    this.setState({
+      step: step + 1
+    })
+  }
+
+  prevStep = () => {
+    const { step } = this.state
+    this.setState({
+      step: step - 1
+    })
+  }
+
+  handleChange = input => event => {
+    this.setState({ [input] : event.target.value })
+  }
+
+
   render() {
-    return (
-      <WidgetContainer className="l-container">
+    console.log(this.state.step)
 
-        <WidgetContent>
-          <FlexItem>
-            <p>
-              <i>Kaleidoscope</i> is a web based application which allows users to explore a computer's capacity to create abstract visual representations of real world objects through genetic image generation. To get started, follow the instructions or explore more information below.
-            </p>
-          </FlexItem>
+    const {step} = this.state
+    const { label } = this.state;
+    const values = { label };
 
-          <FlexItem>
-            <ol>
-              <li>Click START to begin</li>
-              <li>Select the labels and their priority values to base your abstract art on</li>
-              <li>Press STOP during image rendering phase at any point to view the output or let it run to completion. Enjoy your art!</li>
-            </ol>
-          </FlexItem>
-          
-        </WidgetContent>
-        
-        <Button primary>Start</Button>
+    switch(step) {
+      
+      case 1:
+        return (
+          <Introduction
+            nextStep = {this.nextStep} 
+            handleChange = {this.handleChange}
+            values = {values}
+            />
+        )
 
-      </WidgetContainer>
-    )
+      case 2:
+        return (
+          <LabelSelection 
+            nextStep = {this.nextStep} 
+            prevStep = {this.prevStep}
+            handleChange = {this.handleChange}
+            values = {values}
+            />
+        )
+
+      case 3: 
+        return (
+          <Rendering 
+            nextStep = {this.nextStep} 
+            prevStep = {this.prevStep}
+            handleChange = {this.handleChange}
+            values = {values}
+            />
+        )
+
+      case 4:
+        return (
+          <Output
+            reset = {this.reset} 
+            prevStep = {this.prevStep}
+            handleChange = {this.handleChange}
+            values = {values}
+            />
+        )
+      
+      default: console.log('default case');
+      
+    }
+
   }
 }
 

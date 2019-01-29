@@ -7,6 +7,7 @@ const Container = styled.div`
   padding: 3em 0em 7em 0em;
   z-index: 0;
   position: relative;
+  font-weight: lighter;
 `
 
 const SectionContent = styled.div`
