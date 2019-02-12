@@ -1,13 +1,12 @@
+'use strict';
+
 /*
- *                Genetics Algorithm to Grow Your Own Picture
+ * Written by kevin altschuler
  *
- * Written by Chris Cummins <chrisc.101@gmail.com>
+ * lots of code ripped from Chris Cummins <chrisc.101@gmail.com>
  * Copyright (c) 2013 Chris Cummins
  * https://chriscummins.cc
  * https://chriscummins.cc/genetics
- *
- * Based on `JavaScript Genetic Algorithm' - Copyright (c) 2009 Jacob Seidelin.
- *   jseidelin@nihilogic.dk, http://blog.nihilogic.dk/
  */
 
 /*
@@ -15,7 +14,24 @@
  */
 var Genetics = Genetics || {};
 
-'use strict';
+import { exec } from 'child_process';
+
+/**
+ * Execute simple shell command (async wrapper).
+ * @param {String} cmd
+ * @return {Object} { stdout: String, stderr: String }
+ */
+async function sh(cmd) {
+  return new Promise(function (resolve, reject) {
+    exec(cmd, (err, stdout, stderr) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({ stdout, stderr });
+      }
+    });
+  });
+}
 
 /* The analytics pane elements */
 var ap = {
@@ -90,6 +106,8 @@ var highestFitness = 100;
 var population;
 var startTime;
 
+var label = "malamute";
+
 /*
  * When the simulation is paused, this variable is set to the currently
  * elapsed time (in milliseconds). Upon resume, this value is subtracted from
@@ -101,7 +119,7 @@ var startTime;
 var resumedTime = 0;
 
 function setDefaults() {
-  populationSize = 7;
+  populationSize = 20;
   selectionCutoff = .15;
   mutationChance = 1;
   mutateAmount = .10;
@@ -252,20 +270,6 @@ function Individual(mother, father) {
                                           workingSize,
                                           workingSize).data;
   var diff = 0;
-
-//   const fileName = 'img/image.png';
-
-//   // Performs label detection on the local file
-//   client
-//     .labelDetection(fileName)
-//     .then(results => {
-//       const labels = results[0].labelAnnotations;
-//       console.log('Labels:');
-//       labels.forEach(label => console.log(label.description));
-//     })
-//     .catch(err => {
-//       console.error('ERROR:', err);
-//     });
 }
 
 function prepareImage() {
@@ -309,7 +313,7 @@ function prepareImage() {
 /*
  * Draw a representation of a DNA string to a canvas.
  */
-Individual.prototype.draw = function(ctx, width, height, name = "", save = false) {
+Individual.prototype.draw = function(ctx, width, height, name = "", save = true) {
 
   /* Set the background */
   ctx.fillStyle = '#000';
@@ -359,10 +363,29 @@ Individual.prototype.draw = function(ctx, width, height, name = "", save = false
   }
   if (save) {
     var buf = workingCanvas.toBuffer();
-    fs.writeFileSync("imgs/img_" + index_ + name + ".png", buf);
+    var str =  "" + index_;
+    if (index_ < 10) {
+      str = "0" + index_;
+    }
+    fs.writeFileSync("imgs/img_" + str + name + ".png", buf);
+    this.fileName = "imgs/img_" + str + name + ".png";
     index_++;
   }
 };
+
+Individual.prototype.determineFitness = async function() {
+  const fileName = this.fileName;
+  label = "Pembroke";
+  let { stdout } = await sh(`./../../darknet/darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights ${fileName} "${label}"`);
+  for (let line of stdout.split('\n')) {
+    line = parseFloat(line);
+    if (line > 1.0) {
+      this.fitness = 0.0000;
+    } else {
+      this.fitness = line;
+    }
+  }
+}
 
 /*
  * This object represents a entire population, composed of a number of
@@ -412,7 +435,7 @@ Population.prototype.iterate = function() {
         var randIndividual = i;
 
         while (randIndividual == i) {
-          randIndividual = getRandomInt(this.individuals.length);
+          randIndividual = getRandomInt(this.individuals.length - 1);
         }
 
         offspring.push(new Individual(this.individuals[i].dna,
@@ -456,6 +479,17 @@ Population.prototype.getFittest = function() {
 
 };
 
+
+Population.prototype.determineFitness = async function() {
+
+  for (const i in this.individuals) {
+    console.log('img ' + i);
+    const individual = this.individuals[i];
+    await individual.determineFitness();
+  }
+  
+};
+
 /*
  * Determines whether the genetics simulation is currently running.
  */
@@ -489,6 +523,7 @@ function setImage(src) {
  * Run the simulation.
  */
 (function() {
+  index_ = 0;
   setDefaults();
 
   if (isPaused()) {
@@ -509,34 +544,44 @@ function setImage(src) {
     population.iterate();
     jiffies++;
 
-    var fittest = population.getFittest();
-    var totalTime = ((new Date().getTime() - startTime) / 1000);
-    var timePerGeneration = (totalTime / jiffies) * 1000;
-    var timePerImprovment = (totalTime / numberOfImprovements) * 1000;
-    var currentFitness = (fittest.fitness * 100);
+    population.determineFitness()
+    .then(() => {
 
-    if (currentFitness > highestFitness) {
-      highestFitness = currentFitness;
-      /* Improvement was made */
-      numberOfImprovements++;
-    } else if (currentFitness < lowestFitness) {
-      lowestFitness = currentFitness;
-    }
+      var fittest = population.getFittest();
+      console.log("most fit: ", fittest.fitness);
+      var totalTime = ((new Date().getTime() - startTime) / 1000);
+      var timePerGeneration = (totalTime / jiffies) * 1000;
+      var timePerImprovment = (totalTime / numberOfImprovements) * 1000;
+      var currentFitness = (fittest.fitness * 100);
 
-    /* Draw the best fit to output */
-    fittest.draw(outputCtx, workingSize, workingSize, 'fittest', true);
-    console.log(fittest.fitness);
+      if (currentFitness > highestFitness) {
+        highestFitness = currentFitness;
+        /* Improvement was made */
+        numberOfImprovements++;
+      } else if (currentFitness < lowestFitness) {
+        lowestFitness = currentFitness;
+      }
 
-    /* Write out the internal state to analytics panel */
-    ap.elapsedTime = secondsToString(Math.round(totalTime));
-    ap.numberOfGenerations = jiffies;
-    ap.timePerGeneration = timePerGeneration.toFixed(2) + ' ms';
-    ap.timePerImprovment = timePerImprovment.toFixed(2) + ' ms';
-    ap.currentFitness = currentFitness.toFixed(2) + '%';
-    ap.highestFitness = highestFitness.toFixed(2) + '%';
-    ap.lowestFitness = lowestFitness.toFixed(2) + '%';
+      /* Draw the best fit to output */
+      fittest.draw(outputCtx, workingSize, workingSize, 'fittest', true);
+      //console.log(fittest.fitness);
+
+      /* Write out the internal state to analytics panel */
+      ap.elapsedTime = secondsToString(Math.round(totalTime));
+      ap.numberOfGenerations = jiffies;
+      ap.timePerGeneration = timePerGeneration.toFixed(2) + ' ms';
+      ap.timePerImprovment = timePerImprovment.toFixed(2) + ' ms';
+      ap.currentFitness = currentFitness.toFixed(2) + '%';
+      ap.highestFitness = highestFitness.toFixed(2) + '%';
+      ap.lowestFitness = lowestFitness.toFixed(2) + '%';
+
+      tick();
+    })
+    .catch(err => console.log(err));
   }
 
+  tick();
+
   /* Begin the master clock */
-  clock = setInterval(tick, 0);
+  //clock = setInterval(tick, 0);
 })();

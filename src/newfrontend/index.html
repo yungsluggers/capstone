@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<input type="file" id="file_input">
+
+	<canvas id="orig_img_canvas" width=500 height=500 style="background: #000;"></canvas>
+	<canvas id="best_img_canvas" width=500 height=500></canvas>
+	<canvas id="test_img_canvas" width=500 height=500></canvas>
+
+	<div id="debug"></div>
+	<div id="fitness"></div>
+	<div id="chi"></div>
+	<div id="ind"></div>
+	<div id="polys"></div>
+
+	<script type="text/javascript">
+		$("#file_input").change(function(e){
+
+
+		    var URL = window.webkitURL || window.URL;
+		    var url = URL.createObjectURL(e.target.files[0]);
+		    var img = new Image();
+		    img.src = url;
+
+
+		    img.onload = function() {
+
+		            img_width = img.width;
+		            img_height = img.height;
+
+		            load(img);
+
+		    }
+		});
+	</script>
+	<script src="evolve.js"></script>
+</body>
+</html>

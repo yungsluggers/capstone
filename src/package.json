@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/vision": "^0.23.0",
+    "babel-preset-latest": "^6.24.1",
     "canvas": "^2.2.0",
     "canvas-webworker": "0.0.2",
     "file-system": "^2.2.2",
