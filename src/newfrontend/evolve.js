@@ -354,6 +354,13 @@ function diff(byteArrA, byteArrB, width, height) {
   return 1-(e1/(255*3*width*height));
 }
 
+// the darknet command
+// ./darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights data/dog.jpg dog
+
+function getFitness(byteArr, width, height) {
+  console.log(byteArr);
+}
+
 /**
  * a random brightness
  */
@@ -764,6 +771,7 @@ function evolve(population, bestContext, testContext, pixels, epoch,
     var bytes = ind.draw(testContext);
            
     var fitness = diff(bytes, pixels, maxX, maxY);
+    getFitness(bytes, maxX, maxY);
     if(fitness > population.max) {
       bestInd = ind;
       population.max = fitness;

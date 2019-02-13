@@ -10,15 +10,17 @@
 <body>
 	<input type="file" id="file_input">
 
-	<canvas id="orig_img_canvas" width=500 height=500 style="background: #000;"></canvas>
-	<canvas id="best_img_canvas" width=500 height=500></canvas>
-	<canvas id="test_img_canvas" width=500 height=500></canvas>
+	<canvas id="orig_img_canvas" style="background: #000;"></canvas>
+	<canvas id="best_img_canvas" width=350 height="350"></canvas>
+	<canvas id="test_img_canvas" width=75 height=75></canvas>
 
-	<div id="debug"></div>
-	<div id="fitness"></div>
-	<div id="chi"></div>
-	<div id="ind"></div>
-	<div id="polys"></div>
+	<div><div id="elapsed-time"></div></div>
+	<div>number of generations: <div id="number-of-generations"></div></div>
+	<div>time per generations: <div id="time-per-generation"></div></div>
+	<div>time per improvement: <div id="time-per-improvement"></div></div>
+	<div>current fitness: <div id="current-fitness"></div></div>
+	<div>highest fitness: <div id="highest-fitness"></div></div>
+	<div>lowest fitness: <div id="lowest-fitness"></div></div>
 
 	<script type="text/javascript">
 		$("#file_input").change(function(e){
@@ -32,14 +34,14 @@
 
 		    img.onload = function() {
 
-		            img_width = img.width;
-		            img_height = img.height;
+		            var img_width = img.width;
+		            var img_height = img.height;
 
-		            load(img);
+		            Genetics.init(img, img_width);
 
 		    }
 		});
 	</script>
-	<script src="evolve.js"></script>
+	<script src="ccevolve.js"></script>
 </body>
 </html>
