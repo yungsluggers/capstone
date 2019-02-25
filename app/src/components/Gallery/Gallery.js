@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import { Images } from '../../assets/images/index'
 
 const ImageGrid = styled.div`
   display: grid;
@@ -15,33 +16,19 @@ const Image = styled.div`
   }
 `
 
-const imageArray = [
-  "bear",
-  "cat",
-  "corn",
-  "harp",
-  "horse",
-  "hotdogs",
-  "lion",
-  "meerkat",
-  "mushroom",
-  "plant",
-  "puppies",
-  "tiger"
-]
-
 class Gallery extends Component {
   render() {
     
     return (
       <ImageGrid>
         {
-          imageArray.map(image => (
-            <Image key={image}>
-              <img src={require(`../../assets/images/${image}.jpg`)} alt="Gallery image" />
-            </Image>
+          Object.keys(Images).map(function(key) {
+            return (
+              <Image key={key}>
+                <img src={Images[key]} alt={key}/>
+              </Image>
             )
-          )
+          })
         }
 
       </ImageGrid>
