@@ -10,7 +10,7 @@ class Widget extends Component {
   //constructor? 
 
   state = {
-    step: 1,
+    step: 3,
     label: '',
     //percent: '',
     //stopped: false,
@@ -18,7 +18,7 @@ class Widget extends Component {
   }
 
   reset = () => {
-    const { step } = this.state
+    // const { step } = this.state
     this.setState({
       step: 1,
       label: ''
