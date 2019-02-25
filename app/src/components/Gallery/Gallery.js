@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import { Images } from '../../assets/images/index'
+// import { Images } from '../../assets/images/index'
 
 const ImageGrid = styled.div`
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 0px 8px;
+  grid-gap: 5px;
 `
 
 const Image = styled.div`
-  img {
+  img, div {
     max-width: 100%;
     border-radius: 2px;
+
+    background-color: lightcoral;
+    height: 200px;
+    width: 200px;
   }
 `
 
@@ -21,7 +26,20 @@ class Gallery extends Component {
     
     return (
       <ImageGrid>
-        {
+        
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+
+        {/* {
           Object.keys(Images).map(function(key) {
             return (
               <Image key={key}>
@@ -29,7 +47,7 @@ class Gallery extends Component {
               </Image>
             )
           })
-        }
+        } */}
 
       </ImageGrid>
     )
