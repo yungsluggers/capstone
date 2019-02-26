@@ -1,19 +1,19 @@
 import { createGlobalStyle } from "styled-components"
 
+
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Oswald:300|Roboto:300,400');
 
   html, body {
     padding: 0;
     margin: 0;
     margin-top: 0;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
     line-height: 1.5rem;
   }
 
   button, select {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Univers', sans-serif;
     &:focus {
       outline: none;
     }
@@ -33,14 +33,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   header, h1, h2, h3 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Univers', sans-serif;
     text-transform: uppercase;
     margin: 0;
     line-height: 9rem;
   }
 
   p, ul, li, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
   }
 
@@ -70,7 +69,7 @@ export const theme = {
   pink: '#e62c8f',
   blue: '#4ca1d9',
   grey: '#acacad',
-  textPrimary: '#231f20'
+  textPrimary: '#191818'
 }
 
 export default GlobalStyle
