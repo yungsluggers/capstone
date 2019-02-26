@@ -46,8 +46,8 @@ class Output extends Component {
         <ImagePlaceholder />
 
         <ButtonRow>
-          <Button secondary>Download</Button>
-          <Button onClick={this.nextStep} primary>Start over</Button>
+          <Button>Download</Button>
+          <Button onClick={this.nextStep} filled>Start over</Button>
         </ButtonRow>
 
       </Container>

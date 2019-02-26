@@ -10,7 +10,7 @@ class Widget extends Component {
   //constructor? 
 
   state = {
-    step: 3,
+    step: 1,
     label: '',
     //percent: '',
     //stopped: false,

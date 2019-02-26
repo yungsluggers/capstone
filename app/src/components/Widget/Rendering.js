@@ -84,8 +84,8 @@ class Rendering extends Component {
         <br />
 
         <ButtonRow>
-          <Button onClick={this.back} secondary>Back</Button>
-          <Button onClick={this.nextStep} tertiary>Stop</Button>
+          <Button onClick={this.back}>Back</Button>
+          <Button onClick={this.nextStep} filled>Stop</Button>
         </ButtonRow>
 
       </Container>

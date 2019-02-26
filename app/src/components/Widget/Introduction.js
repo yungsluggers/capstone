@@ -50,7 +50,7 @@ class Introduction extends Component {
           </FlexItem>
         </Content>
 
-        <Button onClick={this.startApp} primary>Start</Button>
+        <Button onClick={this.startApp} filled>Get Started</Button>
       </Container>
     )
 

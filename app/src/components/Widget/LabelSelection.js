@@ -75,8 +75,8 @@ class Introduction extends Component {
           </div>
 
         <ButtonRow>
-          <Button onClick={this.back} secondary>Back</Button>
-          <Button onClick={this.nextStep} primary>Next</Button>
+          <Button onClick={this.back}>Back</Button>
+          <Button onClick={this.nextStep} filled>Next</Button>
         </ButtonRow>
         
       </div>
