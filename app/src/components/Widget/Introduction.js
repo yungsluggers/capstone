@@ -11,14 +11,8 @@ const Container = styled.div`
 `
 
 const Content = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  margin-bottom: 75px;
-`
-
-const FlexItem = styled.div`
-  flex-basis: 50%;
-  margin: 0 1em;
+  margin-bottom: 90px;
+  text-align: center;
 `
 
 class Introduction extends Component {
@@ -30,24 +24,15 @@ class Introduction extends Component {
 
   render() {
 
-    // const {values} = this.props
-
     return (
       <Container>
         <Content>
-          <FlexItem>
-            <p>
-              <i>Kaleidoscope</i> is a web based application which allows users to explore a computer's capacity to create abstract visual representations of real world objects through genetic image generation. To get started, follow the instructions or explore more information below.
-            </p>
-          </FlexItem>
-
-          <FlexItem>
-            <ol>
-              <li>Click START to begin</li>
-              <li>Select the labels and their priority values to base your abstract art on</li>
-              <li>Press STOP during image rendering phase at any point to view the output or let it run to completion. Enjoy your art!</li>
-            </ol>
-          </FlexItem>
+          <p>
+            This is a small project exploring a computer's ability to create abstract visual representations of real world objects through genetic image generation. 
+          </p>
+          <p>
+            Get started below.
+          </p>
         </Content>
 
         <Button onClick={this.startApp} filled>Get Started</Button>
