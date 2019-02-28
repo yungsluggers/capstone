@@ -3,22 +3,20 @@ import styled from 'styled-components'
 
 import { ReactComponent as HelpIcon } from '../../assets/icons/baseline-help_outline-24px.svg'
 
-import Button from '../Button/Button'
-
-
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto auto auto auto auto auto;
-  margin-top: 3rem;
+  margin: 3rem 0 5rem 0;
 `
 
 const Icon = styled.a`
   grid-column: 2;
   grid-row: 1;
+  margin-bottom: 5rem;
 
   svg {
-    width: 45px;
+    width: 3rem;
     height: auto;
     color: ${props => props.theme.textPrimary};
   }
@@ -66,15 +64,6 @@ const Subtitle = styled.div`
   }
 `
 
-const Content = styled.div`
-  grid-column: 4;
-  grid-row: 5;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
-`
-
 const Names = styled.div`
   grid-column: 2;
   grid-row: 4;
@@ -109,22 +98,6 @@ class Header extends Component {
           Chris Louie <br />
         </Names>
 
-        <Content>
-          <Button filled>
-            Get Started
-          </Button>
-        </Content>
-        
-        {/* <Content className="l-container">
-          <Title>
-            {this.props.children}
-          </Title>
-
-          <Icon>
-            <HelpIcon fill="white"/>
-          </Icon>
-        </Content> */}
-        
       </Container>
     )
   }
