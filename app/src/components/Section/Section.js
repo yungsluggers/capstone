@@ -3,18 +3,16 @@ import styled from 'styled-components'
 
 
 const Container = styled.div`
-  padding: 4em 0em;
-  font-weight: lighter;
+  margin: 200px 0;
 `
 
 const Content = styled.div`
-  /* color: ${props => props.green ? 'white' : props.theme.textPrimary};
-  text-align: left;
+  color: ${props => props.theme.textPrimary};
+  /* text-align: left;
   font-size: 1.125rem;
   max-width: 66vw;
   margin: 0 auto; */
 `
-
 
 const HeaderContainer = styled.div`
   display: grid;
@@ -23,13 +21,12 @@ const HeaderContainer = styled.div`
 `
 
 const SectionHeader = styled.h1`
-  color: ${props => props.theme.textPrimary};
+  grid-column: 2;
+  grid-row: 1;
   text-transform: uppercase;
   text-align: center;
   font-size: 4.5rem;
-
-  grid-column: 2;
-  grid-row: 1;
+  color: ${props => props.theme.textPrimary};
 `
 
 const OutlineHeader = styled.h1`
@@ -43,9 +40,7 @@ const OutlineHeader = styled.h1`
   left: ${props => props.from === 'left' ? '-22px' : '22px'};
   grid-column: 2;
   grid-row: 1;
-
 `
-
 
 const Underline = styled.div`
   border-bottom: 10px solid ${props => props.theme.textPrimary};
@@ -53,7 +48,7 @@ const Underline = styled.div`
   grid-row: 1;
   position: relative;
   bottom: 48px;
-  left: ${props => props.from === 'left' ? '-30px' : '60px'};
+  left: ${props => props.from === 'left' ? '-60px' : '60px'};
 `
 
 

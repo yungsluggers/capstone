@@ -5,85 +5,84 @@ import { ReactComponent as HelpIcon } from '../../assets/icons/baseline-help_out
 
 import Button from '../Button/Button'
 
+
 const Container = styled.div`
-  /* position: relative; */
-  /* height: 45vh; */
-  /* background-color: ${props => props.theme.green }; */
-  /* color: white; */
-  /* box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.2); */
-  /* background-size: 200% auto; */
-  /* background-image: linear-gradient(120deg, rgba(65,185,132,1) 0%, rgba(72,193,139,1) 43%, rgba(84,206,151,1) 68%, rgba(95,219,162,1) 80%, rgba(99,218,162,1) 100%); */
-  /* z-index: 1; */
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto auto;
+  margin-top: 3rem;
 `
 
 const Icon = styled.a`
-  grid-column: 1;
+  grid-column: 2;
   grid-row: 1;
 
   svg {
     width: 45px;
     height: auto;
+    color: ${props => props.theme.textPrimary};
   }
 `
 
 const Title = styled.div`
-  grid-column: 3 / span 3;
+  grid-column: 4 / span 4;
   grid-row: 2;
-
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-start;
   width: 100%;
-
-  h1 {
-    font-size: 7.5rem;
-    letter-spacing: .2rem;
-    /* display: inline; */
-    hyphens: auto;
-  }
+  overflow: hidden;
 
   span {
-    /* display: inline-block; */
+    font-family: 'Univers';
+    text-transform: uppercase;
+    font-size: 7.5rem;
+    letter-spacing: .2rem;
+    line-height: normal;
     background-color: ${props => props.theme.textPrimary};
     color: white;
     width: 100%;
+    height: 7.5rem;
+    margin-bottom: 7px;
+    padding: .75rem 0 .75rem 2rem;
   }
 `
 
 const Subtitle = styled.div`
-  grid-column: 3 / span 3;
+  grid-column: 4 / span 4;
   grid-row: 3;
-  text-transform: lowercase;
-
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
-  width: 100%;
+  width: 100%;  
+  text-transform: lowercase;
 
   span  {
-    background-color: ${props => props.theme.textPrimary};
     color: white;
+    background-color: ${props => props.theme.textPrimary};
+    font-size: 2rem;
     width: 100%;
+    height: min-content;
+    padding: .75rem 0 .75rem 2rem;
   }
 `
 
 const Content = styled.div`
-  grid-column: 3;
-  grid-row: 4;
-  /* display: flex; */
-  /* flex-flow: row nowrap; */
-  /* justify-content: space-between; */
-  /* align-items: center; */
+  grid-column: 4;
+  grid-row: 5;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const Names = styled.div`
-  grid-column: 1;
-  grid-row: 3;
+  grid-column: 2;
+  grid-row: 4;
+  display: flex;
+  align-items: flex-start;
   text-transform: lowercase;
-  transform: rotate(-90deg);
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
 `
 
 
@@ -92,10 +91,8 @@ class Header extends Component {
     return (
       <Container>
         <Title>
-          {/* {this.props.children} */}
-          <h1><span>{this.props.children}</span></h1>
-          {/* <h1><span><br />saur</span></h1> */}
-          {/* <h1>{this.props.children}</h1> */}
+          <span>Kaleido-</span>
+          <span>saur</span>
         </Title>
 
         <Subtitle>
