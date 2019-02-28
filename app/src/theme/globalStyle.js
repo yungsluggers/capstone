@@ -39,10 +39,6 @@ const GlobalStyle = createGlobalStyle`
     line-height: 9rem;
   }
 
-  p, ul, li, h4, h5, h6 {
-    font-weight: lighter;
-  }
-
   ul, li {
     margin-bottom: 1em;
     padding: unset;
