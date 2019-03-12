@@ -38,7 +38,7 @@ class Output extends Component {
   }
 
   render() {
-    const {values} = this.props
+    // const {values} = this.props
 
     return (
       <Container>

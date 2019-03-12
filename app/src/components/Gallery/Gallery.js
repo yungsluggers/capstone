@@ -1,40 +1,54 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-
-function importAll(r) {
-  return r.keys().map(r);
-}
-
-const images = importAll(require.context('../../assets/images/', false, /\.(png|jpe?g|svg)$/));
+// import { Images } from '../../assets/images/index'
 
 const ImageGrid = styled.div`
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 0px 8px;
+  grid-gap: 5px;
 `
 
 const Image = styled.div`
-  img {
+  img, div {
     max-width: 100%;
     border-radius: 2px;
+
+    background-color: lightcoral;
+    height: 200px;
+    width: 200px;
   }
 `
 
 class Gallery extends Component {
   render() {
+    
     return (
-
       <ImageGrid>
-        {images.map(( img, i ) => {
-          return (
+        
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
+        <Image><div></div></Image>
 
-            <Image key={i}>
-              <img src={img} alt={"Gallery image #" + i}/>
-            </Image>
+        {/* {
+          Object.keys(Images).map(function(key) {
+            return (
+              <Image key={key}>
+                <img src={Images[key]} alt={key}/>
+              </Image>
+            )
+          })
+        } */}
 
-          )
-        })}
       </ImageGrid>
     )
   }
