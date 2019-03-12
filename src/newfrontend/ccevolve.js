@@ -15,6 +15,9 @@
  */
 'use strict';
 
+// the darknet command
+// ./darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights data/dog.jpg dog
+
 /* The analytics pane elements */
 var ap;
 
@@ -224,6 +227,17 @@ function Individual(mother, father) {
                                           workingSize).data;
   var diff = 0;
 
+
+  // TODO: make this use darknet to "diff"
+  console.log(imageData);
+
+  // var buf = workingCanvas.toBuffer();
+  // var str =  "" + index_;
+  // if (index_ < 10) {
+  //   str = "0" + index_;
+  // }
+  // fs.writeFileSync("imgs/test.png", buf);
+
   /*
    * Sum up the difference between the pixel values of the reference
    * image and the current individual. Subtract the ratio of this
@@ -236,7 +250,7 @@ function Individual(mother, father) {
       diff += dp * dp;
     }
 
-  this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256 * 256);
+    this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256 * 256);
   } else {  // Sum differences.
     for (var p = 0; p < workingSize * workingSize * 4; p++)
       diff += Math.abs(imageData[p] - workingData[p]);
