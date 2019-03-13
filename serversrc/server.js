@@ -30,6 +30,12 @@ server.listen(port, (err) => {
 	console.log('server running');
 });
 
+app.get('/', (req, res) => {
+	res.status(200);
+	res.json({hello: 'hi'});
+	res.end();
+})
+
 app.get('/:id/:data', (req, res) => {
 	
 	exec(`./darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights ${req.params.id} ${req.params.data}`, (err, stdout, stderr) => {
