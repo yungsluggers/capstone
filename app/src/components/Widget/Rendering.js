@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { init } from '../../ccevolve'
 
 import Button from './../Button/Button'
-
+import ButtonRow from './../Button/ButtonRow'
 
 const Container = styled.div`
   display: flex;
@@ -12,11 +12,29 @@ const Container = styled.div`
   align-items: center;
 `
 
-const ButtonRow = styled.div`
+const Content = styled.div`
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  width: 100%;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+`
+
+const CanvasGroup = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+`
+
+const Canvas = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+
+  canvas {
+    border: 2px solid ${props => props.theme.textPrimary};
+    margin-right: 40px;
+  }
+`
+
+const AnalyticsList = styled.div`
+  display: flex;
 `
 
 class FileImporter extends Component {
@@ -40,7 +58,6 @@ class FileImporter extends Component {
       <input type="file" onChange={this.importFile.bind(this)} />
     )
   }
-
 }
 
 class Rendering extends Component {
@@ -56,37 +73,75 @@ class Rendering extends Component {
   }
 
   render() {
-    // const {values} = this.props
 
     return (
       <Container>
 
-        <h3>Kaleidescope Rendering...</h3>
+        <Content>
+        
+        <p>Artwork Rendering</p>
 
-        {/* <input type="file" id="file_input" /> */}
         <FileImporter />
 
-        <canvas id="orig_img_canvas" style={{backgroundColor: "#000"}} />
-        <canvas id="best_img_canvas" width="350" height="350" />
-        <canvas id="test_img_canvas" width="75" height="75" />
+        <CanvasGroup>
+          <Canvas>
+            <p>Input Image</p>
+            <canvas id='orig_img_canvas' style={{backgroundColor: ''}} width='350' height='350' />
+          </Canvas>
+          <Canvas>
+            <p>Current Best</p>          
+            <canvas id='best_img_canvas' width='350' height='350' />
+            <canvas id='test_img_canvas' style={{visibility: 'hidden'}} width='75' height='75' />
+          </Canvas>
+        </CanvasGroup>
 
-        <div>
-          <div id="elapsed-time"></div>
-        </div>
-        
-        <div>number of generations: <div id="number-of-generations"></div></div>
-        <div>time per generations: <div id="time-per-generation"></div></div>
-        <div>time per improvement: <div id="time-per-improvement"></div></div>
-        <div>current fitness: <div id="current-fitness"></div></div>
-        <div>highest fitness: <div id="highest-fitness"></div></div>
-        <div>lowest fitness: <div id="lowest-fitness"></div></div>
+        <AnalyticsList>
+
+          <table>
+            <tbody>
+              <tr>
+                <td>Elapsed time:&nbsp;</td>
+                <td><div id='elapsed-time'></div></td>
+              </tr>
+              <tr>
+                <td>Number of generations:&nbsp;</td>
+                <td><div id='number-of-generations'></div></td>
+              </tr>
+              <tr>
+                <td>Time per generation:&nbsp;</td>
+                <td><div id='time-per-generation'></div></td>
+              </tr>
+              <tr>
+                <td>Time per improvement:&nbsp;</td>
+                <td><div id='time-per-improvement'></div></td>
+              </tr>
+              <tr>
+                <td>Current fitness:&nbsp;</td>
+                <td><div id='current-fitness'></div></td>
+              </tr>
+              <tr>
+                <td>Highest fitness:&nbsp;</td>
+                <td><div id='highest-fitness'></div></td>
+              </tr>
+              <tr>
+                <td>Lowest fitness:&nbsp;</td>
+                <td><div id='lowest-fitness'></div></td>
+              </tr>
+            </tbody>
+            
+
+          </table>
+
+        </AnalyticsList>
 
         <br />
 
         <ButtonRow>
-          <Button onClick={this.back} secondary>Back</Button>
-          <Button onClick={this.nextStep} tertiary>Stop</Button>
+          <Button onClick={this.back}>Back</Button>
+          <Button onClick={this.nextStep} filled>Stop</Button>
         </ButtonRow>
+
+        </Content>
 
       </Container>
     )

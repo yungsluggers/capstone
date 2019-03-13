@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,500');
+
+@font-face {
+  font-family: 'Univers';
+  src: local('Univers'), url("./fonts/UniversLTStd-XBlackEx.otf") format("opentype");
+}

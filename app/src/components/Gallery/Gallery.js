@@ -11,7 +11,8 @@ const ImageGrid = styled.div`
 `
 
 const Image = styled.div`
-  img, div {
+  img,
+  div {
     max-width: 100%;
     border-radius: 2px;
 
@@ -23,22 +24,8 @@ const Image = styled.div`
 
 class Gallery extends Component {
   render() {
-    
     return (
       <ImageGrid>
-        
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-
         {/* {
           Object.keys(Images).map(function(key) {
             return (
@@ -48,7 +35,6 @@ class Gallery extends Component {
             )
           })
         } */}
-
       </ImageGrid>
     )
   }

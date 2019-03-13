@@ -7,21 +7,15 @@ import Output from './Output'
 
 
 class Widget extends Component {
-  //constructor? 
 
   state = {
-    step: 3,
-    label: '',
-    //percent: '',
-    //stopped: false,
-    //download/startover
+    step: 1
   }
 
   reset = () => {
-    // const { step } = this.state
+    const { step } = this.state
     this.setState({
       step: 1,
-      label: ''
     })
   }
 
@@ -45,11 +39,7 @@ class Widget extends Component {
 
 
   render() {
-    console.log(this.state.step)
-
     const {step} = this.state
-    const { label } = this.state;
-    const values = { label };
 
     switch(step) {
       
@@ -57,9 +47,7 @@ class Widget extends Component {
         return (
           <Introduction
             nextStep = {this.nextStep} 
-            handleChange = {this.handleChange}
-            values = {values}
-            />
+            handleChange = {this.handleChange} />
         )
 
       case 2:
@@ -67,9 +55,7 @@ class Widget extends Component {
           <LabelSelection 
             nextStep = {this.nextStep} 
             prevStep = {this.prevStep}
-            handleChange = {this.handleChange}
-            values = {values}
-            />
+            handleChange = {this.handleChange} />
         )
 
       case 3: 
@@ -77,9 +63,7 @@ class Widget extends Component {
           <Rendering 
             nextStep = {this.nextStep} 
             prevStep = {this.prevStep}
-            handleChange = {this.handleChange}
-            values = {values}
-            />
+            handleChange = {this.handleChange} />
         )
 
       case 4:
@@ -87,9 +71,7 @@ class Widget extends Component {
           <Output
             reset = {this.reset} 
             prevStep = {this.prevStep}
-            handleChange = {this.handleChange}
-            values = {values}
-            />
+            handleChange = {this.handleChange} />
         )
       
       default: console.log('default case');

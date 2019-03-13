@@ -3,56 +3,102 @@ import styled from 'styled-components'
 
 import { ReactComponent as HelpIcon } from '../../assets/icons/baseline-help_outline-24px.svg'
 
-
-const HeaderContainer = styled.div`
-  position: relative;
-  height: 45vh;
-  background-color: ${props => props.theme.green };
-  color: white;
-  box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.2);
-  /* background-size: 200% auto; */
-  background-image: linear-gradient(120deg, rgba(65,185,132,1) 0%, rgba(72,193,139,1) 43%, rgba(84,206,151,1) 68%, rgba(95,219,162,1) 80%, rgba(99,218,162,1) 100%);
-  z-index: 1;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto auto;
+  margin: 3rem 0 5rem 0;
 `
 
-const HeaderTitle = styled.h3`
-  color: white;
-  text-align: left;
-  font-size: 1.875rem;
-  letter-spacing: 10px;
-  font-kerning: auto;
-`
+const Icon = styled.a`
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 5rem;
 
-const HeaderContent = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const HeaderIcon = styled.a`
   svg {
-    width: 45px;
+    width: 3rem;
     height: auto;
+    color: ${props => props.theme.textPrimary};
   }
 `
+
+const Title = styled.div`
+  grid-column: 4 / span 4;
+  grid-row: 2;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  width: 100%;
+  overflow: hidden;
+
+  span {
+    font-family: 'Univers';
+    text-transform: uppercase;
+    font-size: 7.5rem;
+    letter-spacing: .2rem;
+    line-height: normal;
+    background-color: #191818e6;
+    color: white;
+    width: 100%;
+    height: 7.5rem;
+    margin-bottom: 7px;
+    padding: .75rem 0 .75rem 2rem;
+  }
+`
+
+const Subtitle = styled.div`
+  grid-column: 4 / span 4;
+  grid-row: 3;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;  
+  text-transform: lowercase;
+
+  span  {
+    color: white;
+    background-color: #191818e6;
+    font-size: 2rem;
+    width: 100%;
+    height: min-content;
+    padding: .75rem 0 .75rem 2rem;
+  }
+`
+
+const Names = styled.div`
+  grid-column: 2;
+  grid-row: 4;
+  display: flex;
+  align-items: flex-start;
+  text-transform: lowercase;
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
+`
+
 
 class Header extends Component {
   render() {
     return (
-      <HeaderContainer>
-        
-        <HeaderContent className="l-container">
-          <HeaderTitle>
-            {this.props.children}
-          </HeaderTitle>
+      <Container>
+        <Title>
+          <span>Kaleido-</span>
+          <span>saur</span>
+        </Title>
 
-          <HeaderIcon>
-            <HelpIcon fill="white"/>
-          </HeaderIcon>
-        </HeaderContent>
-        
-      </HeaderContainer>
+        <Subtitle>
+          <span>Abstract art generator</span>
+        </Subtitle>
+
+        <Icon>
+          <HelpIcon />
+        </Icon>
+
+        <Names>
+          Michael Rascati <br />
+          Kevin Altschuler <br />
+          Chris Louie <br />
+        </Names>
+
+      </Container>
     )
   }
 }
