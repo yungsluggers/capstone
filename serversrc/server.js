@@ -45,13 +45,15 @@ app.post('/', (req, res) => {
 	exec(`./darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights ${id} ${data}`, (err, stdout, stderr) => {
 	  if (err) {
 	    res.json({ err: err, stderr: stderr});
+	    res.end();
+	  } else {
+
+		res.status(200);
+
+		console.log(`${stdout}`);
+		res.json({ score: stdout });
+		res.end();
 	  }
-
-	  res.status(200);
-
-	  console.log(`${stdout}`);
-	  res.json({ score: stdout });
-	  res.end();
 	});
 	
 });
