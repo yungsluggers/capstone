@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-// import { Images } from '../../assets/images/index'
+import { Images } from '../../assets/images/index'
 
 const ImageGrid = styled.div`
   display: grid;
@@ -26,20 +26,8 @@ class Gallery extends Component {
     
     return (
       <ImageGrid>
-        
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
-        <Image><div></div></Image>
 
-        {/* {
+        {
           Object.keys(Images).map(function(key) {
             return (
               <Image key={key}>
@@ -47,7 +35,7 @@ class Gallery extends Component {
               </Image>
             )
           })
-        } */}
+        }
 
       </ImageGrid>
     )

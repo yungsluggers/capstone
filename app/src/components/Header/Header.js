@@ -37,7 +37,7 @@ const Title = styled.div`
     font-size: 7.5rem;
     letter-spacing: .2rem;
     line-height: normal;
-    background-color: ${props => props.theme.textPrimary};
+    background-color: #191818e6;
     color: white;
     width: 100%;
     height: 7.5rem;
@@ -56,7 +56,7 @@ const Subtitle = styled.div`
 
   span  {
     color: white;
-    background-color: ${props => props.theme.textPrimary};
+    background-color: #191818e6;
     font-size: 2rem;
     width: 100%;
     height: min-content;
