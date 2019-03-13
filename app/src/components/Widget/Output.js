@@ -2,19 +2,12 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import Button from './../Button/Button'
-
+import ButtonRow from './../Button/ButtonRow'
 
 const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-`
-
-const ButtonRow = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  width: 100%;
 `
 
 const ImagePlaceholder = styled.div`
@@ -38,7 +31,6 @@ class Output extends Component {
   }
 
   render() {
-    // const {values} = this.props
 
     return (
       <Container>
@@ -46,8 +38,8 @@ class Output extends Component {
         <ImagePlaceholder />
 
         <ButtonRow>
-          <Button secondary>Download</Button>
-          <Button onClick={this.nextStep} primary>Start over</Button>
+          <Button>Download</Button>
+          <Button onClick={this.nextStep} filled>Start over</Button>
         </ButtonRow>
 
       </Container>

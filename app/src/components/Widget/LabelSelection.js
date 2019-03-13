@@ -1,24 +1,9 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import Select from 'react-select'
 import makeAnimated from 'react-select/lib/animated'
 
 import Button from './../Button/Button'
-
-const ButtonRow = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  width: 100%;
-`
-
-// const Select = styled.select`
-//   width: 100%; 
-//   font-size: 1.25rem;
-//   background-color: #f7f8f9;
-//   padding: 1rem;
-//   margin: 1rem 0;
-// `
+import ButtonRow from './../Button/ButtonRow'
 
 const options = [
   { value: 'dog', label: 'Dog' },
@@ -26,12 +11,9 @@ const options = [
   { value: 'human', label: 'Human' },
   { value: 'shoe', label: 'Shoe' },
   { value: 'cake', label: 'Cake' },
-  { value: 'happiness', label: 'Happiness' },
-  { value: 'pain', label: 'Pain' },
-  { value: 'furry', label: 'Furry' },
-  { value: 'disestablishmentarianism', label: 'Disestablishmentarianism' },
-  { value: 'defenestration', label: 'Defenestration' },
+  { value: 'cake', label: 'Boat' },
   { value: 'frog', label: 'Frog' },
+  { value: 'frog', label: 'Horse' },
 ]
 
 
@@ -48,35 +30,24 @@ class Introduction extends Component {
   }
 
   render() {
-    // const {values} = this.props
 
     return (
       <div>
 
-          <label htmlFor="label-select">
-            <h4>Select up to two labels and genetic priority...</h4>
-          </label>
+        <label htmlFor="label-select">
+          <p>Select up to two labels and genetic priority</p>
+        </label>
 
-          <Select 
-            isMulti
-            components={makeAnimated()}
-            name="labels"
-            options={options}
-          />
-
-          <div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-          </div>
+        <Select 
+          isMulti
+          components={makeAnimated()}
+          name="labels"
+          options={options}
+        />
 
         <ButtonRow>
-          <Button onClick={this.back} secondary>Back</Button>
-          <Button onClick={this.nextStep} primary>Next</Button>
+          <Button onClick={this.back}>Back</Button>
+          <Button onClick={this.nextStep} filled>Next</Button>
         </ButtonRow>
         
       </div>
