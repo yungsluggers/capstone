@@ -26,25 +26,21 @@
 	<script type="text/javascript">
 		$("#file_input").change(function(e){
 
-			  fetch(`http://35.199.34.163/n02107683/23,23,23,23`)
-				  .then(data => data.json())
-				  .then(res => {console.log(res)});
+
+		    var URL = window.webkitURL || window.URL;
+		    var url = URL.createObjectURL(e.target.files[0]);
+		    var img = new Image();
+		    img.src = url;
 
 
-		    // var URL = window.webkitURL || window.URL;
-		    // var url = URL.createObjectURL(e.target.files[0]);
-		    // var img = new Image();
-		    // img.src = url;
+		    img.onload = function() {
 
+		            var img_width = img.width;
+		            var img_height = img.height;
 
-		    // img.onload = function() {
+		            init(img, img_width);
 
-		    //         var img_width = img.width;
-		    //         var img_height = img.height;
-
-		    //         init(img, img_width);
-
-		    // }
+		    }
 		});
 	</script>
 	<script src="ccevolve.js"></script>

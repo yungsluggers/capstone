@@ -36,9 +36,12 @@ app.get('/', (req, res) => {
 	res.end();
 })
 
-app.get('/:id/:data', (req, res) => {
+app.post('/', (req, res) => {
+
+	var id = req.body.id;
+    var data = req.body.data;
 	
-	exec(`./darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights ${req.params.id} ${req.params.data}`, (err, stdout, stderr) => {
+	exec(`./darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights ${id} ${data}`, (err, stdout, stderr) => {
 	  if (err) {
 	    res.json({ err: err, stderr: stderr});
 	    res.end();

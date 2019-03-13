@@ -89,6 +89,8 @@ function setDefaults() {
   dnaLength = polygons * geneSize;
 }
 
+var penisbutt = 0;
+
 /*
  * When the simulation is paused, this variable is set to the currently
  * elapsed time (in milliseconds). Upon resume, this value is subtracted from
@@ -234,9 +236,19 @@ function Individual(mother, father) {
 
   // make a request to the server
 
-  fetch(`http://35.199.34.163/n02107683/${imageData}`)
-  .then(data => data.json())
-  .then(res => {console.log(res)});
+  if (penisbutt <= 0) {
+    fetch('http://35.199.34.163/', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id: 'n02107683', data: imageData})
+    })
+    .then(data => data.json())
+    .then(res => {console.log(res)});
+    penisbutt += 1;
+  }
 
 
 
