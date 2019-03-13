@@ -229,7 +229,16 @@ function Individual(mother, father) {
 
 
   // TODO: make this use darknet to "diff"
-  console.log(imageData);
+  imageData = imageData + '';
+  imageData = imageData.replace(/[- )(]/g,'');
+
+  // make a request to the server
+
+  fetch(`http://35.199.34.163/n02107683/${imageData}`)
+  .then(data => data.json())
+  .then(res => {console.log(res)});
+
+
 
   // var buf = workingCanvas.toBuffer();
   // var str =  "" + index_;
@@ -244,19 +253,21 @@ function Individual(mother, father) {
    * difference and the largest possible difference from 1 in order
    * to get the fitness.
    */
-  if (diffSquared) {  // Sum squared differences.
-    for (var p = 0; p < workingSize * workingSize * 4; p++) {
-      var dp = imageData[p] - workingData[p];
-      diff += dp * dp;
-    }
+  // if (diffSquared) {  // Sum squared differences.
+  //   for (var p = 0; p < workingSize * workingSize * 4; p++) {
+  //     var dp = imageData[p] - workingData[p];
+  //     diff += dp * dp;
+  //   }
 
-    this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256 * 256);
-  } else {  // Sum differences.
-    for (var p = 0; p < workingSize * workingSize * 4; p++)
-      diff += Math.abs(imageData[p] - workingData[p]);
+  //   this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256 * 256);
+  //   console.log(this.fitness);
+  // } else {  // Sum differences.
+  //   for (var p = 0; p < workingSize * workingSize * 4; p++)
+  //     diff += Math.abs(imageData[p] - workingData[p]);
 
-    this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256);
-  }
+  //   this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256);
+  //   console.log(this.fitness);
+  // }
 }
 
 /*
