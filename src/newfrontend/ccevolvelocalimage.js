@@ -83,7 +83,7 @@ function setDefaults() {
   /* Graphics options.
    */
   workingSize = 75;
-  polygons = 125;
+  polygons = 25;
   vertices = 3;
   fillPolygons = true;
 
@@ -209,11 +209,15 @@ function Individual(mother, father) {
         /* The DNA strand */
         var x = inheritedGene[i].vertices[j].x;
         var y = inheritedGene[i].vertices[j].y;
+        var cpx = inheritedGene[i].vertices[j].cpx;
+        var cpy = inheritedGene[i].vertices[j].cpy;
 
         x = mutateNumber(x);
         y = mutateNumber(y);
+        cpx = mutateNumber(cpx);
+        cpy = mutateNumber(cpy);
 
-        gene.vertices.push({x, y});
+        gene.vertices.push({x, y, cpx, cpy});
       }
       gene.r = mutateNumber(inheritedGene[i].r);
       gene.g = mutateNumber(inheritedGene[i].g);
@@ -245,7 +249,10 @@ function Individual(mother, father) {
 
       for (var j = 0; j < vertices; j++) {
         gene.vertices.push({x: x + Math.random() - 0.5, // X
-                      y: y + Math.random() - 0.5}); // Y
+                      y: y + Math.random() - 0.5,
+                      cpx: x + Math.random() - 0.5,
+                      cpy: y + Math.random() - 0.5}); // Y
+
       }
 
       this.dna.push(gene);
@@ -313,7 +320,11 @@ Individual.prototype.draw = function(ctx, width, height) {
 
     /* Create each vertices sequentially */
     for (var i = 0; i <= vertices - 1; i++) {
-      ctx.lineTo(this.dna[g].vertices[i].x * width,
+      console.log(this.dna[g].vertices[i].cpx);
+      console.log(this.dna[g].vertices[i].cpy);
+      ctx.quadraticCurveTo(this.dna[g].vertices[i].cpx * width,
+                 this.dna[g].vertices[i].cpy * height,
+                 this.dna[g].vertices[i].x * width,
                  this.dna[g].vertices[i].y * height);
     }
 
