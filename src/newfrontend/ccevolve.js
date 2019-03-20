@@ -70,7 +70,7 @@ var population;
 var startTime;
 
 function setDefaults() {
-  populationSize = 50;
+  populationSize = 15;
   selectionCutoff = .15;
   mutationChance = .01;
   mutateAmount = .10;
@@ -88,8 +88,6 @@ function setDefaults() {
   geneSize = (4 + vertices * 2);
   dnaLength = polygons * geneSize;
 }
-
-var penisbutt = 0;
 
 /*
  * When the simulation is paused, this variable is set to the currently
@@ -218,39 +216,9 @@ function Individual(mother, father) {
     }
   }
 
-  /*
-   * Determine the individual's fitness:
-   */
-
-  this.draw(workingCtx, workingSize, workingSize);
-
-  var imageData = workingCtx.getImageData(0, 0,
-                                          workingSize,
-                                          workingSize).data;
-  var diff = 0;
-
-
-  // TODO: make this use darknet to "diff"
-  imageData = imageData + '';
-  imageData = imageData.replace(/[- )(]/g,'');
-
   // make a request to the server
 
-  if (penisbutt <= 0) {
-    fetch('http://35.199.34.163/', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({id: 'n02107683', data: imageData})
-    })
-    .then(data => data.json())
-    .then(res => {console.log(res)});
-    penisbutt += 1;
-  }
-
-
+  //console.log(_this.fitness);
 
   // var buf = workingCanvas.toBuffer();
   // var str =  "" + index_;
@@ -282,6 +250,55 @@ function Individual(mother, father) {
   // }
 }
 
+Individual.prototype.getFitness = async function(url) {
+  /*
+   * Determine the individual's fitness:
+   */
+
+  this.draw(workingCtx, workingSize, workingSize);
+
+  var imageData = workingCtx.getImageData(0, 0,
+                                          workingSize,
+                                          workingSize).data;
+  var diff = 0;
+
+  // TODO: make this use darknet to "diff"
+  imageData = imageData + '';
+  imageData = imageData.replace(/[- )(]/g,'');
+
+  try {
+    let res = await fetch('http://35.247.45.39/', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id: 'n02107683', data: imageData})
+    })
+    .then(data => data.json())
+    .then(function(res) {
+      this.fitness = res.score;
+      Promise.resolve();
+    }.bind(this));
+  }
+  catch (err) {
+    console.error(err.message, err);
+  }
+}
+
+  // fetch('http://35.221.57.110/', {
+  //   method: 'post',
+  //   headers: {
+  //     'Accept': 'application/json, text/plain, */*',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({id: 'n02107683', data: imageData})
+  // })
+  // .then(data => data.json())
+  // .then(res => {
+  //   _this.fitness = res.score;
+  // });
+
 /*
  * Draw a representation of a DNA string to a canvas.
  */
@@ -302,7 +319,7 @@ Individual.prototype.draw = function(ctx, width, height) {
 
     /* Create each vertices sequentially */
     for (var i = 0; i < vertices - 1; i++) {
-      ctx.lineTo(this.dna[g + i * 2 + 6] * width,
+      ctx.bezierCurveTo(this.dna[g + i * 2 + 6] * width,
                  this.dna[g + i * 2 + 7] * height);
     }
 
@@ -341,17 +358,25 @@ Individual.prototype.draw = function(ctx, width, height) {
  */
 function Population(size) {
   this.individuals = [];
-
-  /* Generate our random starter culture */
-  for (var i = 0; i < size; i++)
-    this.individuals.push(new Individual());
-
 }
+
+Population.prototype.generatePop = async function(size) {
+  /* Generate our random starter culture */
+  const results = [];
+  for (var i = 0; i < size; i++) {
+    var ind = new Individual();
+    results.push(ind.getFitness());
+    this.individuals.push(ind);
+  }
+  await Promise.all(results);
+}
+
+
 
 /*
  * Breed a new generation.
  */
-Population.prototype.iterate = function() {
+Population.prototype.iterate = async function() {
 
   if (this.individuals.length > 1) {
 
@@ -377,18 +402,28 @@ Population.prototype.iterate = function() {
     if (fittestSurvive)
       randCount--;
 
+    const results = [];
+
     for (var i = 0; i < selectCount; i++) {
 
       for (var j = 0; j < randCount; j++) {
         var randIndividual = i;
 
-        while (randIndividual == i)
+        while (randIndividual == i) {
           randIndividual = (Math.random() * selectCount) >> 0;
+        }
 
-        offspring.push(new Individual(this.individuals[i].dna,
-                                      this.individuals[randIndividual].dna));
+        var ind = new Individual(this.individuals[i].dna,
+                                      this.individuals[randIndividual].dna);
+
+        results.push(ind.getFitness());
+        offspring.push(ind);
       }
     }
+
+    await Promise.all(results);
+
+    console.log("after new generation");
 
     if (fittestSurvive) {
       this.individuals.length = selectCount;
@@ -407,6 +442,7 @@ Population.prototype.iterate = function() {
 
     var parent = this.individuals[0];
     var child = new Individual(parent.dna, parent.dna);
+    await child.getFitness;
 
     if (child.fitness > parent.fitness)
       this.individuals = [child];
@@ -503,7 +539,7 @@ function prepareImage(img, img_width) {
 /*
  * Run the simulation.
  */
-function runSimulation() {
+async function runSimulation() {
   document.body.classList.remove('genetics-inactive');
   document.body.classList.add('genetics-active');
 
@@ -514,14 +550,17 @@ function runSimulation() {
     jiffies = 0;
     numberOfImprovements = 0;
     startTime = new Date().getTime();
-    population = new Population(populationSize);
+    population = new Population();
+    await population.generatePop(populationSize);
+    console.log(population.individuals[0]);
   }
 
   /* Each tick produces a new population and new fittest */
-  function tick() {
+  async function tick() {
 
     /* Breed a new generation */
-    population.iterate();
+    await population.iterate();
+    console.log("done with iterate");
     jiffies++;
 
     var fittest = population.getFittest();
@@ -546,13 +585,15 @@ function runSimulation() {
     ap.numberOfGenerations.text(jiffies);
     ap.timePerGeneration.text(timePerGeneration.toFixed(2) + ' ms');
     ap.timePerImprovment.text(timePerImprovment.toFixed(2) + ' ms');
-    ap.currentFitness.text(currentFitness.toFixed(2) + '%');
-    ap.highestFitness.text(highestFitness.toFixed(2) + '%');
-    ap.lowestFitness.text(lowestFitness.toFixed(2) + '%');
+    ap.currentFitness.text(currentFitness + '%');
+    ap.highestFitness.text(highestFitness + '%');
+    ap.lowestFitness.text(lowestFitness + '%');
+    Promise.resolve();
   }
 
-  /* Begin the master clock */
-  clock = setInterval(tick, 0);
+  while(true) {
+    await tick();
+  }
 }
 
 function init(img, img_width) {
