@@ -70,7 +70,7 @@ var population;
 var startTime;
 
 function setDefaults() {
-  populationSize = 15;
+  populationSize = 50;
   selectionCutoff = .15;
   mutationChance = .01;
   mutateAmount = .10;
@@ -216,9 +216,16 @@ function Individual(mother, father) {
     }
   }
 
-  // make a request to the server
+  /*
+   * Determine the individual's fitness:
+   */
 
-  //console.log(_this.fitness);
+  this.draw(workingCtx, workingSize, workingSize);
+
+  var imageData = workingCtx.getImageData(0, 0,
+                                          workingSize,
+                                          workingSize).data;
+  var diff = 0;
 
   // var buf = workingCanvas.toBuffer();
   // var str =  "" + index_;
@@ -233,71 +240,22 @@ function Individual(mother, father) {
    * difference and the largest possible difference from 1 in order
    * to get the fitness.
    */
-  // if (diffSquared) {  // Sum squared differences.
-  //   for (var p = 0; p < workingSize * workingSize * 4; p++) {
-  //     var dp = imageData[p] - workingData[p];
-  //     diff += dp * dp;
-  //   }
+  if (diffSquared) {  // Sum squared differences.
+    for (var p = 0; p < workingSize * workingSize * 4; p++) {
+      var dp = imageData[p] - workingData[p];
+      diff += dp * dp;
+    }
 
-  //   this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256 * 256);
-  //   console.log(this.fitness);
-  // } else {  // Sum differences.
-  //   for (var p = 0; p < workingSize * workingSize * 4; p++)
-  //     diff += Math.abs(imageData[p] - workingData[p]);
+    this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256 * 256);
+    console.log(this.fitness);
+  } else {  // Sum differences.
+    for (var p = 0; p < workingSize * workingSize * 4; p++)
+      diff += Math.abs(imageData[p] - workingData[p]);
 
-  //   this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256);
-  //   console.log(this.fitness);
-  // }
-}
-
-Individual.prototype.getFitness = async function(url) {
-  /*
-   * Determine the individual's fitness:
-   */
-
-  this.draw(workingCtx, workingSize, workingSize);
-
-  var imageData = workingCtx.getImageData(0, 0,
-                                          workingSize,
-                                          workingSize).data;
-  var diff = 0;
-
-  // TODO: make this use darknet to "diff"
-  imageData = imageData + '';
-  imageData = imageData.replace(/[- )(]/g,'');
-
-  try {
-    let res = await fetch('http://35.247.45.39/', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({id: 'n02107683', data: imageData})
-    })
-    .then(data => data.json())
-    .then(function(res) {
-      this.fitness = res.score;
-      Promise.resolve();
-    }.bind(this));
-  }
-  catch (err) {
-    console.error(err.message, err);
+    this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256);
+    console.log(this.fitness);
   }
 }
-
-  // fetch('http://35.221.57.110/', {
-  //   method: 'post',
-  //   headers: {
-  //     'Accept': 'application/json, text/plain, */*',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({id: 'n02107683', data: imageData})
-  // })
-  // .then(data => data.json())
-  // .then(res => {
-  //   _this.fitness = res.score;
-  // });
 
 /*
  * Draw a representation of a DNA string to a canvas.
@@ -358,25 +316,17 @@ Individual.prototype.draw = function(ctx, width, height) {
  */
 function Population(size) {
   this.individuals = [];
-}
 
-Population.prototype.generatePop = async function(size) {
   /* Generate our random starter culture */
-  const results = [];
-  for (var i = 0; i < size; i++) {
-    var ind = new Individual();
-    results.push(ind.getFitness());
-    this.individuals.push(ind);
-  }
-  await Promise.all(results);
+  for (var i = 0; i < size; i++)
+    this.individuals.push(new Individual());
+
 }
-
-
 
 /*
  * Breed a new generation.
  */
-Population.prototype.iterate = async function() {
+Population.prototype.iterate = function() {
 
   if (this.individuals.length > 1) {
 
@@ -402,28 +352,18 @@ Population.prototype.iterate = async function() {
     if (fittestSurvive)
       randCount--;
 
-    const results = [];
-
     for (var i = 0; i < selectCount; i++) {
 
       for (var j = 0; j < randCount; j++) {
         var randIndividual = i;
 
-        while (randIndividual == i) {
+        while (randIndividual == i)
           randIndividual = (Math.random() * selectCount) >> 0;
-        }
 
-        var ind = new Individual(this.individuals[i].dna,
-                                      this.individuals[randIndividual].dna);
-
-        results.push(ind.getFitness());
-        offspring.push(ind);
+        offspring.push(new Individual(this.individuals[i].dna,
+                                      this.individuals[randIndividual].dna));
       }
     }
-
-    await Promise.all(results);
-
-    console.log("after new generation");
 
     if (fittestSurvive) {
       this.individuals.length = selectCount;
@@ -442,7 +382,6 @@ Population.prototype.iterate = async function() {
 
     var parent = this.individuals[0];
     var child = new Individual(parent.dna, parent.dna);
-    await child.getFitness;
 
     if (child.fitness > parent.fitness)
       this.individuals = [child];
@@ -539,7 +478,7 @@ function prepareImage(img, img_width) {
 /*
  * Run the simulation.
  */
-async function runSimulation() {
+function runSimulation() {
   document.body.classList.remove('genetics-inactive');
   document.body.classList.add('genetics-active');
 
@@ -550,17 +489,14 @@ async function runSimulation() {
     jiffies = 0;
     numberOfImprovements = 0;
     startTime = new Date().getTime();
-    population = new Population();
-    await population.generatePop(populationSize);
-    console.log(population.individuals[0]);
+    population = new Population(populationSize);
   }
 
   /* Each tick produces a new population and new fittest */
-  async function tick() {
+  function tick() {
 
     /* Breed a new generation */
-    await population.iterate();
-    console.log("done with iterate");
+    population.iterate();
     jiffies++;
 
     var fittest = population.getFittest();
@@ -585,15 +521,13 @@ async function runSimulation() {
     ap.numberOfGenerations.text(jiffies);
     ap.timePerGeneration.text(timePerGeneration.toFixed(2) + ' ms');
     ap.timePerImprovment.text(timePerImprovment.toFixed(2) + ' ms');
-    ap.currentFitness.text(currentFitness + '%');
-    ap.highestFitness.text(highestFitness + '%');
-    ap.lowestFitness.text(lowestFitness + '%');
-    Promise.resolve();
+    ap.currentFitness.text(currentFitness.toFixed(2) + '%');
+    ap.highestFitness.text(highestFitness.toFixed(2) + '%');
+    ap.lowestFitness.text(lowestFitness.toFixed(2) + '%');
   }
 
-  while(true) {
-    await tick();
-  }
+  /* Begin the master clock */
+  clock = setInterval(tick, 0);
 }
 
 function init(img, img_width) {
