@@ -69,6 +69,8 @@ var highestFitness;
 var population;
 var startTime;
 
+var penisbutt = 0;
+
 function setDefaults() {
   populationSize = 50;
   selectionCutoff = .15;
@@ -85,8 +87,8 @@ function setDefaults() {
   vertices = 3;
   fillPolygons = true;
 
-  geneSize = (4 + vertices * 2);
-  dnaLength = polygons * geneSize;
+  geneSize = (6 + vertices * 2);
+  dnaLength = polygons;
 }
 
 /*
@@ -132,11 +134,43 @@ function secondsToString(s) {
            m + ':' : '0:') + (s < 10 ? '0' : '') + s);
 }
 
+function mutateNumber(num) {
+  var n = num;
+  if (Math.random() < mutationChance) {
+
+     //Apply the random mutation 
+    n += Math.random() * mutateAmount * 2 - mutateAmount;
+
+    /* Keep the value in range */
+  }
+  if (n < 0)
+    n = 0;
+
+  if (n > 1)
+    n = 1;
+
+  return n;
+}
+
 /*
  * Creates a new individual. Each individual comprises of their string of DNA,
  * and their fitness. In addition, a draw() method is provided for visualising
  * the individual. If mother and father are omitted, a random individual is
  * generated.
+ */
+
+ /*
+ a gene looks like 
+ {
+  r: num,
+  g: num,
+  b: num,
+  a: num,
+  vertices: [
+    {x: num,
+     y: num}
+  ]
+ }
  */
 function Individual(mother, father) {
 
@@ -152,7 +186,7 @@ function Individual(mother, father) {
     /* Used in random inheritance */
     var inheritSplit = (Math.random() * dnaLength) >> 0;
 
-    for (var i = 0; i < dnaLength; i += geneSize) {
+    for (var i = 0; i < dnaLength; i += 1) {
 
       /* The parent's gene which will be inherited */
       var inheritedGene;
@@ -165,30 +199,28 @@ function Individual(mother, father) {
         inheritedGene = (Math.random() < 0.5) ? mother : father;
       }
 
+      var gene = {vertices: []};
+
       /*
        * Create the genes:
        */
-      for (var j = 0; j < geneSize; j++) {
+      for (var j = 0; j < vertices; j++) {
 
         /* The DNA strand */
-        var dna = inheritedGene[i + j];
+        var x = inheritedGene[i].vertices[j].x;
+        var y = inheritedGene[i].vertices[j].y;
 
-        /* Mutate the gene */
-        if (Math.random() < mutationChance) {
+        x = mutateNumber(x);
+        y = mutateNumber(y);
 
-          /* Apply the random mutation */
-          dna += Math.random() * mutateAmount * 2 - mutateAmount;
-
-          /* Keep the value in range */
-          if (dna < 0)
-            dna = 0;
-
-          if (dna > 1)
-            dna = 1;
-        }
-
-        this.dna.push(dna);
+        gene.vertices.push({x, y});
       }
+      gene.r = mutateNumber(inheritedGene[i].r);
+      gene.g = mutateNumber(inheritedGene[i].g);
+      gene.b = mutateNumber(inheritedGene[i].b);
+      gene.a = mutateNumber(inheritedGene[i].a);
+
+      this.dna.push(gene);
     }
 
   } else {
@@ -197,22 +229,26 @@ function Individual(mother, father) {
      * Generate a random individual:
      */
 
-    for (var g = 0; g < dnaLength; g += geneSize) {
+    for (var g = 0; g < dnaLength; g += 1) {
 
-      /* Generate RGBA color values */
-      this.dna.push(Math.random(), // R
-                    Math.random(), // G
-                    Math.random(), // B
-                    Math.max(Math.random() * Math.random(), 0.2)); // A
+      var gene = {};
+      gene.vertices = [];
+
+      gene.r = Math.random();
+      gene.g = Math.random();
+      gene.b = Math.random();
+      gene.a = Math.max(Math.random() * Math.random(), 0.2);
 
       /* Generate XY positional values */
       var x = Math.random();
       var y = Math.random();
 
       for (var j = 0; j < vertices; j++) {
-        this.dna.push(x + Math.random() - 0.5, // X
-                      y + Math.random() - 0.5); // Y
+        gene.vertices.push({x: x + Math.random() - 0.5, // X
+                      y: y + Math.random() - 0.5}); // Y
       }
+
+      this.dna.push(gene);
     }
   }
 
@@ -269,25 +305,25 @@ Individual.prototype.draw = function(ctx, width, height) {
   /*
    * Draw each gene sequentially:
    */
-  for (var g = 0; g < dnaLength; g += geneSize) {
+  for (var g = 0; g < dnaLength - 1; g++) {
 
     /* Draw the starting vertex */
     ctx.beginPath();
-    ctx.moveTo(this.dna[g + 4] * width, this.dna[g + 5] * height);
+    ctx.moveTo(this.dna[g].vertices[0].x * width, this.dna[g].vertices[0].y * height);
 
     /* Create each vertices sequentially */
-    for (var i = 0; i < vertices - 1; i++) {
-      ctx.lineTo(this.dna[g + i * 2 + 6] * width,
-                 this.dna[g + i * 2 + 7] * height);
+    for (var i = 0; i <= vertices - 1; i++) {
+      ctx.lineTo(this.dna[g].vertices[i].x * width,
+                 this.dna[g].vertices[i].y * height);
     }
 
     ctx.closePath();
 
     var styleString = 'rgba(' +
-        ((this.dna[g] * 255) >> 0) + ',' + // R - int [0,255]
-        ((this.dna[g + 1] * 255) >> 0) + ',' + // G - int [0,255]
-        ((this.dna[g + 2] * 255) >> 0) + ',' + // B - int [0,255]
-        this.dna[g + 3] + ')'; // A - float [0,1]
+        ((this.dna[g].r * 255) >> 0) + ',' + // R - int [0,255]
+        ((this.dna[g].g * 255) >> 0) + ',' + // G - int [0,255]
+        ((this.dna[g].b * 255) >> 0) + ',' + // B - int [0,255]
+        this.dna[g].a + ')'; // A - float [0,1]
 
     if (fillPolygons) {
 
