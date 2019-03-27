@@ -11,9 +11,9 @@ const Container = styled.div`
 `
 
 const Icon = styled.a`
-  grid-column: 2;
   grid-row: 1;
   margin-bottom: 5rem;
+  margin-right: auto;
 
   svg {
     width: 3rem;
@@ -88,8 +88,30 @@ class Header extends Component {
           <span>Abstract art generator</span>
         </Subtitle>
 
-        <Icon>
-          <HelpIcon />
+        <Icon
+          onClick={() => {
+            this.props.aboutRef.current.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+              inline: 'center',
+            });
+          }}
+          style={{gridColumn: 2}}
+        >
+          <HelpIcon/>
+        </Icon>
+
+         <Icon
+          onClick={() => {
+            this.props.galleryRef.current.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+              inline: 'center',
+            });
+          }}
+          style={{gridColumn: 3, fontSize: 32}}
+        >
+          🦆
         </Icon>
 
         <Names>
