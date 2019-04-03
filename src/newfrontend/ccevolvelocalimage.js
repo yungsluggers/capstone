@@ -69,7 +69,9 @@ var highestFitness;
 var population;
 var startTime;
 
-var penisbutt = 0;
+var firstIter = 0;
+
+var opacityMin = 0.95;
 
 function setDefaults() {
   populationSize = 50;
@@ -152,6 +154,58 @@ function mutateNumber(num) {
   return n;
 }
 
+var smooth_value = 1;
+
+Array.prototype.getByIndexWrapped = function(i) {
+  if (i == -1) {
+    i = this.length - 1;
+  }
+  i = i % this.length;
+  return this[i];
+}
+
+function addCurvesToPolygon(polygon) {
+  for (var i = 0; i < polygon.vertices.length; i++) {
+      var x0 = polygon.vertices.getByIndexWrapped(i-1).x;
+      var y0 = polygon.vertices.getByIndexWrapped(i-1).y;
+      var x1 = polygon.vertices.getByIndexWrapped(i).x;
+      var y1 = polygon.vertices.getByIndexWrapped(i).y;
+      var x2 = polygon.vertices.getByIndexWrapped(i+1).x;
+      var y2 = polygon.vertices.getByIndexWrapped(i+1).y;
+      var x3 = polygon.vertices.getByIndexWrapped(i+2).x;
+      var y3 = polygon.vertices.getByIndexWrapped(i+2).y;
+
+      var xc1 = (x0 + x1) / 2.0;
+      var yc1 = (y0 + y1) / 2.0;
+      var xc2 = (x1 + x2) / 2.0;
+      var yc2 = (y1 + y2) / 2.0;
+      var xc3 = (x2 + x3) / 2.0;
+      var yc3 = (y2 + y3) / 2.0;
+
+      var len1 = Math.sqrt((x1-x0) * (x1-x0) + (y1-y0) * (y1-y0));
+      var len2 = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+      var len3 = Math.sqrt((x3-x2) * (x3-x2) + (y3-y2) * (y3-y2));
+
+      var k1 = len1 / (len1 + len2);
+      var k2 = len2 / (len2 + len3);
+
+      var xm1 = xc1 + (xc2 - xc1) * k1;
+      var ym1 = yc1 + (yc2 - yc1) * k1;
+
+      var xm2 = xc2 + (xc3 - xc2) * k2;
+      var ym2 = yc2 + (yc3 - yc2) * k2;
+
+      // Resulting control points. Here smooth_value is mentioned
+      // above coefficient K whose value should be in range [0...1].
+      polygon.vertices[i].cp2x = xm1 + (xc2 - xm1) * smooth_value + x1 - xm1;
+      polygon.vertices[i].cp2y = ym1 + (yc2 - ym1) * smooth_value + y1 - ym1;
+
+      polygon.vertices.getByIndexWrapped(i+1).cp1x = xm2 + (xc2 - xm2) * smooth_value + x2 - xm2;
+      polygon.vertices.getByIndexWrapped(i+1).cp1y = ym2 + (yc2 - ym2) * smooth_value + y2 - ym2;
+  }
+  return polygon;
+}
+
 /*
  * Creates a new individual. Each individual comprises of their string of DNA,
  * and their fitness. In addition, a draw() method is provided for visualising
@@ -168,9 +222,15 @@ function mutateNumber(num) {
   a: num,
   vertices: [
     {x: num,
-     y: num}
+     y: num,
+     cp1x: num,
+     cp1y: num,
+     cp2x: num,
+     cp2y: num}
   ]
  }
+
+ cp1 is the "left" control point and cp2 is the "right" control point
  */
 function Individual(mother, father) {
 
@@ -209,22 +269,18 @@ function Individual(mother, father) {
         /* The DNA strand */
         var x = inheritedGene[i].vertices[j].x;
         var y = inheritedGene[i].vertices[j].y;
-        var cpx = inheritedGene[i].vertices[j].cpx;
-        var cpy = inheritedGene[i].vertices[j].cpy;
 
         x = mutateNumber(x);
         y = mutateNumber(y);
-        cpx = mutateNumber(cpx);
-        cpy = mutateNumber(cpy);
 
-        gene.vertices.push({x, y, cpx, cpy});
+        gene.vertices.push({x, y});
       }
       gene.r = mutateNumber(inheritedGene[i].r);
       gene.g = mutateNumber(inheritedGene[i].g);
       gene.b = mutateNumber(inheritedGene[i].b);
-      gene.a = mutateNumber(inheritedGene[i].a);
+      gene.a = Math.max(mutateNumber(inheritedGene[i].a), opacityMin);
 
-      this.dna.push(gene);
+      this.dna.push(addCurvesToPolygon(gene));
     }
 
   } else {
@@ -241,7 +297,7 @@ function Individual(mother, father) {
       gene.r = Math.random();
       gene.g = Math.random();
       gene.b = Math.random();
-      gene.a = Math.max(Math.random() * Math.random(), 0.2);
+      gene.a = Math.max(Math.random() * Math.random(), opacityMin);
 
       /* Generate XY positional values */
       var x = Math.random();
@@ -249,13 +305,11 @@ function Individual(mother, father) {
 
       for (var j = 0; j < vertices; j++) {
         gene.vertices.push({x: x + Math.random() - 0.5, // X
-                      y: y + Math.random() - 0.5,
-                      cpx: x + Math.random() - 0.5,
-                      cpy: y + Math.random() - 0.5}); // Y
+                      y: y + Math.random() - 0.5}); // Y
 
       }
 
-      this.dna.push(gene);
+      this.dna.push(addCurvesToPolygon(gene));
     }
   }
 
@@ -290,13 +344,13 @@ function Individual(mother, father) {
     }
 
     this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256 * 256);
-    console.log(this.fitness);
+    //console.log(this.fitness);
   } else {  // Sum differences.
     for (var p = 0; p < workingSize * workingSize * 4; p++)
       diff += Math.abs(imageData[p] - workingData[p]);
 
     this.fitness = 1 - diff / (workingSize * workingSize * 4 * 256);
-    console.log(this.fitness);
+    //console.log(this.fitness);
   }
 }
 
@@ -317,15 +371,19 @@ Individual.prototype.draw = function(ctx, width, height) {
     /* Draw the starting vertex */
     ctx.beginPath();
     ctx.moveTo(this.dna[g].vertices[0].x * width, this.dna[g].vertices[0].y * height);
-
     /* Create each vertices sequentially */
     for (var i = 0; i <= vertices - 1; i++) {
-      console.log(this.dna[g].vertices[i].cpx);
-      console.log(this.dna[g].vertices[i].cpy);
-      ctx.quadraticCurveTo(this.dna[g].vertices[i].cpx * width,
-                 this.dna[g].vertices[i].cpy * height,
-                 this.dna[g].vertices[i].x * width,
-                 this.dna[g].vertices[i].y * height);
+      // console.log(this.dna[g].vertices[i].cpx);
+      if (firstIter < 1) {
+        console.log(this.dna[g]);
+        firstIter += 1;
+      }
+      ctx.bezierCurveTo(this.dna[g].vertices[i].cp2x * width,
+                 this.dna[g].vertices[i].cp2y * height,
+                 this.dna[g].vertices.getByIndexWrapped(i + 1).cp1x * width,
+                 this.dna[g].vertices.getByIndexWrapped(i + 1).cp1y * height,
+                 this.dna[g].vertices.getByIndexWrapped(i + 1).x * width,
+                 this.dna[g].vertices.getByIndexWrapped(i + 1).y * height);
     }
 
     ctx.closePath();

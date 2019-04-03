@@ -37,7 +37,7 @@ class TextCarousel extends Component {
   updateCurrentTime() {
     this.setState(state => ({
       ...state,
-      time: this.state.time + 0.5
+      time: this.state.time + 0.7
     }))
     this.timeoutId = setTimeout(this.updateCurrentTime.bind(this), 1)
   }
@@ -81,7 +81,6 @@ class TextCarousel extends Component {
       clear: right;
       transform: matrix(1, 0, 0, 1, ${scrollDeg}, 0);
     `
-
     const RevRow = styled.div`
       display: flex;
       flex-direction: row;
