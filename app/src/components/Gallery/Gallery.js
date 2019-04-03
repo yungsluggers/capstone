@@ -26,15 +26,13 @@ class Gallery extends Component {
   render() {
     return (
       <ImageGrid>
-        {/* {
-          Object.keys(Images).map(function(key) {
-            return (
-              <Image key={key}>
-                <img src={Images[key]} alt={key}/>
-              </Image>
-            )
-          })
-        } */}
+        {/* {Object.keys(Images).map(function(key) {
+          return (
+            <Image key={key}>
+              <img src={Images[key]} alt={key} />
+            </Image>
+          )
+        })} */}
       </ImageGrid>
     )
   }

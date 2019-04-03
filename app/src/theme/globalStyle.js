@@ -1,5 +1,4 @@
-import { createGlobalStyle } from "styled-components"
-
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
 
@@ -10,6 +9,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Work Sans', sans-serif;
     font-size: 16px;
     line-height: 1.5rem;
+    background-color: ${props => props.theme.white};
+    /* background-color: ${props => props.theme.yellow}; */
   }
 
   button, select {
@@ -61,10 +62,12 @@ export const theme = {
   green: '#41b984',
   red: '#eb3d25',
   purple: '#912e8f',
-  gold:'#f99d33',
+  gold: '#f99d33',
+  yellow: '#f2b42d',
   pink: '#e62c8f',
   blue: '#4ca1d9',
   grey: '#acacad',
+  white: '#ffffff',
   textPrimary: '#191818'
 }
 
