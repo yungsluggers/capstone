@@ -35,21 +35,13 @@ class App extends Component {
             <Widget />
           </WidgetContainer>
 
-          {/* <div ref={this.aboutRef}>
-            <Section
+          <div ref={this.aboutRef}>
+            <AboutSection
               title="About"
               subtitle="research / background / info"
               narrow
-            >
-              
-            </Section>
-          </div> */}
-
-          <AboutSection
-            title="About"
-            subtitle="research / background / info"
-            narrow
-          />
+            />
+          </div>
 
           <div ref={this.galleryRef}>
             <GallerySection
@@ -58,12 +50,6 @@ class App extends Component {
               narrow
             />
           </div>
-
-          {/* <div ref={this.galleryRef}>
-            <Section title="Gallery" subtitle="view / upload / download" narrow>
-              <Gallery />
-            </Section>
-          </div> */}
         </div>
       </ThemeProvider>
     )
