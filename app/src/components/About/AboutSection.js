@@ -29,6 +29,11 @@ const Content = styled.div`
     max-width: 30em;
     word-break: break-word;
   }
+
+  @media only screen and (max-width: 1100px) {
+    width: 100%;
+    max-width: initial;
+  }
 `
 
 const WordArt = styled.div`
@@ -43,6 +48,10 @@ const WordArt = styled.div`
   align-items: center;
   width: 50%;
   justify-content: flex-end;
+
+  @media only screen and (max-width: 1100px) {
+    display: none;
+  }
 `
 
 const Names = styled.div`
@@ -55,6 +64,10 @@ const Names = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   white-space: nowrap;
+
+  @media only screen and (max-width: 750px) {
+    display: none;
+  }
 `
 
 class AboutSection extends Component {
