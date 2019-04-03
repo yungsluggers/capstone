@@ -50,10 +50,11 @@ const Names = styled.div`
   /* align-items: flex-start; */
   text-transform: lowercase;
   transform: rotate(180deg);
-  writing-mode: vertical-lr;
+  writing-mode: vertical-rl;
   height: 100%;
   flex-flow: row nowrap;
   justify-content: space-between;
+  white-space: nowrap;
 `
 
 class AboutSection extends Component {
