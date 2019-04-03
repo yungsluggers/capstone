@@ -11,6 +11,7 @@ import Widget from './components/Widget/Widget'
 import AboutSection from './components/About/AboutSection'
 import GallerySection from './components/Gallery/GallerySection'
 import Link from './components/Link/Link'
+import TextCarousel from './components/TextCarousel/TextCarousel'
 
 class App extends Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class App extends Component {
             />
           </div>
 
+
+          <TextCarousel />
+      
           <div ref={this.galleryRef}>
             <GallerySection
               title="Gallery"
@@ -50,6 +54,7 @@ class App extends Component {
               narrow
             />
           </div>
+      
         </div>
       </ThemeProvider>
     )
