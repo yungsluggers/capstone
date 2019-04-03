@@ -23,6 +23,8 @@ const FilledWord = styled(Word)`
 
 const row1width = 1494.33
 
+const disableAnimation = false;
+
 class TextCarousel extends Component {
   constructor(props) {
     super(props)
@@ -74,6 +76,10 @@ class TextCarousel extends Component {
     scrollDeg = scrollDeg % row1width
     scrollDeg *= -1
 
+    if (disableAnimation) {
+      return <div/>;
+    }
+
     const Row = styled.div`
       display: flex;
       flex-direction: row;
@@ -110,13 +116,13 @@ class TextCarousel extends Component {
           <Word>Beach.&nbsp;</Word>
         </RevRow>
         <Row>
-          <Word>Icecream.&nbsp;</Word>
+          <Word>Ice cream.&nbsp;</Word>
           <Word>fan.&nbsp;</Word>
-          <Word>Hotdog.&nbsp;</Word>
+          <Word>Hot dog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
-          <Word>Icecream.&nbsp;</Word>
+          <Word>Ice cream.&nbsp;</Word>
           <Word>fan.&nbsp;</Word>
-          <Word>Hotdog.&nbsp;</Word>
+          <Word>Hot dog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
         </Row>
       </Container>
