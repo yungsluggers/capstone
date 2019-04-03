@@ -23,6 +23,8 @@ const FilledWord = styled(Word)`
 
 const row1width = 1494.33
 
+const disableAnimation = false;
+
 class TextCarousel extends Component {
   constructor(props) {
     super(props)
@@ -37,7 +39,7 @@ class TextCarousel extends Component {
   updateCurrentTime() {
     this.setState(state => ({
       ...state,
-      time: this.state.time + 0.5
+      time: this.state.time + 0.7
     }))
     this.timeoutId = setTimeout(this.updateCurrentTime.bind(this), 1)
   }
@@ -74,6 +76,10 @@ class TextCarousel extends Component {
     scrollDeg = scrollDeg % row1width
     scrollDeg *= -1
 
+    if (disableAnimation) {
+      return <div/>;
+    }
+
     const Row = styled.div`
       display: flex;
       flex-direction: row;
@@ -81,7 +87,6 @@ class TextCarousel extends Component {
       clear: right;
       transform: matrix(1, 0, 0, 1, ${scrollDeg}, 0);
     `
-
     const RevRow = styled.div`
       display: flex;
       flex-direction: row;
@@ -111,13 +116,13 @@ class TextCarousel extends Component {
           <Word>Beach.&nbsp;</Word>
         </RevRow>
         <Row>
-          <Word>Icecream.&nbsp;</Word>
+          <Word>Ice cream.&nbsp;</Word>
           <Word>fan.&nbsp;</Word>
-          <Word>Hotdog.&nbsp;</Word>
+          <Word>Hot dog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
-          <Word>Icecream.&nbsp;</Word>
+          <Word>Ice cream.&nbsp;</Word>
           <Word>fan.&nbsp;</Word>
-          <Word>Hotdog.&nbsp;</Word>
+          <Word>Hot dog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
         </Row>
       </Container>
