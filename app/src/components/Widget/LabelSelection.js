@@ -5,40 +5,27 @@ import makeAnimated from 'react-select/lib/animated'
 import Button from './../Button/Button'
 import ButtonRow from './../Button/ButtonRow'
 
-const options = [
-  { value: 'dog', label: 'Dog' },
-  { value: 'cat', label: 'Cat' },
-  { value: 'human', label: 'Human' },
-  { value: 'shoe', label: 'Shoe' },
-  { value: 'cake', label: 'Cake' },
-  { value: 'cake', label: 'Boat' },
-  { value: 'frog', label: 'Frog' },
-  { value: 'frog', label: 'Horse' },
-]
-
+import options from './../../data/labels'
 
 class Introduction extends Component {
-
-  nextStep = (e) => {
+  nextStep = e => {
     e.preventDefault()
     this.props.nextStep()
   }
 
-  back = (e) => {
+  back = e => {
     e.preventDefault()
     this.props.prevStep()
   }
 
   render() {
-
     return (
       <div>
-
         <label htmlFor="label-select">
           <p>Select up to two labels and genetic priority</p>
         </label>
 
-        <Select 
+        <Select
           isMulti
           components={makeAnimated()}
           name="labels"
@@ -47,12 +34,12 @@ class Introduction extends Component {
 
         <ButtonRow>
           <Button onClick={this.back}>Back</Button>
-          <Button onClick={this.nextStep} filled>Next</Button>
+          <Button onClick={this.nextStep} filled>
+            Next
+          </Button>
         </ButtonRow>
-        
       </div>
     )
-
   }
 }
 
