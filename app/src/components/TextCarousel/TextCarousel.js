@@ -23,7 +23,7 @@ const FilledWord = styled(Word)`
 
 const row1width = 1494.33
 
-const disableAnimation = false;
+const disableAnimation = false
 
 class TextCarousel extends Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class TextCarousel extends Component {
     scrollDeg *= -1
 
     if (disableAnimation) {
-      return <div/>;
+      return <div />
     }
 
     const Row = styled.div`
