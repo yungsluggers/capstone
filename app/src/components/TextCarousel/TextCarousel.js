@@ -116,13 +116,13 @@ class TextCarousel extends Component {
           <Word>Beach.&nbsp;</Word>
         </RevRow>
         <Row>
-          <Word>Ice cream.&nbsp;</Word>
+          <Word>Icecream.&nbsp;</Word>
           <Word>fan.&nbsp;</Word>
-          <Word>Hot dog.&nbsp;</Word>
+          <Word>Hotdog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
-          <Word>Ice cream.&nbsp;</Word>
+          <Word>Icecream.&nbsp;</Word>
           <Word>fan.&nbsp;</Word>
-          <Word>Hot dog.&nbsp;</Word>
+          <Word>Hotdog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
         </Row>
       </Container>
