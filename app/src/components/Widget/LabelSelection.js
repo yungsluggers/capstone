@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import Select from 'react-select'
+import Select from './ReactSelectFaster'
+import { DropDownList } from '@progress/kendo-react-dropdowns'
 import makeAnimated from 'react-select/lib/animated'
 
 import Button from './../Button/Button'
 import ButtonRow from './../Button/ButtonRow'
 
-import options from './../../data/labels'
+import VirtualizedDropdown from './VirtualizedDropdown'
+
+import options from './../../data/labels.json'
 
 class Introduction extends Component {
   nextStep = e => {
@@ -25,12 +28,15 @@ class Introduction extends Component {
           <p>Select up to two labels and genetic priority</p>
         </label>
 
-        <Select
+        {/* <Select
           isMulti
-          components={makeAnimated()}
+          components={MenuList}
           name="labels"
-          options={options}
-        />
+          data={options}
+          filterOption={null}
+        /> */}
+
+        <VirtualizedDropdown options={options} />
 
         <ButtonRow>
           <Button onClick={this.back}>Back</Button>
