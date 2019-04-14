@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Select from './ReactSelectFaster'
 import { DropDownList } from '@progress/kendo-react-dropdowns'
 import makeAnimated from 'react-select/lib/animated'
 
@@ -27,14 +26,6 @@ class Introduction extends Component {
         <label htmlFor="label-select">
           <p>Select up to two labels and genetic priority</p>
         </label>
-
-        {/* <Select
-          isMulti
-          components={MenuList}
-          name="labels"
-          data={options}
-          filterOption={null}
-        /> */}
 
         <VirtualizedDropdown options={options} />
 
