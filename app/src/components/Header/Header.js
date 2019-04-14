@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import { ReactComponent as HelpIcon } from '../../assets/icons/baseline-help_outline-24px.svg'
+import { ReactComponent as HelpIcon } from '../../assets/icons/help-icon.svg'
+import { ReactComponent as GalleryIcon } from '../../assets/icons/gallery-icon.svg'
 
 const Container = styled.div`
   margin: 100px 0;
 `
 
 const Icon = styled.a`
-  grid-row: 1;
-  margin-bottom: 5rem;
-  margin-right: auto;
+  margin-left: 2.3rem;
 
   svg {
     width: 3rem;
@@ -20,13 +19,10 @@ const Icon = styled.a`
 `
 
 const Title = styled.div`
-  /* grid-column: 4 / span 4; */
-  /* grid-row: 2; */
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-start;
   width: 100%;
-  /* overflow: hidden; */
 
   span {
     font-family: 'Univers';
@@ -34,19 +30,14 @@ const Title = styled.div`
     font-size: 7.5rem;
     letter-spacing: -0.5rem;
     line-height: normal;
-    /* color: ${props => props.theme.textPrimary}; */
     width: 100%;
     height: 7.5rem;
-    /* margin-bottom: 7px; */
-    /* padding: 0.75rem 0 0.75rem 2rem; */
   }
 `
 
 const Subtitle = styled.div`
   text-transform: lowercase;
 `
-
-// const div = styled.div``
 
 const Signature = styled.div`
   display: flex;
@@ -59,43 +50,62 @@ const Signature = styled.div`
   align-items: flex-end;
 `
 
+const Navbar = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`
+
+const NavTitle = styled(Title)`
+  span {
+    font-size: 1.375rem;
+    letter-spacing: initial;
+    width: initial;
+    height: initial;
+  }
+`
+
 class Header extends Component {
   render() {
     return (
       <Container>
         <div className={this.props.narrow ? 'l-container' : null}>
+          <Navbar>
+            <NavTitle>
+              <span>Kaleido-</span>
+              <span>saur</span>
+            </NavTitle>
+
+            <Icon
+              onClick={() => {
+                this.props.aboutRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                  inline: 'center'
+                })
+              }}
+            >
+              <HelpIcon />
+            </Icon>
+
+            <Icon
+              onClick={() => {
+                this.props.galleryRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                  inline: 'center'
+                })
+              }}
+            >
+              <GalleryIcon />
+            </Icon>
+          </Navbar>
+
           <Title>
             <span>Kaleido-</span>
             <span>saur</span>
           </Title>
 
           <Subtitle>Abstract art generator</Subtitle>
-
-          <Icon
-            onClick={() => {
-              this.props.aboutRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'center'
-              })
-            }}
-            style={{ gridColumn: 2 }}
-          >
-            <HelpIcon />
-          </Icon>
-
-          <Icon
-            onClick={() => {
-              this.props.galleryRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'center'
-              })
-            }}
-            style={{ gridColumn: 3, fontSize: 32 }}
-          >
-            🦆
-          </Icon>
 
           <Signature narrow>
             Capstone 2019 <br />
