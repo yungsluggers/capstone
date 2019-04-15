@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import { ReactComponent as HelpIcon } from '../../assets/icons/baseline-help_outline-24px.svg'
+import { ReactComponent as HelpIcon } from '../../assets/icons/help-icon.svg'
+import { ReactComponent as GalleryIcon } from '../../assets/icons/gallery-icon.svg'
 
 const Container = styled.div`
   margin: 100px 0;
 `
 
 const Icon = styled.a`
-  grid-row: 1;
-  margin-bottom: 5rem;
-  margin-right: auto;
+  margin-left: 2.3rem;
 
   svg {
     width: 3rem;
@@ -19,34 +18,9 @@ const Icon = styled.a`
   }
 `
 
-const Title = styled.div`
-  /* grid-column: 4 / span 4; */
-  /* grid-row: 2; */
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-  width: 100%;
-  /* overflow: hidden; */
-
-  span {
-    font-family: 'Univers';
-    text-transform: uppercase;
-    font-size: 7.5rem;
-    letter-spacing: -0.5rem;
-    line-height: normal;
-    /* color: ${props => props.theme.textPrimary}; */
-    width: 100%;
-    height: 7.5rem;
-    /* margin-bottom: 7px; */
-    /* padding: 0.75rem 0 0.75rem 2rem; */
-  }
-`
-
 const Subtitle = styled.div`
   text-transform: lowercase;
 `
-
-// const div = styled.div``
 
 const Signature = styled.div`
   display: flex;
@@ -59,45 +33,174 @@ const Signature = styled.div`
   align-items: flex-end;
 `
 
+const Title = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  width: 100%;
+
+  span {
+    font-family: 'Univers';
+    text-transform: uppercase;
+    font-size: 7.5rem;
+    letter-spacing: -0.5rem;
+    line-height: normal;
+    width: 100%;
+    height: 7.5rem;
+  }
+`
+
+const Navbar = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  background: white;
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  z-index: 1;
+`
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`
+
+const CollapsedNavbar = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  position: fixed;
+  top: -210px;
+  overflow: hidden;
+  padding: 1rem 0 0.6rem 0;
+  z-index: 1;
+  background: white;
+  width: 100%;
+  border-bottom: 2px solid ${props => props.theme.textPrimary};
+  transition: 0.5s ease-out;
+`
+
+const CollapsedTitle = styled(Title)`
+  span {
+    font-size: 1.375rem;
+    letter-spacing: initial;
+    line-height: initial;
+    height: initial;
+    transition: 0.5s ease-out;
+  }
+`
+
 class Header extends Component {
+  constructor(props) {
+    super(props)
+
+    this.navRef = React.createRef()
+    this.titleRef = React.createRef()
+
+    this.state = {
+      navbarStyle: {},
+      sigStyle: {}
+    }
+
+    this.handleScroll = this.handleScroll.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll(event) {
+    if (document.documentElement.scrollTop > '300') {
+      // Styles when Collapsed
+
+      this.setState({
+        navbarStyle: {
+          top: '0'
+        }
+      })
+    } else {
+      // Default styles
+
+      this.setState({
+        navbarStyle: {
+          top: '-210px'
+        }
+      })
+    }
+  }
+
   render() {
     return (
       <Container>
-        <div className={this.props.narrow ? 'l-container' : null}>
-          <Title>
-            <span>Kaleido-</span>
-            <span>saur</span>
-          </Title>
+        <Navbar>
+          <ContentWrapper className={this.props.narrow ? 'l-container' : null}>
+            <Title>
+              <span>Kaleido-</span>
+              <span>saur</span>
+            </Title>
+            <Icon
+              onClick={() => {
+                this.props.aboutRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                  inline: 'center'
+                })
+              }}
+            >
+              <HelpIcon />
+            </Icon>
+            <Icon
+              onClick={() => {
+                this.props.galleryRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                  inline: 'center'
+                })
+              }}
+            >
+              <GalleryIcon />
+            </Icon>
+          </ContentWrapper>
+        </Navbar>
 
+        <CollapsedNavbar style={this.state.navbarStyle}>
+          <ContentWrapper className={this.props.narrow ? 'l-container' : null}>
+            <CollapsedTitle>
+              <span>Kaleido-</span>
+              <span>saur</span>
+            </CollapsedTitle>
+            <Icon
+              onClick={() => {
+                this.props.aboutRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                  inline: 'center'
+                })
+              }}
+            >
+              <HelpIcon />
+            </Icon>
+            <Icon
+              onClick={() => {
+                this.props.galleryRef.current.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                  inline: 'center'
+                })
+              }}
+            >
+              <GalleryIcon />
+            </Icon>
+          </ContentWrapper>
+        </CollapsedNavbar>
+
+        <div className={this.props.narrow ? 'l-container' : null}>
           <Subtitle>Abstract art generator</Subtitle>
 
-          <Icon
-            onClick={() => {
-              this.props.aboutRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'center'
-              })
-            }}
-            style={{ gridColumn: 2 }}
-          >
-            <HelpIcon />
-          </Icon>
-
-          <Icon
-            onClick={() => {
-              this.props.galleryRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'center'
-              })
-            }}
-            style={{ gridColumn: 3, fontSize: 32 }}
-          >
-            🦆
-          </Icon>
-
-          <Signature narrow>
+          <Signature style={this.state.sigStyle}>
             Capstone 2019 <br />
             Northeastern University
           </Signature>
