@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import { init } from '../../ccevolve'
+import { init, playPause } from '../../ccevolve'
 
 import Button from './../Button/Button'
 import ButtonRow from './../Button/ButtonRow'
@@ -39,7 +39,6 @@ const AnalyticsList = styled.div`
 
 class FileImporter extends Component {
   importFile(e) {
-    
     var URL = window.webkitURL || window.URL
     var url = URL.createObjectURL(e.target.files[0])
     var img = new Image()
@@ -54,98 +53,120 @@ class FileImporter extends Component {
   }
 
   render() {
-    return (
-      <input type="file" onChange={this.importFile.bind(this)} />
-    )
+    return <input type="file" onChange={this.importFile.bind(this)} />
   }
 }
 
 class Rendering extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      playing: true
+    }
+  }
 
-  nextStep = (e) => {
+  componentDidMount() {
+    init(this.props.label)
+  }
+
+  nextStep = e => {
     e.preventDefault()
     this.props.nextStep()
   }
 
-  back = (e) => {
+  back = e => {
     e.preventDefault()
     this.props.prevStep()
   }
 
-  render() {
+  play = e => {
+    playPause()
+    this.setState({ playing: !this.state.playing })
+  }
 
+  render() {
     return (
       <Container>
-
         <Content>
-        
-        <p>Artwork Rendering</p>
+          <p>Artwork Rendering</p>
+          <CanvasGroup>
+            <Canvas>
+              <canvas id="best_img_canvas" width="350" height="350" />
+              <canvas
+                id="test_img_canvas"
+                style={{ visibility: 'hidden' }}
+                width="75"
+                height="75"
+              />
+            </Canvas>
+          </CanvasGroup>
 
-        <FileImporter />
+          {this.state.playing ? (
+            <Button onClick={this.play}>Pause</Button>
+          ) : (
+            <Button onClick={this.play}>Play</Button>
+          )}
 
-        <CanvasGroup>
-          <Canvas>
-            <p>Input Image</p>
-            <canvas id='orig_img_canvas' style={{backgroundColor: ''}} width='350' height='350' />
-          </Canvas>
-          <Canvas>
-            <p>Current Best</p>          
-            <canvas id='best_img_canvas' width='350' height='350' />
-            <canvas id='test_img_canvas' style={{visibility: 'hidden'}} width='75' height='75' />
-          </Canvas>
-        </CanvasGroup>
+          <AnalyticsList>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Elapsed time:&nbsp;</td>
+                  <td>
+                    <div id="elapsed-time" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Number of generations:&nbsp;</td>
+                  <td>
+                    <div id="number-of-generations" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Time per generation:&nbsp;</td>
+                  <td>
+                    <div id="time-per-generation" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Time per improvement:&nbsp;</td>
+                  <td>
+                    <div id="time-per-improvement" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Current fitness:&nbsp;</td>
+                  <td>
+                    <div id="current-fitness" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Highest fitness:&nbsp;</td>
+                  <td>
+                    <div id="highest-fitness" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Lowest fitness:&nbsp;</td>
+                  <td>
+                    <div id="lowest-fitness" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </AnalyticsList>
 
-        <AnalyticsList>
+          <br />
 
-          <table>
-            <tbody>
-              <tr>
-                <td>Elapsed time:&nbsp;</td>
-                <td><div id='elapsed-time'></div></td>
-              </tr>
-              <tr>
-                <td>Number of generations:&nbsp;</td>
-                <td><div id='number-of-generations'></div></td>
-              </tr>
-              <tr>
-                <td>Time per generation:&nbsp;</td>
-                <td><div id='time-per-generation'></div></td>
-              </tr>
-              <tr>
-                <td>Time per improvement:&nbsp;</td>
-                <td><div id='time-per-improvement'></div></td>
-              </tr>
-              <tr>
-                <td>Current fitness:&nbsp;</td>
-                <td><div id='current-fitness'></div></td>
-              </tr>
-              <tr>
-                <td>Highest fitness:&nbsp;</td>
-                <td><div id='highest-fitness'></div></td>
-              </tr>
-              <tr>
-                <td>Lowest fitness:&nbsp;</td>
-                <td><div id='lowest-fitness'></div></td>
-              </tr>
-            </tbody>
-            
-
-          </table>
-
-        </AnalyticsList>
-
-        <br />
-
-        <ButtonRow>
-          <Button onClick={this.back}>Back</Button>
-          <Button onClick={this.nextStep} filled>Stop</Button>
-        </ButtonRow>
-
+          <ButtonRow>
+            <Button onClick={this.back}>Back</Button>
+            <Button onClick={this.nextStep} filled>
+              Stop
+            </Button>
+          </ButtonRow>
         </Content>
-
       </Container>
     )
-
   }
 }
 
