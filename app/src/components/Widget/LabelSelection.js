@@ -7,7 +7,7 @@ import ButtonRow from './../Button/ButtonRow'
 
 import VirtualizedDropdown from './VirtualizedDropdown'
 
-import options from './../../data/labels.json'
+import options from './../../data/9k.json'
 
 class Introduction extends Component {
   constructor(props) {

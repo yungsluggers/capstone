@@ -322,8 +322,10 @@ Individual.prototype.getFitness = async function(url) {
   imageData = imageData + ''
   imageData = imageData.replace(/[- )(]/g, '')
 
+  //console.log(imageData)
+
   try {
-    let res = await fetch('http://35.227.145.100/', {
+    let res = await fetch('http://35.233.139.181/', {
       method: 'post',
       headers: {
         Accept: 'application/json, text/plain, */*',
