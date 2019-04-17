@@ -325,7 +325,7 @@ Individual.prototype.getFitness = async function(url) {
   //console.log(imageData)
 
   try {
-    let res = await fetch('http://35.233.139.181/', {
+    let res = await fetch('https://darknet.kevinaltschuler.com/', {
       method: 'post',
       headers: {
         Accept: 'application/json, text/plain, */*',
