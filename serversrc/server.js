@@ -1,8 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const server = require('http').Server(app)
-const port = 3000
+const http = require('http')
+var https = require('https')
+var fs = require('fs')
+
+var privateKey = fs.readFileSync('./selfsigned.key', 'utf8')
+var certificate = fs.readFileSync('./selfsigned.crt', 'utf8')
+
+var httpServer = http.Server(app)
+var httpsServer = https.Server(credentials, app)
+
+var credentials = { key: privateKey, cert: certificate }
 const helmet = require('helmet')
 const { exec } = require('child_process')
 
@@ -26,7 +35,15 @@ app.options('*', function(req, res) {
   res.send(200)
 })
 
-server.listen(port, err => {
+// httpServer.listen(3000, err => {
+//   if (err) {
+//     throw err
+//   }
+//   /* eslint-disable no-console */
+//   console.log('server running')
+// })
+
+httpsServer.listen(3000, err => {
   if (err) {
     throw err
   }
