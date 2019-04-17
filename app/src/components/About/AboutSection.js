@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+import Tilt from 'react-tilt'
 
 import SectionHeader from '../Section/SectionHeader'
 import Link from '../Link/Link'
@@ -19,7 +20,6 @@ const Content = styled.div`
   width: 50%;
   margin-left: auto;
   margin-right: 2rem;
-  /* margin-top: 500px; */
   display: inline;
   max-width: 25em;
   word-break: break-word;
@@ -50,8 +50,8 @@ const WordArt = styled.div`
   line-height: initial;
   display: flex;
   align-items: center;
-  width: 50%;
   justify-content: flex-end;
+  margin-left: 50%;
 
   @media only screen and (max-width: 1100px) {
     display: none;
@@ -73,9 +73,36 @@ const Names = styled.div`
   }
 `
 
+const jump = keyframes`
+  from {
+    transform: translateY(-1px);
+  }
+  to {
+    transform: translateY(2px);
+  }
+`
+
 const FancySubtitle = styled.p`
   margin-top: -100px;
-  margin-bottom: 100px;
+  position: relative;
+  top: -155px;
+
+  span {
+    display: inline-block;
+  }
+
+  span:nth-child(1) {
+    /* animation: ${jump} 1.5s ease 0s infinite normal; */
+    /* animation: ${jump} 1s linear 0s infinite alternate; */
+  }
+  span:nth-child(2) {
+    /* animation: ${jump} 1.5s ease 100ms infinite normal; */
+    /* animation: ${jump} 1s linear 100ms infinite alternate; */
+  }
+  span:nth-child(3) {
+    /* animation: ${jump} 1.5s ease 200ms infinite normal; */
+    /* animation: ${jump} 1s linear 200ms infinite alternate; */
+  }
 `
 
 class AboutSection extends Component {
@@ -126,16 +153,14 @@ class AboutSection extends Component {
             onMouseEnter={() => this.onMouseEnter('research')}
             onMouseLeave={() => this.onMouseLeave('research')}
           >
-            research
+            research&nbsp;/&nbsp;
           </span>
-          &nbsp;/&nbsp;
           <span
             onMouseEnter={() => this.onMouseEnter('background')}
             onMouseLeave={() => this.onMouseLeave('background')}
           >
-            background
+            background&nbsp;/&nbsp;
           </span>
-          &nbsp;/&nbsp;
           <span
             onMouseEnter={() => this.onMouseEnter('info')}
             onMouseLeave={() => this.onMouseLeave('info')}
@@ -144,61 +169,81 @@ class AboutSection extends Component {
           </span>
         </FancySubtitle>
         <ContentContainer>
-          <WordArt>
-            Genetically.
-            <br />
-            Generated.
-            <br />
-            Abstract.
-            <br />
-            Art.
-          </WordArt>
+          <Tilt
+            className="Tilt"
+            options={{ max: 15, reverse: false, scale: 1, speed: 2000 }}
+            style={{
+              width: 'fit-content',
+              padding: '0 1000px',
+              margin: '0 -1000px'
+            }}
+          >
+            <WordArt>
+              Genetically.
+              <br />
+              Generated.
+              <br />
+              Abstract.
+              <br />
+              Art.
+            </WordArt>
+          </Tilt>
 
           <Content>
             <p>
-              The image generation will be done genetically. This means that we
-              will generate many random images then choose the best two and
-              "breed" them by combining their image data. This new child image
-              will be used as a seed for a new set of random images and the
-              process will iterate from ThemeProvider.{' '}
+              The image generation is done genetically. This means that we
+              generate many random images then choose the best two and "breed"
+              them by combining their image data. This new child image is used
+              as a seed for a new set of random images and the process will
+              iterate from ThemeProvider.{' '}
               <span style={backgroundStyle}>
-                This should over time create a more and more accurate image and
+                Over time, this creates a more and more accurate image and
                 eventually trigger the AI's label detection more than a normal
                 picture of that label.
               </span>
             </p>
             <p>
               <span style={researchStyle}>
-                Thanks to the inspirational work of Chris Cummins'{' '}
+                Through exploring how artificial intelligence would shape the
+                future of art and design, we discovered several projects that
+                were especially inspiring for us: Chris Cummins{' '}
                 <Link
                   href="https://chriscummins.cc/s/genetics/#"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={researchStyle}
                 >
-                  genetically generated images
-                </Link>{' '}
-                and Tom White's{' '}
+                  genetic algorithms for generative art
+                </Link>
+                , and Tom White’s{' '}
                 <Link
                   href="https://medium.com/artists-and-machine-intelligence/perception-engines-8a46bc598d57"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={researchStyle}
                 >
-                  perception engine
+                  Perception Engine.
                 </Link>
-                , we have a strategy to base our work on.
               </span>{' '}
-              We will be combining the two techniques in order to generate a
-              fully original image that is the internal representation of what
-              an AI identifies as its label.{' '}
+              We combined the two techniques in order to generate a fully
+              original image that is the internal representation of what our
+              neural network identifies as its label.{' '}
               <span style={infoStyle}>
-                Labels can be anything that humans can identify visually. "dog",
-                "cat", "happy", "bicycle", etc are examples of common labels.{' '}
+                There is a large list of labels to choose from and they are made
+                up of anything that humans can identify visually. Plenty of
+                animals and household objects are available for users to choose.{' '}
               </span>{' '}
-              The AI will be trained off of a set of images that represent one
-              of these words then rate the image being generated by how well it
-              fits that label.
+              <br />
+              <br />
+              The neural network is based on the{' '}
+              <Link
+                href="https://pjreddie.com/darknet/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                DarkNet
+              </Link>{' '}
+              open source neural network, which is written in C and CUDA.
             </p>
           </Content>
           <Names>

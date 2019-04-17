@@ -56,6 +56,11 @@ const GlobalStyle = createGlobalStyle`
     min-width: 300px;
     margin: 0 auto;
   }
+
+  #root > div > div:nth-child(5) > div > div.sc-kpOJdX.binNiL > p {
+    position: relative;
+    top: -60px;
+  }
 `
 
 export const theme = {
