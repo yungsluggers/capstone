@@ -53,10 +53,11 @@ const Title = styled.div`
 const Navbar = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  background: white;
+  /* background: white; */
   width: 100%;
   overflow: hidden;
   padding: 1.5rem 0;
+  padding-bottom: 0;
   z-index: 1;
 `
 
@@ -145,7 +146,7 @@ class Header extends Component {
               onClick={() => {
                 this.props.aboutRef.current.scrollIntoView({
                   behavior: 'smooth',
-                  block: 'center',
+                  block: 'end',
                   inline: 'center'
                 })
               }}
@@ -156,7 +157,7 @@ class Header extends Component {
               onClick={() => {
                 this.props.galleryRef.current.scrollIntoView({
                   behavior: 'smooth',
-                  block: 'center',
+                  block: 'end',
                   inline: 'center'
                 })
               }}
@@ -176,7 +177,7 @@ class Header extends Component {
               onClick={() => {
                 this.props.aboutRef.current.scrollIntoView({
                   behavior: 'smooth',
-                  block: 'center',
+                  block: 'end',
                   inline: 'center'
                 })
               }}
@@ -187,7 +188,7 @@ class Header extends Component {
               onClick={() => {
                 this.props.galleryRef.current.scrollIntoView({
                   behavior: 'smooth',
-                  block: 'center',
+                  block: 'end',
                   inline: 'center'
                 })
               }}

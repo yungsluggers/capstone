@@ -12,7 +12,8 @@ const Word = styled.h1`
   font-size: 4.5rem;
   text-transform: uppercase;
   -webkit-text-stroke: 1px #191818;
-  color: rgba(0, 0, 0, 0);
+  /* color: rgba(0, 0, 0, 0); */
+  color: white;
   line-height: 4.8rem;
   letter-spacing: -0.3rem;
 `
@@ -23,7 +24,7 @@ const FilledWord = styled(Word)`
 
 const row1width = 1494.33
 
-const disableAnimation = true
+const disableAnimation = false
 
 class TextCarousel extends Component {
   constructor(props) {
