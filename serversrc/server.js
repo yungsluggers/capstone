@@ -84,4 +84,4 @@ app.post('/', (req, res) => {
 // either cant send such a long array through the command line to darknet or need to edit darknet code to handle the right size
 // try a command with full set of image data to darknet not through the server
 
-module.exports = server
+module.exports = httpsServer
