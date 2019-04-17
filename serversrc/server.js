@@ -53,7 +53,7 @@ app.listen(3000, err => {
 
 app.get('/', (req, res) => {
   res.status(200)
-  res.send('hi')
+  res.json({ hello: 'hi' })
   res.end()
 })
 
