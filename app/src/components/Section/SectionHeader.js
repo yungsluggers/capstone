@@ -50,7 +50,7 @@ class SectionHeader extends Component {
 
           <Tilt
             className="Tilt"
-            options={{ max: 15, reverse: false, scale: 1, speed: 2000 }}
+            options={{ max: 25, reverse: false, scale: 1, speed: 2000 }}
             style={{
               width: 'fit-content',
               // padding: '0 1000px',
