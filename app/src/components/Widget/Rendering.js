@@ -88,7 +88,6 @@ class Rendering extends Component {
     return (
       <Container>
         <Content>
-          <p>Artwork Rendering</p>
           <CanvasGroup>
             <Canvas>
               <canvas id="best_img_canvas" width="350" height="350" />
