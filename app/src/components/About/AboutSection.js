@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+import Tilt from 'react-tilt'
 
 import SectionHeader from '../Section/SectionHeader'
 import Link from '../Link/Link'
@@ -19,7 +20,6 @@ const Content = styled.div`
   width: 50%;
   margin-left: auto;
   margin-right: 2rem;
-  /* margin-top: 500px; */
   display: inline;
   max-width: 25em;
   word-break: break-word;
@@ -50,8 +50,8 @@ const WordArt = styled.div`
   line-height: initial;
   display: flex;
   align-items: center;
-  width: 50%;
   justify-content: flex-end;
+  margin-left: 50%;
 
   @media only screen and (max-width: 1100px) {
     display: none;
@@ -73,9 +73,36 @@ const Names = styled.div`
   }
 `
 
+const jump = keyframes`
+  from {
+    transform: translateY(-1px);
+  }
+  to {
+    transform: translateY(2px);
+  }
+`
+
 const FancySubtitle = styled.p`
   margin-top: -100px;
-  margin-bottom: 100px;
+  position: relative;
+  top: -155px;
+
+  span {
+    display: inline-block;
+  }
+
+  span:nth-child(1) {
+    /* animation: ${jump} 1.5s ease 0s infinite normal; */
+    /* animation: ${jump} 1s linear 0s infinite alternate; */
+  }
+  span:nth-child(2) {
+    /* animation: ${jump} 1.5s ease 100ms infinite normal; */
+    /* animation: ${jump} 1s linear 100ms infinite alternate; */
+  }
+  span:nth-child(3) {
+    /* animation: ${jump} 1.5s ease 200ms infinite normal; */
+    /* animation: ${jump} 1s linear 200ms infinite alternate; */
+  }
 `
 
 class AboutSection extends Component {
@@ -126,16 +153,14 @@ class AboutSection extends Component {
             onMouseEnter={() => this.onMouseEnter('research')}
             onMouseLeave={() => this.onMouseLeave('research')}
           >
-            research
+            research&nbsp;/&nbsp;
           </span>
-          &nbsp;/&nbsp;
           <span
             onMouseEnter={() => this.onMouseEnter('background')}
             onMouseLeave={() => this.onMouseLeave('background')}
           >
-            background
+            background&nbsp;/&nbsp;
           </span>
-          &nbsp;/&nbsp;
           <span
             onMouseEnter={() => this.onMouseEnter('info')}
             onMouseLeave={() => this.onMouseLeave('info')}
@@ -144,15 +169,25 @@ class AboutSection extends Component {
           </span>
         </FancySubtitle>
         <ContentContainer>
-          <WordArt>
-            Genetically.
-            <br />
-            Generated.
-            <br />
-            Abstract.
-            <br />
-            Art.
-          </WordArt>
+          <Tilt
+            className="Tilt"
+            options={{ max: 15, reverse: false, scale: 1, speed: 2000 }}
+            style={{
+              width: 'fit-content',
+              padding: '0 1000px',
+              margin: '0 -1000px'
+            }}
+          >
+            <WordArt>
+              Genetically.
+              <br />
+              Generated.
+              <br />
+              Abstract.
+              <br />
+              Art.
+            </WordArt>
+          </Tilt>
 
           <Content>
             <p>
