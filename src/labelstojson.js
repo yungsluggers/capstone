@@ -4,12 +4,12 @@ const fs = require('fs')
 
 var labels = []
 
-lineReader.eachLine('imagenet.labels.list', function(line, last) {
+lineReader.eachLine('9k.labels', function(line, last) {
   labels.push({ value: line })
 
   if (last) {
     var i = 0
-    lineReader.eachLine('imagenet.shortnames.list', function(line, last) {
+    lineReader.eachLine('9k.names', function(line, last) {
       labels[i].label = line
       i++
 

@@ -7,17 +7,27 @@ import ButtonRow from './../Button/ButtonRow'
 
 import VirtualizedDropdown from './VirtualizedDropdown'
 
-import options from './../../data/labels.json'
+import options from './../../data/9k.json'
 
 class Introduction extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { selectedOption: null }
+  }
+
   nextStep = e => {
     e.preventDefault()
-    this.props.nextStep()
+    this.props.nextStep(this.state.selectedOption)
   }
 
   back = e => {
     e.preventDefault()
     this.props.prevStep()
+  }
+
+  handleChange = selectedOption => {
+    console.log('handlechange: ', selectedOption)
+    this.setState({ selectedOption: selectedOption.value })
   }
 
   render() {
@@ -27,7 +37,11 @@ class Introduction extends Component {
           <p>Select up to two labels and genetic priority</p>
         </label>
 
-        <VirtualizedDropdown options={options} />
+        <VirtualizedDropdown
+          value={this.state.selectedOption}
+          handleChange={this.handleChange}
+          options={options}
+        />
 
         <ButtonRow>
           <Button onClick={this.back}>Back</Button>

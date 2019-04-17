@@ -156,6 +156,7 @@ class VirtualizedDropdown extends Component {
     this.setState({
       [name]: value
     })
+    this.props.handleChange(value)
   }
 
   render() {

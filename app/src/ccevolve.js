@@ -73,18 +73,24 @@ var opacityMin = 0.95
 
 var firstIter = 0
 
+var label = 'n02107683'
+
+var paused = true
+
+var running = false
+
 function setDefaults() {
   populationSize = 20
   selectionCutoff = 0.15
-  mutationChance = 0.01
-  mutateAmount = 0.1
+  mutationChance = 0.02
+  mutateAmount = 0.2
   fittestSurvive = false
   randomInheritance = false
   diffSquared = true
 
   /* Graphics options.
    */
-  workingSize = 75
+  workingSize = 30
   polygons = 25
   vertices = 3
   fillPolygons = true
@@ -113,14 +119,7 @@ function isSupported() {
   /* Perform a simple check to verify that getContext() and getImageData() are
    * supported:
    */
-  if (
-    referenceCanvas.getContext &&
-    referenceCanvas.getContext('2d').getImageData
-  ) {
-    isSupported = true
-  }
-
-  return isSupported
+  return true
 }
 
 /*
@@ -323,14 +322,16 @@ Individual.prototype.getFitness = async function(url) {
   imageData = imageData + ''
   imageData = imageData.replace(/[- )(]/g, '')
 
+  //console.log(imageData)
+
   try {
-    let res = await fetch('http://35.247.122.19/', {
+    let res = await fetch('http://35.233.139.181/', {
       method: 'post',
       headers: {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id: 'n02107683', data: imageData })
+      body: JSON.stringify({ id: label, data: imageData, imgSize: workingSize })
     })
       .then(data => data.json())
       .then(
@@ -509,14 +510,18 @@ Population.prototype.getFittest = function() {
  * Determines whether the genetics simulation is currently running.
  */
 function isRunning() {
-  return clock
+  return running
 }
 
 /*
  * Determines whether the genetics simulation is currently paused.
  */
 function isPaused() {
-  return jiffies && !clock
+  return paused
+}
+
+export function playPause() {
+  paused = !paused
 }
 
 /*
@@ -570,8 +575,6 @@ function prepareImage(img, img_width) {
   referenceCanvas.width = 350
   referenceCanvas.height = 350
   referenceCtx.drawImage(img, 0, 0)
-  highestFitness = 0
-  lowestFitness = 100
 }
 
 /*
@@ -590,6 +593,7 @@ async function runSimulation() {
     population = new Population()
     await population.generatePop(populationSize)
     console.log(population.individuals[0])
+    running = true
   }
 
   /* Each tick produces a new population and new fittest */
@@ -604,11 +608,11 @@ async function runSimulation() {
     var timePerImprovment = (totalTime / numberOfImprovements) * 1000
     var currentFitness = fittest.fitness * 100
 
-    if (currentFitness > highestFitness) {
+    if (currentFitness > highestFitness || highestFitness == undefined) {
       highestFitness = currentFitness
       /* Improvement was made */
       numberOfImprovements++
-    } else if (currentFitness < lowestFitness) {
+    } else if (currentFitness < lowestFitness || lowestFitness == undefined) {
       lowestFitness = currentFitness
     }
 
@@ -626,13 +630,15 @@ async function runSimulation() {
     Promise.resolve()
   }
 
-  while (true) {
+  while (!paused) {
     await tick()
   }
 }
 
-export function init(img, img_width) {
+export function init(_label) {
   setDefaults()
+
+  label = _label
 
   /* Set our page element variables */
   outputCanvas = document.querySelector('#best_img_canvas')
@@ -641,9 +647,12 @@ export function init(img, img_width) {
   workingCanvas = document.querySelector('#test_img_canvas')
   workingCtx = workingCanvas.getContext('2d')
 
-  referenceImage = document.querySelector('#referenceImage')
-  referenceCanvas = document.querySelector('#orig_img_canvas')
-  referenceCtx = referenceCanvas.getContext('2d')
+  // referenceImage = document.querySelector('#referenceImage')
+  // referenceCanvas = document.querySelector('#orig_img_canvas')
+  // referenceCtx = referenceCanvas.getContext('2d')
+
+  highestFitness = 0
+  lowestFitness = 100
 
   /* Analytics panel */
   ap = {
@@ -660,7 +669,7 @@ export function init(img, img_width) {
   if (!isSupported())
     alert('Unable to run genetics program!') /* FIXME: better alert */
 
-  prepareImage(img, img_width)
+  //prepareImage()
 
   // /* prepare our tooltips */
   // $('.conf-option').tooltip('hide');
@@ -668,6 +677,8 @@ export function init(img, img_width) {
   //  enable our buttons
   // $('#start').attr('disabled', false);
   // $('#stop').attr('disabled', false);
+
+  paused = false
 
   runSimulation()
 }

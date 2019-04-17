@@ -5,24 +5,25 @@ import LabelSelection from './LabelSelection'
 import Rendering from './Rendering'
 import Output from './Output'
 
-
 class Widget extends Component {
-
   state = {
-    step: 1
+    step: 1,
+    label: null
   }
 
   reset = () => {
     const { step } = this.state
     this.setState({
-      step: 1,
+      step: 1
     })
   }
 
-  nextStep = () => {
+  nextStep = label => {
     const { step } = this.state
+    console.log(label)
     this.setState({
-      step: step + 1
+      step: step + 1,
+      label
     })
   }
 
@@ -34,50 +35,52 @@ class Widget extends Component {
   }
 
   handleChange = input => event => {
-    this.setState({ [input] : event.target.value })
+    this.setState({ [input]: event.target.value })
   }
 
-
   render() {
-    const {step} = this.state
+    const { step } = this.state
 
-    switch(step) {
-      
+    switch (step) {
       case 1:
         return (
           <Introduction
-            nextStep = {this.nextStep} 
-            handleChange = {this.handleChange} />
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+          />
         )
 
       case 2:
         return (
-          <LabelSelection 
-            nextStep = {this.nextStep} 
-            prevStep = {this.prevStep}
-            handleChange = {this.handleChange} />
+          <LabelSelection
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+          />
         )
 
-      case 3: 
+      case 3:
         return (
-          <Rendering 
-            nextStep = {this.nextStep} 
-            prevStep = {this.prevStep}
-            handleChange = {this.handleChange} />
+          <Rendering
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            label={this.state.label}
+          />
         )
 
       case 4:
         return (
           <Output
-            reset = {this.reset} 
-            prevStep = {this.prevStep}
-            handleChange = {this.handleChange} />
+            reset={this.reset}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+          />
         )
-      
-      default: console.log('default case');
-      
-    }
 
+      default:
+        console.log('default case')
+    }
   }
 }
 
