@@ -738,7 +738,7 @@ async function init(img, img_width) {
   imageData = imageData.replace(/[- )(]/g, '')
 
   try {
-    let res = await fetch('https://darknet.kevinaltschuler.com/predict', {
+    let res = await fetch('https://darknet.kevinaltschuler.com/', {
       method: 'post',
       headers: {
         Accept: 'application/json, text/plain, */*',

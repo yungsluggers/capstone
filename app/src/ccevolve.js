@@ -90,7 +90,7 @@ function setDefaults() {
 
   /* Graphics options.
    */
-  workingSize = 100
+  workingSize = 150
   polygons = 25
   vertices = 3
   fillPolygons = true

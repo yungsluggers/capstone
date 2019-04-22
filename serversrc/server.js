@@ -70,11 +70,11 @@ app.post('/', (req, res) => {
     [
       `classifier`,
       `one_label`,
-      filepath,
+      `cfg/imagenet1k.data`,
       `cfg/darknet19.cfg`,
       `darknet19.weights`,
       id,
-      data,
+      filePath,
       imgSize
     ],
     (err, stdout, stderr) => {
