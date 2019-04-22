@@ -13,7 +13,7 @@ var fs = require('fs')
 
 //var credentials = { key: privateKey, cert: certificate }
 const helmet = require('helmet')
-const { exec } = require('child_process')
+const { execFile } = require('child_process')
 
 app.use(helmet())
 app.use(bodyParser.json())
@@ -62,8 +62,50 @@ app.post('/', (req, res) => {
   var data = req.body.data
   var imgSize = req.body.imgSize
 
-  exec(
-    `./darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights ${id} ${data} ${imgSize}`,
+  execFile(
+    `darknet`,
+    [
+      `classifier`,
+      `one_label`,
+      `cfg/imagenet1k.data`,
+      `cfg/darknet19.cfg`,
+      `darknet19.weights`,
+      id,
+      data,
+      imgSize
+    ],
+    (err, stdout, stderr) => {
+      if (err) {
+        res.json({ err: err, stderr: stderr })
+        res.end()
+      } else {
+        res.status(200)
+
+        console.log(`${stdout}`)
+        res.json({ score: stdout })
+        res.end()
+      }
+    }
+  )
+})
+
+app.post('/predict', (req, res) => {
+  var id = req.body.id
+  var data = req.body.data
+  var imgSize = req.body.imgSize
+
+  execFile(
+    `darknet`,
+    [
+      `classifier`,
+      `predict`,
+      `cfg/imagenet1k.data`,
+      `cfg/darknet19.cfg`,
+      `darknet19.weights`,
+      id,
+      data,
+      imgSize
+    ],
     (err, stdout, stderr) => {
       if (err) {
         res.json({ err: err, stderr: stderr })

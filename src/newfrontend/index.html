@@ -1,49 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<script
-	  src="https://code.jquery.com/jquery-3.3.1.min.js"
-	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	  crossorigin="anonymous"></script>
-	<script type="text/javascript" src="jcanvas.js"></script>
-	<meta charset="UTF-8">
-</head>
-<body>
-	<input type="file" id="file_input">
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="jcanvas.js"></script>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <input type="file" id="file_input" />
 
-	<canvas id="orig_img_canvas" style="background: #000;"></canvas>
-	<canvas id="best_img_canvas" width=350 height="350"></canvas>
-	<canvas id="test_img_canvas" width=75 height=75></canvas>
+    <canvas id="orig_img_canvas" style="background: #000;"></canvas>
+    <canvas id="best_img_canvas" width="350" height="350"></canvas>
+    <canvas id="test_img_canvas" width="75" height="75"></canvas>
 
-	<div><div id="elapsed-time"></div></div>
-	<div>number of generations: <div id="number-of-generations"></div></div>
-	<div>time per generations: <div id="time-per-generation"></div></div>
-	<div>time per improvement: <div id="time-per-improvement"></div></div>
-	<div>current fitness: <div id="current-fitness"></div></div>
-	<div>highest fitness: <div id="highest-fitness"></div></div>
-	<div>lowest fitness: <div id="lowest-fitness"></div></div>
+    <div><div id="elapsed-time"></div></div>
+    <div>
+      number of generations:
+      <div id="number-of-generations"></div>
+    </div>
+    <div>
+      time per generations:
+      <div id="time-per-generation"></div>
+    </div>
+    <div>
+      time per improvement:
+      <div id="time-per-improvement"></div>
+    </div>
+    <div>
+      current fitness:
+      <div id="current-fitness"></div>
+    </div>
+    <div>
+      highest fitness:
+      <div id="highest-fitness"></div>
+    </div>
+    <div>
+      lowest fitness:
+      <div id="lowest-fitness"></div>
+    </div>
 
-	<script type="text/javascript">
-		$("#file_input").change(function(e){
+    <script type="text/javascript">
+      $('#file_input').change(function(e) {
+        var URL = window.webkitURL || window.URL
+        var url = URL.createObjectURL(e.target.files[0])
+        var img = new Image()
+        img.src = url
 
+        img.onload = function() {
+          var img_width = img.width
+          var img_height = img.height
 
-		    var URL = window.webkitURL || window.URL;
-		    var url = URL.createObjectURL(e.target.files[0]);
-		    var img = new Image();
-		    img.src = url;
-
-
-		    img.onload = function() {
-
-		            var img_width = img.width;
-		            var img_height = img.height;
-
-		            init(img, img_width);
-
-		    }
-		});
-	</script>
-	<!-- change this to make it matching a local image vs the request -->
-	<script src="ccevolvelocalimage.js"></script>
-</body>
+          init(img, img_width)
+        }
+      })
+    </script>
+    <!-- change this to make it matching a local image vs the request -->
+    <script src="testrgbawdarknet.js"></script>
+  </body>
 </html>
