@@ -13,7 +13,7 @@ var fs = require('fs')
 
 //var credentials = { key: privateKey, cert: certificate }
 const helmet = require('helmet')
-const { execFile } = require('child_process')
+const { execFile, exec } = require('child_process')
 
 app.use(helmet())
 app.use(bodyParser.json({ limit: '10mb', extended: true }))
