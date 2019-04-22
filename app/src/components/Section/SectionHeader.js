@@ -9,7 +9,6 @@ const Container = styled.div`
 const HeaderContainer = styled.div`
   position: relative;
   margin-top: 3rem;
-
   padding: 250px;
   margin: -250px;
 `
@@ -17,10 +16,14 @@ const HeaderContainer = styled.div`
 const Header = styled.h1`
   text-transform: uppercase;
   font-size: 4.5rem;
-  color: ${props => props.theme.textPrimary};
+  /* color: ${props => props.theme.textPrimary}; */
   position: relative;
   letter-spacing: -0.3rem;
   line-height: 4rem;
+  
+  @media only screen and (max-width: 800px) {
+    text-align: center;
+  }
 `
 
 const ColorHeader = styled(Header)`
@@ -31,12 +34,16 @@ const ColorHeader = styled(Header)`
 
 const Rule = styled.hr`
   height: 0;
-  border: 0.5px solid black;
+  border: 0.5px solid ${props => props.theme.textPrimary};
   margin-bottom: 20px;
 `
 
 const Subtitle = styled.p`
   margin-top: 0;
+
+  @media only screen and (max-width: 800px) {
+    text-align: center;
+  }
 `
 
 class SectionHeader extends Component {
@@ -48,19 +55,19 @@ class SectionHeader extends Component {
         <HeaderContainer>
           <Header>{this.props.title}</Header>
 
-          <Tilt
+          {/* <Tilt
             className="Tilt"
             options={{ max: 25, reverse: false, scale: 1, speed: 2000 }}
             style={{
               width: 'fit-content',
               // padding: '0 1000px',
               // margin: '0 -1000px'
-              padding: '200px 1000px',
-              margin: '-200px -1000px'
+              padding: '200px 100vw',
+              margin: '-200px -100vw'
             }}
-          >
-            <ColorHeader>{this.props.title}</ColorHeader>
-          </Tilt>
+          > */}
+          <ColorHeader>{this.props.title}</ColorHeader>
+          {/* </Tilt> */}
         </HeaderContainer>
 
         <Subtitle>{this.props.subtitle}</Subtitle>

@@ -10,6 +10,9 @@ const Container = styled.div`
 
 const Icon = styled.a`
   margin-left: 2.3rem;
+  @media only screen and (max-width: 800px) {
+    display: none;
+  }
 
   svg {
     width: 3rem;
@@ -31,6 +34,10 @@ const Signature = styled.div`
   display: flex;
   width: 100%;
   align-items: flex-end;
+
+  @media only screen and (max-width: 800px) {
+    display: none;
+  }
 `
 
 const Title = styled.div`
@@ -42,18 +49,29 @@ const Title = styled.div`
   span {
     font-family: 'Univers';
     text-transform: uppercase;
-    font-size: 7.5rem;
-    letter-spacing: -0.5rem;
+    font-size: calc(1rem + 8vw - 1rem);
+    height: calc(1rem + 8vw - 1rem);
     line-height: normal;
-    width: 100%;
-    height: 7.5rem;
+    color: ${props => props.theme.textPrimary};
+
+    /* Maximum font-size */
+    @media only screen and (min-width: 1300px) {
+      font-size: 7.5rem;
+      height: 7.5rem;
+    }
+
+    /* Maximum font-size */
+    @media only screen and (max-width: 800px) {
+      font-size: calc(1rem + 8vw);
+      height: calc(1rem + 8vw);
+    }
   }
 `
 
 const Navbar = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  /* background: white; */
+  background: ${props => props.theme.white};
   width: 100%;
   overflow: hidden;
   padding: 1.5rem 0;
@@ -74,7 +92,7 @@ const CollapsedNavbar = styled.div`
   overflow: hidden;
   padding: 1rem 0 0.6rem 0;
   z-index: 1;
-  background: white;
+  background: ${props => props.theme.white};
   width: 100%;
   border-bottom: 2px solid ${props => props.theme.textPrimary};
   transition: 0.5s ease-out;
@@ -83,6 +101,7 @@ const CollapsedNavbar = styled.div`
 const CollapsedTitle = styled(Title)`
   span {
     font-size: 1.375rem;
+    color: ${props => props.theme.textPrimary};
     letter-spacing: initial;
     line-height: initial;
     height: initial;

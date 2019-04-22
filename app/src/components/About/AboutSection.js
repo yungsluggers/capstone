@@ -23,7 +23,7 @@ const Content = styled.div`
   display: inline;
   max-width: 25em;
   word-break: break-word;
-  background-color: white;
+  background-color: ${props => props.theme.white};
   border: 2px solid ${props => props.theme.textPrimary};
   padding: 1rem;
 
@@ -37,6 +37,10 @@ const Content = styled.div`
   @media only screen and (max-width: 1100px) {
     width: 100%;
     max-width: initial;
+  }
+
+  @media only screen and (max-width: 800px) {
+    margin: 0;
   }
 `
 
@@ -68,7 +72,7 @@ const Names = styled.div`
   justify-content: space-between;
   white-space: nowrap;
 
-  @media only screen and (max-width: 750px) {
+  @media only screen and (max-width: 800px) {
     display: none;
   }
 `
@@ -102,6 +106,10 @@ const FancySubtitle = styled.p`
   span:nth-child(3) {
     /* animation: ${jump} 1.5s ease 200ms infinite normal; */
     /* animation: ${jump} 1s linear 200ms infinite alternate; */
+  }
+
+  @media only screen and (max-width: 800px) {
+    text-align: center;
   }
 `
 
