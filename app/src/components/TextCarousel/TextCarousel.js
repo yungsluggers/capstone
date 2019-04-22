@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 const Container = styled.div`
   margin: 200px 0;
@@ -11,20 +11,19 @@ const Container = styled.div`
 const Word = styled.h1`
   font-size: 4.5rem;
   text-transform: uppercase;
-  -webkit-text-stroke: 1px #191818;
-  /* color: rgba(0, 0, 0, 0); */
-  color: white;
+  -webkit-text-stroke: 1px ${props => props.theme.textPrimary};
+  color: ${props => props.theme.white};
   line-height: 4.8rem;
   letter-spacing: -0.3rem;
 `
 
 const FilledWord = styled(Word)`
-  color: rgba(1, 1, 1, 1);
+  color: ${props => props.theme.textPrimary};
 `
 
 const row1width = 1494.33
 
-const disableAnimation = false
+const disableAnimation = true
 
 class TextCarousel extends Component {
   constructor(props) {
@@ -117,12 +116,12 @@ class TextCarousel extends Component {
           <Word>Beach.&nbsp;</Word>
         </RevRow>
         <Row>
-          <Word>Icecream.&nbsp;</Word>
-          <Word>fan.&nbsp;</Word>
+          <Word>Mushroom.&nbsp;</Word>
+          <Word>Fan.&nbsp;</Word>
           <Word>Hotdog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
-          <Word>Icecream.&nbsp;</Word>
-          <Word>fan.&nbsp;</Word>
+          <Word>Mushroom.&nbsp;</Word>
+          <Word>Fan.&nbsp;</Word>
           <Word>Hotdog.&nbsp;</Word>
           <Word>Infinity.&nbsp;</Word>
         </Row>

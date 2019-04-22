@@ -1,9 +1,10 @@
 import styled, { keyframes } from 'styled-components'
 
 const BaseButton = styled.button`
-  color: ${props => (props.filled ? 'white' : props.theme.textPrimary)};
+  color: ${props =>
+    props.filled ? props.theme.white : props.theme.textPrimary};
   background-color: ${props =>
-    props.filled ? props.theme.textPrimary : 'white'};
+    props.filled ? props.theme.textPrimary : props.theme.white};
   border: ${props =>
     props.filled ? 'none' : `2px solid ${props.theme.textPrimary}`};
   text-transform: uppercase;

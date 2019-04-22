@@ -4,25 +4,19 @@ import styled from 'styled-components'
 const Container = styled.div`
   position: relative;
   padding: 3rem 4rem;
-  background: white;
+  background: ${props => props.theme.white};
   border: 2px solid ${props => props.theme.textPrimary};
   font-size: 1.5rem;
   line-height: normal;
 `
 
-
 class WidgetContainer extends Component {
-
   render() {
-
     return (
       <div className="l-container">
-        <Container>
-          {this.props.children}
-        </Container>
+        <Container>{this.props.children}</Container>
       </div>
     )
-
   }
 }
 
