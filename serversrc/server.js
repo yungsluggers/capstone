@@ -74,7 +74,7 @@ app.post('/', (req, res) => {
       `cfg/darknet19.cfg`,
       `darknet19.weights`,
       id,
-      filePath,
+      filepath,
       imgSize
     ],
     (err, stdout, stderr) => {
