@@ -85,7 +85,7 @@ app.post('/predict', (req, res) => {
   var imgSize = req.body.imgSize
 
   execFile(
-    `darknet`,
+    `./darknet`,
     [
       `classifier`,
       `predict`,
