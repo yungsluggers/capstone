@@ -62,18 +62,10 @@ app.post('/', (req, res) => {
   var data = req.body.data
   var imgSize = req.body.imgSize
 
-  execFile(
-    `darknet`,
-    [
-      `classifier`,
-      `one_label`,
-      `cfg/imagenet1k.data`,
-      `cfg/darknet19.cfg`,
-      `darknet19.weights`,
-      id,
-      data,
-      imgSize
-    ],
+  console.log('got here')
+
+  exec(
+    `darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights ${id} ${data} ${imgSize}`,
     (err, stdout, stderr) => {
       if (err) {
         res.json({ err: err, stderr: stderr })
