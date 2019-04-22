@@ -90,7 +90,7 @@ function setDefaults() {
 
   /* Graphics options.
    */
-  workingSize = 30
+  workingSize = 75
   polygons = 25
   vertices = 3
   fillPolygons = true
@@ -143,7 +143,11 @@ function mutateNumber(num) {
   var n = num
   if (Math.random() < mutationChance) {
     //Apply the random mutation
-    n += Math.random() * mutateAmount * 2 - mutateAmount
+    if (Math.random() < 0.5) {
+      n += Math.random() * mutateAmount * 2 - mutateAmount
+    } else {
+      n -= Math.random() * mutateAmount * 2 - mutateAmount
+    }
 
     /* Keep the value in range */
   }
@@ -337,6 +341,7 @@ Individual.prototype.getFitness = async function(url) {
       .then(
         function(res) {
           this.fitness = res.score
+          console.log(res.score)
           Promise.resolve()
         }.bind(this)
       )

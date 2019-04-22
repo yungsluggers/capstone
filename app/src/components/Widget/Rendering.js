@@ -100,11 +100,11 @@ class Rendering extends Component {
             </Canvas>
           </CanvasGroup>
 
-          {this.state.playing ? (
+          {/* {this.state.playing ? (
             <Button onClick={this.play}>Pause</Button>
           ) : (
             <Button onClick={this.play}>Play</Button>
-          )}
+          )} */}
 
           <AnalyticsList>
             <table>
