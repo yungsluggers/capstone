@@ -81,7 +81,7 @@ app.post('/', (req, res) => {
       } else {
         res.status(200)
 
-        console.log(`${stdout}`)
+        console.log(`score: ${stdout}`)
         res.json({ score: stdout })
         res.end()
       }
