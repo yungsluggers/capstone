@@ -4,6 +4,7 @@ const app = express()
 // const http = require('http')
 // var https = require('https')
 var fs = require('fs')
+const tempWrite = require('temp-write')
 
 // var privateKey = fs.readFileSync('./selfsigned.key', 'utf8')
 // var certificate = fs.readFileSync('./selfsigned.crt', 'utf8')
@@ -62,12 +63,14 @@ app.post('/', (req, res) => {
   var data = req.body.data
   var imgSize = req.body.imgSize
 
+  const filepath = tempWrite.sync(data)
+
   execFile(
     `./darknet`,
     [
       `classifier`,
       `one_label`,
-      `cfg/imagenet1k.data`,
+      filepath,
       `cfg/darknet19.cfg`,
       `darknet19.weights`,
       id,
