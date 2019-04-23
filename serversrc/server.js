@@ -100,8 +100,6 @@ app.post('/', (req, res) => {
       ptyProcess.write(`${id}\r`)
     } else {
       res.status(200)
-
-      console.log(`${id}: ${stdout}`)
       res.json({ score: data })
       res.end()
     }
