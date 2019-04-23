@@ -67,7 +67,11 @@ const darknet = spawn('./darknet', [
   150
 ])
 
-darknet.stdout.on('message', data => {
+darknet.stdout.on('data', data => {
+  console.log(data.toString())
+})
+
+darknet.stdout.on('data', data => {
   console.log(data.toString())
 })
 
