@@ -65,10 +65,41 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     top: -60px;
   }
+
+
+  /* Styles for React Virtualized Dropdown */
+  #YBV-react-virtualized-dropdown * {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: normal;
+  }
+
+  #YBV-react-virtualized-dropdown > div > div > div {
+    &:before {
+      border-bottom: 1px solid ${props => props.theme.textPrimary};
+    }
+
+    &:after {
+      border-bottom: 1px solid ${props => props.theme.green};
+    }
+  }
+
+  #value > div.css-1wy0on6 > span {
+    height: 100%;
+    margin: 0;
+  }
+
+  #value > div:nth-child(1) > p {
+    color: ${props => props.theme.textPrimary};
+  }
+
+  #react-select-2-input {
+    color: ${props => props.theme.textPrimary} !important;
+    font-size: 1.5rem !important;
+  }
 `
 
 export const theme = {
-  green: '#41b984',
+  green: '#4cd99c',
   red: '#eb3d25',
   purple: '#912e8f',
   gold: '#f99d33',

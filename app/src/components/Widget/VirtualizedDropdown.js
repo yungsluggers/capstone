@@ -11,7 +11,7 @@ import { AutoSizer, List } from 'react-virtualized'
 const styles = {
   input: {
     display: 'flex',
-    height: 19
+    height: 28
   },
   valueContainer: {
     display: 'flex',
@@ -20,7 +20,7 @@ const styles = {
     alignItems: 'center'
   },
   singleValue: {
-    fontSize: 16
+    fontSize: 24
   },
   paper: {
     position: 'absolute',
@@ -49,7 +49,6 @@ const Control = props => {
       fullWidth
       id="value"
       name="value"
-      label="Select an Option Value"
       InputProps={{
         inputComponent,
         inputProps: {
@@ -161,7 +160,7 @@ class VirtualizedDropdown extends Component {
 
   render() {
     return (
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%' }} id="YBV-react-virtualized-dropdown">
         <NoSsr>
           <Select
             components={components}
