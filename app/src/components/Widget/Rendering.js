@@ -28,7 +28,7 @@ const Canvas = styled.div`
   flex-flow: column nowrap;
 
   canvas {
-    border: 2px solid ${props => props.theme.textPrimary};
+    border: 2px solid ${props => props.theme.black};
     margin-right: 40px;
   }
 `

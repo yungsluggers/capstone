@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     line-height: 1.5rem;
     background-color: ${props => props.theme.white};
-    color: ${props => props.theme.textPrimary};
+    color: ${props => props.theme.black};
   }
 
   body {
@@ -75,7 +75,7 @@ const GlobalStyle = createGlobalStyle`
 
   #YBV-react-virtualized-dropdown > div > div > div {
     &:before {
-      border-bottom: 1px solid ${props => props.theme.textPrimary};
+      border-bottom: 1px solid ${props => props.theme.black};
     }
 
     &:after {
@@ -89,28 +89,20 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #value > div:nth-child(1) > p {
-    color: ${props => props.theme.textPrimary};
+    color: ${props => props.theme.black};
   }
 
   #react-select-2-input {
-    color: ${props => props.theme.textPrimary} !important;
+    color: ${props => props.theme.black} !important;
     font-size: 1.5rem !important;
   }
 `
 
 export const theme = {
-  green: '#4cd99c',
-  red: '#eb3d25',
-  purple: '#912e8f',
-  gold: '#f99d33',
-  yellow: '#f2b42d',
-  pink: '#e62c8f',
-  blue: '#4ca1d9',
-  grey: '#acacad',
-  // white: '#ffffff',
-  textPrimary: '#ffffff',
-  white: '#191818'
-  // textPrimary: '#191818'
+  black: '#F1F2F3',
+  white: '#252626',
+  yellow: '#FAED23',
+  purple: '#433594'
 }
 
 export default GlobalStyle

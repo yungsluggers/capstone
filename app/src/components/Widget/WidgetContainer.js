@@ -5,7 +5,7 @@ const Container = styled.div`
   position: relative;
   padding: 3rem 4rem;
   background: ${props => props.theme.white};
-  border: 2px solid ${props => props.theme.textPrimary};
+  border: 2px solid ${props => props.theme.black};
   font-size: 1.5rem;
   line-height: normal;
 `

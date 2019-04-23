@@ -15,7 +15,7 @@ const ContentContainer = styled.div`
 `
 
 const Content = styled.div`
-  color: ${props => props.theme.textPrimary};
+  color: ${props => props.theme.black};
   font-size: 1.125rem;
   width: 50%;
   margin-left: auto;
@@ -24,7 +24,7 @@ const Content = styled.div`
   max-width: 25em;
   word-break: break-word;
   background-color: ${props => props.theme.white};
-  border: 2px solid ${props => props.theme.textPrimary};
+  border: 2px solid ${props => props.theme.purple};
   padding: 1rem;
 
   > p {
@@ -52,6 +52,7 @@ const WordArt = styled.div`
   font-size: 3rem;
   font-style: italic;
   line-height: initial;
+  color: ${props => props.theme.yellow};
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -154,9 +155,9 @@ class AboutSection extends Component {
       <Container className={this.props.narrow ? 'l-container' : null}>
         <SectionHeader
           title={this.props.title}
-          // subtitle={this.props.subtitle}
+          subtitle={this.props.subtitle}
         />
-        <FancySubtitle>
+        {/* <FancySubtitle>
           <span
             onMouseEnter={() => this.onMouseEnter('research')}
             onMouseLeave={() => this.onMouseLeave('research')}
@@ -175,7 +176,7 @@ class AboutSection extends Component {
           >
             info
           </span>
-        </FancySubtitle>
+        </FancySubtitle> */}
         <ContentContainer>
           <Tilt
             className="Tilt"
@@ -266,7 +267,7 @@ class AboutSection extends Component {
 }
 AboutSection.defaultProps = {
   theme: {
-    textPrimary: '#191818'
+    black: '#F1F2F3'
   }
 }
 export default AboutSection

@@ -11,14 +11,14 @@ const Container = styled.div`
 const Word = styled.h1`
   font-size: 4.5rem;
   text-transform: uppercase;
-  -webkit-text-stroke: 1px ${props => props.theme.textPrimary};
+  -webkit-text-stroke: 1px ${props => props.theme.black};
   color: ${props => props.theme.white};
   line-height: 4.8rem;
   letter-spacing: -0.3rem;
 `
 
 const FilledWord = styled(Word)`
-  color: ${props => props.theme.textPrimary};
+  color: ${props => props.theme.black};
 `
 
 const Warning = styled.div`
