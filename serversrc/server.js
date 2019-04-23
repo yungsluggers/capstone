@@ -104,7 +104,6 @@ app.post('/', (req, res) => {
       ptyProcess.write(`${id}\r`)
     }
     if (data.match(/([0-9]*\.[0-9]*)/)) {
-      process.stdout.write('end: ' + data)
       res.status(200)
       res.json({ score: data })
       res.end()
