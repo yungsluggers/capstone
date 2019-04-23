@@ -21,6 +21,17 @@ const FilledWord = styled(Word)`
   color: ${props => props.theme.textPrimary};
 `
 
+const Warning = styled.div`
+  font-size: 2rem;
+  width: 200px;
+  padding: 1rem;
+  color: white;
+  background: red;
+  position: fixed;
+  top: 100px;
+  left: 0px;
+`
+
 const row1width = 1494.33
 
 const disableAnimation = true
@@ -77,7 +88,7 @@ class TextCarousel extends Component {
     scrollDeg *= -1
 
     if (disableAnimation) {
-      return <div />
+      return <Warning>RE-ENABLE THE TEXT CAROUSEL</Warning>
     }
 
     const Row = styled.div`
