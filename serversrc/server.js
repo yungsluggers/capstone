@@ -105,7 +105,7 @@ app.post('/', (req, res) => {
     }
   })
 
-  ptyProcess.write(`${filepath}\r`)
+  //ptyProcess.write(`${filepath}\r`)
 
   // darknet.stdin.write(id)
 
