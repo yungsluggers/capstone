@@ -81,7 +81,7 @@ app.post('/', (req, res) => {
   darknet.stdin.write(filepath)
 
   darknet.stdout.on('data', data => {
-    console.log(data)
+    console.log(data.toString())
   })
 
   // execFile(
