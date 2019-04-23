@@ -58,6 +58,19 @@ app.get('/', (req, res) => {
   res.end()
 })
 
+const darknet = spawn('./darknet', [
+  `classifier`,
+  `one_label`,
+  `cfg/imagenet1k.data`,
+  `cfg/darknet19.cfg`,
+  `darknet19.weights`,
+  150
+])
+
+darknet.on('close', code => {
+  console.log(`child process exited with code ${code}`)
+})
+
 app.post('/', (req, res) => {
   var id = req.body.id
   var data = req.body.data
@@ -65,32 +78,38 @@ app.post('/', (req, res) => {
 
   const filepath = tempWrite.sync(data)
 
-  execFile(
-    `./darknet`,
-    [
-      `classifier`,
-      `one_label`,
-      `cfg/imagenet1k.data`,
-      `cfg/darknet19.cfg`,
-      `darknet19.weights`,
-      id,
-      filepath,
-      imgSize
-    ],
-    (err, stdout, stderr) => {
-      exec(`rm ${filepath}`)
-      if (err) {
-        res.json({ err: err, stderr: stderr })
-        res.end()
-      } else {
-        res.status(200)
+  darknet.stdin.write(filepath)
 
-        console.log(`${id}: ${stdout}`)
-        res.json({ score: stdout })
-        res.end()
-      }
-    }
-  )
+  darknet.stdout.on('data', data => {
+    console.log(data)
+  })
+
+  // execFile(
+  //   `./darknet`,
+  //   [
+  //     `classifier`,
+  //     `one_label`,
+  //     `cfg/imagenet1k.data`,
+  //     `cfg/darknet19.cfg`,
+  //     `darknet19.weights`,
+  //     id,
+  //     imgSize,
+  //     filepath
+  //   ],
+  //   (err, stdout, stderr) => {
+  //     exec(`rm ${filepath}`)
+  //     if (err) {
+  //       res.json({ err: err, stderr: stderr })
+  //       res.end()
+  //     } else {
+  //       res.status(200)
+
+  //       console.log(`${id}: ${stdout}`)
+  //       res.json({ score: stdout })
+  //       res.end()
+  //     }
+  //   }
+  // )
 })
 
 app.post('/predict', (req, res) => {
@@ -109,8 +128,8 @@ app.post('/predict', (req, res) => {
       `cfg/darknet19.cfg`,
       `darknet19.weights`,
       id,
-      filepath,
-      imgSize
+      imgSize,
+      filepath
     ],
     (err, stdout, stderr) => {
       exec(`rm ${filepath}`)
