@@ -103,7 +103,7 @@ app.post('/', (req, res) => {
     if (data.indexOf('Enter id:') > -1) {
       ptyProcess.write(`${id}\r`)
     } else {
-      console.log('end: ', data)
+      process.stdout.write('end: ', data)
       res.status(200)
       res.json({ score: data })
       res.end()
