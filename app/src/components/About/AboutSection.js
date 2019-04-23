@@ -179,11 +179,11 @@ class AboutSection extends Component {
         <ContentContainer>
           <Tilt
             className="Tilt"
-            options={{ max: 15, reverse: false, scale: 1, speed: 2000 }}
+            options={{ max: 35, reverse: false, scale: 1, speed: 2000 }}
             style={{
               width: 'fit-content',
-              padding: '0 1000px',
-              margin: '0 -1000px'
+              padding: '15% 35%',
+              margin: '-15% -35%'
             }}
           >
             <WordArt>
