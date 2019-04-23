@@ -98,6 +98,8 @@ app.post('/predict', (req, res) => {
   var data = req.body.data
   var imgSize = req.body.imgSize
 
+  const filepath = tempWrite.sync(data)
+
   execFile(
     `./darknet`,
     [
@@ -107,10 +109,11 @@ app.post('/predict', (req, res) => {
       `cfg/darknet19.cfg`,
       `darknet19.weights`,
       id,
-      data,
+      filepath,
       imgSize
     ],
     (err, stdout, stderr) => {
+      exec(`rm ${filepath}`)
       if (err) {
         res.json({ err: err, stderr: stderr })
         res.end()
