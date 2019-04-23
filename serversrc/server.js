@@ -67,7 +67,7 @@ const darknet = spawn('./darknet', [
   150
 ])
 
-darknet.stdout.on('data', data => {
+darknet.stdout.on('message', data => {
   console.log(data.toString())
 })
 
@@ -83,13 +83,13 @@ app.post('/', (req, res) => {
   const filepath = tempWrite.sync(data)
 
   darknet.stdin.write(filepath)
-  darknet.stdin.write(id)
+  // darknet.stdin.write(id)
 
-  darknet.stdout.on('data', data => {
-    res.status(200)
-    res.json({ score: data.toString() })
-    res.end()
-  })
+  // darknet.stdout.on('data', data => {
+  //   res.status(200)
+  //   res.json({ score: data.toString() })
+  //   res.end()
+  // })
 
   // execFile(
   //   `./darknet`,
