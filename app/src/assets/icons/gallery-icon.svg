@@ -5,15 +5,9 @@
 	 width="288px" height="288px" viewBox="0 0 288 288" enable-background="new 0 0 288 288" xml:space="preserve">
 <path fill="none" stroke="#000000" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
 	M36,194.57"/>
-<path fill="none" stroke="#000000" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+<path fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
 	M198.43,106.979l40.524,40.525l-40.524-40.591L120,180.99v0.131l-30.428-36.428l-40.526,37.932"/>
-<circle fill="none" stroke="#000000" stroke-width="20" stroke-miterlimit="10" cx="452.5" cy="144" r="132"/>
-<path d="M439.708,171.137c-1.872-1.604-1.482-5.396-1.482-8.21c0-9.933,4.124-19.116,14.809-27.174l8.994-6.746
-	c5.623-4.124,8.06-9.185,8.06-14.807c0-8.621-6.184-16.866-18.74-16.866c-13.308,0-19.113,10.682-19.113,21.177
-	c0,2.25,0.22,4.86-0.85,6.282c-3.548,4.726-18.596,3.456-22.019-1.223c-1.611-2.202-0.938-5.622-0.938-8.434
-	c0-20.239,15.18-39.729,42.917-39.729c29.051,0,44.229,18.366,44.229,37.295c0,14.806-7.494,25.3-18.556,33.173l-7.685,5.434
-	c-6.559,4.688-9.335,10.106-10.117,18.18c-0.052,0.535-0.721,1.734-0.897,1.953C455.112,175.354,443.55,174.432,439.708,171.137z"/>
-<path d="M102.384,86.865c8.245,0,14.991,6.747,14.991,14.993s-6.746,14.805-14.991,14.805c-8.246,0-14.805-6.559-14.805-14.805
-	S94.138,86.865,102.384,86.865z"/>
-<rect x="49.046" y="49.045" fill="none" stroke="#000000" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="189.908" height="189.909"/>
+<path fill="#FFFFFF" d="M102.384,86.865c8.245,0,14.991,6.747,14.991,14.993s-6.746,14.805-14.991,14.805
+	c-8.246,0-14.805-6.559-14.805-14.805S94.138,86.865,102.384,86.865z"/>
+<rect x="49.046" y="49.045" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="189.908" height="189.909"/>
 </svg>

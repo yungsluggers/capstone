@@ -10,11 +10,16 @@ const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     line-height: 1.5rem;
     background-color: ${props => props.theme.white};
-    /* background-color: ${props => props.theme.yellow}; */
+    color: ${props => props.theme.textPrimary};
+  }
+
+  body {
+    overflow-x: hidden;
   }
 
   button, select {
     font-family: 'Univers', sans-serif;
+    
     &:focus {
       outline: none;
     }
@@ -28,9 +33,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a:hover {
-    background-color: 'white' !important;
+    /* background-color: ${props => props.theme.white} !important; */
     color: '#41b984' !important;
-
   }
 
   header, h1, h2, h3 {
@@ -72,8 +76,10 @@ export const theme = {
   pink: '#e62c8f',
   blue: '#4ca1d9',
   grey: '#acacad',
-  white: '#ffffff',
-  textPrimary: '#191818'
+  // white: '#ffffff',
+  textPrimary: '#ffffff',
+  white: '#191818'
+  // textPrimary: '#191818'
 }
 
 export default GlobalStyle
