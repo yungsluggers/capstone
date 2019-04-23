@@ -102,7 +102,8 @@ app.post('/', (req, res) => {
     }
     if (data.indexOf('Enter id:') > -1) {
       ptyProcess.write(`${id}\r`)
-    } else {
+    }
+    if (data.match(/([0-9]*\.[0-9]*)/)) {
       process.stdout.write('end: ' + data)
       res.status(200)
       res.json({ score: data })
