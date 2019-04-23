@@ -34,7 +34,7 @@ class Introduction extends Component {
     return (
       <div>
         <label htmlFor="label-select">
-          <p>Select up to two labels and genetic priority</p>
+          <p>Select a label</p>
         </label>
 
         <VirtualizedDropdown
