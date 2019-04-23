@@ -84,6 +84,10 @@ ptyProcess.write(
   './darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights 150\r'
 )
 
+ptyProcess.on('data', function(data) {
+  process.stdout.write(data)
+})
+
 app.post('/', (req, res) => {
   var id = req.body.id
   var data = req.body.data
@@ -92,7 +96,7 @@ app.post('/', (req, res) => {
   const filepath = tempWrite.sync(data)
 
   ptyProcess.on('data', function(data) {
-    process.stdout.write(data)
+    //process.stdout.write(data)
     if (data.indexOf('Enter Image Path:') > -1) {
       ptyProcess.write(`${filepath}\r`)
     }
@@ -105,7 +109,7 @@ app.post('/', (req, res) => {
     }
   })
 
-  //ptyProcess.write(`${filepath}\r`)
+  ptyProcess.write(`${filepath}\r`)
 
   // darknet.stdin.write(id)
 
@@ -143,40 +147,40 @@ app.post('/', (req, res) => {
   // )
 })
 
-app.post('/predict', (req, res) => {
-  var id = req.body.id
-  var data = req.body.data
-  var imgSize = req.body.imgSize
+// app.post('/predict', (req, res) => {
+//   var id = req.body.id
+//   var data = req.body.data
+//   var imgSize = req.body.imgSize
 
-  const filepath = tempWrite.sync(data)
+//   const filepath = tempWrite.sync(data)
 
-  execFile(
-    `./darknet`,
-    [
-      `classifier`,
-      `predict`,
-      `cfg/imagenet1k.data`,
-      `cfg/darknet19.cfg`,
-      `darknet19.weights`,
-      id,
-      imgSize,
-      filepath
-    ],
-    (err, stdout, stderr) => {
-      exec(`rm ${filepath}`)
-      if (err) {
-        res.json({ err: err, stderr: stderr })
-        res.end()
-      } else {
-        res.status(200)
+//   execFile(
+//     `./darknet`,
+//     [
+//       `classifier`,
+//       `predict`,
+//       `cfg/imagenet1k.data`,
+//       `cfg/darknet19.cfg`,
+//       `darknet19.weights`,
+//       id,
+//       imgSize,
+//       filepath
+//     ],
+//     (err, stdout, stderr) => {
+//       exec(`rm ${filepath}`)
+//       if (err) {
+//         res.json({ err: err, stderr: stderr })
+//         res.end()
+//       } else {
+//         res.status(200)
 
-        console.log(`${stdout}`)
-        res.json({ score: stdout })
-        res.end()
-      }
-    }
-  )
-})
+//         console.log(`${stdout}`)
+//         res.json({ score: stdout })
+//         res.end()
+//       }
+//     }
+//   )
+// })
 
 // current status: run the index and upload an image while sshd into the server.
 // it will give u an error and then u gotta fix it
