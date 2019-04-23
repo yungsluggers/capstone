@@ -78,6 +78,7 @@ app.post('/', (req, res) => {
       imgSize
     ],
     (err, stdout, stderr) => {
+      exec(`rm ${filepath}`)
       if (err) {
         res.json({ err: err, stderr: stderr })
         res.end()
