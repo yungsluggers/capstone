@@ -67,6 +67,10 @@ const darknet = spawn('./darknet', [
   150
 ])
 
+darknet.stdout.on('data', data => {
+  console.log(data.toString())
+})
+
 darknet.on('close', code => {
   console.log(`child process exited with code ${code}`)
 })
@@ -79,9 +83,12 @@ app.post('/', (req, res) => {
   const filepath = tempWrite.sync(data)
 
   darknet.stdin.write(filepath)
+  darknet.stdin.write(id)
 
   darknet.stdout.on('data', data => {
-    console.log(data.toString())
+    res.status(200)
+    res.json({ score: data.toString() })
+    res.end()
   })
 
   // execFile(
