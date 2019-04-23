@@ -58,26 +58,30 @@ app.get('/', (req, res) => {
   res.end()
 })
 
-const darknet = spawn('./darknet', [
-  `classifier`,
-  `one_label`,
-  `cfg/imagenet1k.data`,
-  `cfg/darknet19.cfg`,
-  `darknet19.weights`,
-  150
-])
+// const darknet = spawn('./darknet', [
+//   `classifier`,
+//   `one_label`,
+//   `cfg/imagenet1k.data`,
+//   `cfg/darknet19.cfg`,
+//   `darknet19.weights`,
+//   150
+// ])
 
-darknet.stdout.on('data', data => {
-  console.log(data.toString())
+app.use(queue({ activeLimit: 1, queuedLimit: -1 }))
+
+var pty = require('node-pty')
+
+var ptyProcess = pty.spawn('bash', [], {
+  name: 'xterm-color',
+  cols: 80,
+  rows: 30,
+  cwd: '.',
+  env: process.env
 })
 
-darknet.stdout.on('data', data => {
-  console.log(data.toString())
-})
-
-darknet.on('close', code => {
-  console.log(`child process exited with code ${code}`)
-})
+ptyProcess.write(
+  './darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights 150\r'
+)
 
 app.post('/', (req, res) => {
   var id = req.body.id
@@ -86,7 +90,24 @@ app.post('/', (req, res) => {
 
   const filepath = tempWrite.sync(data)
 
-  darknet.stdin.write(filepath)
+  ptyProcess.on('data', function(data) {
+    process.stdout.write(data)
+    if (data.indexOf('Enter Image Path:') > -1) {
+      ptyProcess.write(`${filepath}\r`)
+    }
+    if (data.indexOf('Enter id:') > -1) {
+      ptyProcess.write(`${id}\r`)
+    } else {
+      res.status(200)
+
+      console.log(`${id}: ${stdout}`)
+      res.json({ score: data })
+      res.end()
+    }
+  })
+
+  ptyProcess.write(`${filepath}\r`)
+
   // darknet.stdin.write(id)
 
   // darknet.stdout.on('data', data => {
