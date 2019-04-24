@@ -96,12 +96,13 @@ ptyProcess.write(
 
 function doResponse(res, data, end) {
   //process.stdout.write(data)
+  var end = false
   if (data.match(/([0-9]*\.[0-9]*)/g) && !end) {
     end = true
     res.status(200)
     res.json({ score: data })
     res.end()
-    ptyProcess.removeAllListeners()
+    ptyProcess.removeListener('data', doResponse)
     //console.log(ptyProcess.listeners())
   }
 }
@@ -115,11 +116,7 @@ app.post('/', (req, res) => {
 
   ptyProcess.write(`${filepath} ${id}\r`)
 
-  var path = false
-  var idhuh = false
-  var end = false
-
-  ptyProcess.on('data', data => doResponse(res, data, end))
+  ptyProcess.on('data', data => doResponse(res, data))
 
   // darknet.stdin.write(id)
 
