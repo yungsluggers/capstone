@@ -200,6 +200,15 @@ class AboutSection extends Component {
 
           <Content>
             <p>
+              <Link
+                href="https://github.com/yungsluggers/capstone/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Check out the project on GitHub
+              </Link>
+            </p>
+            <p>
               The image generation is done genetically. This means that we
               generate many random images then choose the best two and "breed"
               them by combining their image data. This new child image is used
