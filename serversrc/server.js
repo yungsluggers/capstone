@@ -93,6 +93,7 @@ ptyProcess.write(
 var respond = () => {}
 
 ptyProcess.on('data', function(data) {
+  process.stdout.write(data)
   if (data.match(/([0-9]*\.[0-9]*)/g)) {
     respond(data)
   }
