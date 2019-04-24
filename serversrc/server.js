@@ -115,7 +115,7 @@ app.post('/', (req, res) => {
 
   const filepath = tempWrite.sync(data)
 
-  ptyProcess.write(`${filepath} ${id}\r`)
+  setTimeout(ptyProcess.write(`${filepath} ${id}\r`), 50)
 
   var path = false
   var idhuh = false
