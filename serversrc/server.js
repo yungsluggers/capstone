@@ -117,10 +117,11 @@ app.post('/', (req, res) => {
 
   ptyProcess.write(`${filepath} ${id}\r`)
 
+  var path = false
+  var idhuh = false
+  var end = false
+
   ptyProcess.on('data', data => {
-    var path = false
-    var idhuh = false
-    var end = false
     // if (data.indexOf('Enter Image Path:') > -1 && !path) {
     //   path = true
     // }
