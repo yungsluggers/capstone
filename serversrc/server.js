@@ -128,11 +128,11 @@ app.post('/', (req, res) => {
       ptyProcess.write(`${id}\r`)
       idhuh = true
     }
-    if (data.match(/([0-9]*\.[0-9]*)/) && !end) {
+    if (data.match(/([0-9]*\.[0-9]*)/g) && !end) {
       process.stdout.write('end: \n')
       end = true
       res.status(200)
-      res.json({ score: data.match(/([0-9]*\.[0-9]*)/) })
+      res.json({ score: data.match(/([0-9]*\.[0-9]*)/g)[0] })
       res.end()
       //ptyProcess.removeAllListeners()
     }
