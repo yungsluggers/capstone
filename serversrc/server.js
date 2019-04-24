@@ -100,7 +100,7 @@ function doResponse(res, data, filepath, id) {
     res.status(200)
     res.json({ score: data })
     res.end()
-    ptyProcess.removeListener('data', doResponse)
+    //ptyProcess.removeAllListeners()
   }
 }
 
@@ -113,8 +113,26 @@ app.post('/', (req, res) => {
 
   console.log(ptyProcess)
 
+  var path = false
+  var idhuh = false
+  var end = false
+
   ptyProcess.on('data', data => {
-    doResponse(res, data, filepath, id)
+    if (data.indexOf('Enter Image Path:') > -1 && !path) {
+      ptyProcess.write(`${filepath}\r`)
+      path = true
+    }
+    if (data.indexOf('Enter id:') > -1 && !idhuh) {
+      ptyProcess.write(`${id}\r`)
+      idhuh = true
+    }
+    if (data.match(/([0-9]*\.[0-9]*)/) && !end) {
+      end = true
+      res.status(200)
+      res.json({ score: data })
+      res.end()
+      //ptyProcess.removeAllListeners()
+    }
   })
 
   ptyProcess.write(`${filepath}\r`)
