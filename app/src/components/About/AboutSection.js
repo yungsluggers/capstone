@@ -15,7 +15,7 @@ const ContentContainer = styled.div`
 `
 
 const Content = styled.div`
-  color: ${props => props.theme.textPrimary};
+  color: ${props => props.theme.black};
   font-size: 1.125rem;
   width: 50%;
   margin-left: auto;
@@ -24,8 +24,9 @@ const Content = styled.div`
   max-width: 25em;
   word-break: break-word;
   background-color: ${props => props.theme.white};
-  border: 2px solid ${props => props.theme.textPrimary};
+  border: 2px solid ${props => props.theme.purple};
   padding: 1rem;
+  z-index: 1;
 
   > p {
     margin-top: 0;
@@ -52,10 +53,12 @@ const WordArt = styled.div`
   font-size: 3rem;
   font-style: italic;
   line-height: initial;
+  color: ${props => props.theme.yellow};
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   margin-left: 50%;
+  height: 100%;
 
   @media only screen and (max-width: 1100px) {
     display: none;
@@ -77,35 +80,17 @@ const Names = styled.div`
   }
 `
 
-const jump = keyframes`
-  from {
-    transform: translateY(-1px);
-  }
-  to {
-    transform: translateY(2px);
-  }
-`
-
 const FancySubtitle = styled.p`
   margin-top: -100px;
-  position: relative;
-  top: -155px;
+  margin-bottom: 50px;
 
   span {
     display: inline-block;
-  }
 
-  span:nth-child(1) {
-    /* animation: ${jump} 1.5s ease 0s infinite normal; */
-    /* animation: ${jump} 1s linear 0s infinite alternate; */
-  }
-  span:nth-child(2) {
-    /* animation: ${jump} 1.5s ease 100ms infinite normal; */
-    /* animation: ${jump} 1s linear 100ms infinite alternate; */
-  }
-  span:nth-child(3) {
-    /* animation: ${jump} 1.5s ease 200ms infinite normal; */
-    /* animation: ${jump} 1s linear 200ms infinite alternate; */
+    &:hover {
+      cursor: pointer;
+      color: ${props => props.theme.yellow};
+    }
   }
 
   @media only screen and (max-width: 800px) {
@@ -146,9 +131,24 @@ class AboutSection extends Component {
   render() {
     const { researchHovered, backgroundHovered, infoHovered } = this.state
 
-    const researchStyle = researchHovered ? { color: '#72dcb2' } : {}
-    const backgroundStyle = backgroundHovered ? { color: '#72dcb2' } : {}
-    const infoStyle = infoHovered ? { color: '#72dcb2' } : {}
+    const researchStyle = researchHovered
+      ? {
+        color: '#252626',
+        backgroundColor: '#FAED23'
+      }
+      : {}
+    const backgroundStyle = backgroundHovered
+      ? {
+        color: '#252626',
+        backgroundColor: '#FAED23'
+      }
+      : {}
+    const infoStyle = infoHovered
+      ? {
+        color: '#252626',
+        backgroundColor: '#FAED23'
+      }
+      : {}
 
     return (
       <Container className={this.props.narrow ? 'l-container' : null}>
@@ -179,11 +179,12 @@ class AboutSection extends Component {
         <ContentContainer>
           <Tilt
             className="Tilt"
-            options={{ max: 15, reverse: false, scale: 1, speed: 2000 }}
+            options={{ max: 35, reverse: false, scale: 1, speed: 2000 }}
             style={{
               width: 'fit-content',
-              padding: '0 1000px',
-              margin: '0 -1000px'
+              padding: '5% 35% 15% 35%',
+              margin: '-5% -35% -15% -35%',
+              zIndex: 1
             }}
           >
             <WordArt>
@@ -266,7 +267,7 @@ class AboutSection extends Component {
 }
 AboutSection.defaultProps = {
   theme: {
-    textPrimary: '#191818'
+    black: '#F1F2F3'
   }
 }
 export default AboutSection

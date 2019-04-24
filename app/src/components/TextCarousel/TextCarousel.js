@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 const Container = styled.div`
   margin: 200px 0;
@@ -11,14 +11,14 @@ const Container = styled.div`
 const Word = styled.h1`
   font-size: 4.5rem;
   text-transform: uppercase;
-  -webkit-text-stroke: 1px ${props => props.theme.textPrimary};
+  -webkit-text-stroke: 1px ${props => props.theme.yellow};
   color: ${props => props.theme.white};
   line-height: 4.8rem;
   letter-spacing: -0.3rem;
 `
 
 const FilledWord = styled(Word)`
-  color: ${props => props.theme.textPrimary};
+  color: ${props => props.theme.yellow};
 `
 
 const Warning = styled.div`
@@ -34,7 +34,7 @@ const Warning = styled.div`
 
 const row1width = 1494.33
 
-const disableAnimation = true
+const disableAnimation = false
 
 class TextCarousel extends Component {
   constructor(props) {

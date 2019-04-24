@@ -1,12 +1,11 @@
 import styled, { keyframes } from 'styled-components'
 
 const BaseButton = styled.button`
-  color: ${props =>
-    props.filled ? props.theme.white : props.theme.textPrimary};
+  color: ${props => (props.filled ? props.theme.white : props.theme.black)};
   background-color: ${props =>
-    props.filled ? props.theme.textPrimary : props.theme.white};
+    props.filled ? props.theme.black : props.theme.white};
   border: ${props =>
-    props.filled ? 'none' : `2px solid ${props.theme.textPrimary}`};
+    props.filled ? 'none' : `2px solid ${props.theme.black}`};
   text-transform: uppercase;
   font-size: 1.4rem;
   line-height: 3rem;
@@ -94,7 +93,7 @@ const Button = styled(BaseButton)`
 
   &:after {
     box-shadow: rgba(212, 207, 201, 0.75) 0 0 15px 2px;
-    background: #a4ced1;
+    background: ${props => props.theme.purple};
     content: '';
     height: 2px;
     opacity: 0;
