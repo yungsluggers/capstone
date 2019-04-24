@@ -115,7 +115,7 @@ app.post('/', (req, res) => {
 
   const filepath = tempWrite.sync(data)
 
-  ptyProcess.write(`${filepath} ${id}\r`)
+  ptyProcess.write(`${filepath} ${id}`)
 
   var path = false
   var idhuh = false
@@ -137,8 +137,6 @@ app.post('/', (req, res) => {
       //ptyProcess.removeAllListeners()
     }
   })
-
-  ptyProcess.write(`${filepath}\r`)
 
   // darknet.stdin.write(id)
 
