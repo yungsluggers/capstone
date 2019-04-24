@@ -113,9 +113,13 @@ app.post('/', (req, res) => {
 
   ptyProcess.write(`${filepath} ${id}\r`)
 
-  setTimeout(() => ptyProcess.write(`${filepath} ${id}\r`), 3000)
+  var fallbacktimeout = setTimeout(
+    () => ptyProcess.write(`${filepath} ${id}\r`),
+    3000
+  )
 
   respond = ptydata => {
+    clearTimeout(fallbacktimeout)
     res.status(200)
     res.json({ score: ptydata })
     res.end()
