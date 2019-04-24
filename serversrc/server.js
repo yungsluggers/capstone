@@ -119,7 +119,7 @@ app.post('/', (req, res) => {
   var idhuh = false
   var end = false
 
-  ptyProcess.on('data', () => doResponse(res, data, end))
+  ptyProcess.on('data', data => doResponse(res, data, end))
 
   // darknet.stdin.write(id)
 
