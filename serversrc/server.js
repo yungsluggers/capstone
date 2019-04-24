@@ -112,9 +112,9 @@ app.post('/', (req, res) => {
 
   ptyProcess.write(`${filepath} ${id}\r`)
 
-  respond = () => {
+  respond = ptydata => {
     res.status(200)
-    res.json({ score: data })
+    res.json({ score: ptydata })
     res.end()
   }
 
