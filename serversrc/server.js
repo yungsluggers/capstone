@@ -104,9 +104,7 @@ function doResponse(res, data, filepath, id) {
   }
 }
 
-ptyProcess.on('data', data => {
-  process.stdout.write(data)
-})
+console.log(ptyProcess)
 
 app.post('/', (req, res) => {
   var id = req.body.id
@@ -135,6 +133,7 @@ app.post('/', (req, res) => {
       res.json({ score: data })
       res.end()
       ptyProcess.removeAllListeners()
+      console.log(ptyProcess.listeners())
     }
   })
 
