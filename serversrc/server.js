@@ -85,7 +85,7 @@ ptyProcess.write(
 )
 
 ptyProcess.on('data', function(data) {
-  process.stdout.write(data)
+  //process.stdout.write(data)
 })
 
 function doResponse(res, data, filepath, id) {
@@ -119,14 +119,17 @@ app.post('/', (req, res) => {
 
   ptyProcess.on('data', data => {
     if (data.indexOf('Enter Image Path:') > -1 && !path) {
+      process.stdout.write('path: \n')
       ptyProcess.write(`${filepath}\r`)
       path = true
     }
     if (data.indexOf('Enter id:') > -1 && !idhuh) {
+      process.stdout.write('id: \n')
       ptyProcess.write(`${id}\r`)
       idhuh = true
     }
     if (data.match(/([0-9]*\.[0-9]*)/) && !end) {
+      process.stdout.write('end: \n')
       end = true
       res.status(200)
       res.json({ score: data })
