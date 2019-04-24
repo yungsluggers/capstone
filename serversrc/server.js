@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+var memwatch = require('node-memwatch')
+
 // const http = require('http')
 // var https = require('https')
 var fs = require('fs')
@@ -71,6 +73,10 @@ app.get('/', (req, res) => {
 app.use(queue({ activeLimit: 1, queuedLimit: -1 }))
 
 var pty = require('node-pty')
+
+memwatch.on('leak', info => {
+  console.error('Memory leak detected:\n', info)
+})
 
 var ptyProcess = pty.spawn('bash', [], {
   name: 'xterm-color',
