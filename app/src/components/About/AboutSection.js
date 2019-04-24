@@ -56,8 +56,9 @@ const WordArt = styled.div`
   color: ${props => props.theme.yellow};
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   margin-left: 50%;
+  height: 100%;
 
   @media only screen and (max-width: 1100px) {
     display: none;
@@ -79,35 +80,17 @@ const Names = styled.div`
   }
 `
 
-const jump = keyframes`
-  from {
-    transform: translateY(-1px);
-  }
-  to {
-    transform: translateY(2px);
-  }
-`
-
 const FancySubtitle = styled.p`
   margin-top: -100px;
-  position: relative;
-  top: -155px;
+  margin-bottom: 50px;
 
   span {
     display: inline-block;
-  }
 
-  span:nth-child(1) {
-    /* animation: ${jump} 1.5s ease 0s infinite normal; */
-    /* animation: ${jump} 1s linear 0s infinite alternate; */
-  }
-  span:nth-child(2) {
-    /* animation: ${jump} 1.5s ease 100ms infinite normal; */
-    /* animation: ${jump} 1s linear 100ms infinite alternate; */
-  }
-  span:nth-child(3) {
-    /* animation: ${jump} 1.5s ease 200ms infinite normal; */
-    /* animation: ${jump} 1s linear 200ms infinite alternate; */
+    &:hover {
+      cursor: pointer;
+      color: ${props => props.theme.yellow};
+    }
   }
 
   @media only screen and (max-width: 800px) {
@@ -148,17 +131,32 @@ class AboutSection extends Component {
   render() {
     const { researchHovered, backgroundHovered, infoHovered } = this.state
 
-    const researchStyle = researchHovered ? { color: '#72dcb2' } : {}
-    const backgroundStyle = backgroundHovered ? { color: '#72dcb2' } : {}
-    const infoStyle = infoHovered ? { color: '#72dcb2' } : {}
+    const researchStyle = researchHovered
+      ? {
+        color: '#252626',
+        backgroundColor: '#FAED23'
+      }
+      : {}
+    const backgroundStyle = backgroundHovered
+      ? {
+        color: '#252626',
+        backgroundColor: '#FAED23'
+      }
+      : {}
+    const infoStyle = infoHovered
+      ? {
+        color: '#252626',
+        backgroundColor: '#FAED23'
+      }
+      : {}
 
     return (
       <Container className={this.props.narrow ? 'l-container' : null}>
         <SectionHeader
           title={this.props.title}
-          subtitle={this.props.subtitle}
+          // subtitle={this.props.subtitle}
         />
-        {/* <FancySubtitle>
+        <FancySubtitle>
           <span
             onMouseEnter={() => this.onMouseEnter('research')}
             onMouseLeave={() => this.onMouseLeave('research')}
@@ -177,15 +175,15 @@ class AboutSection extends Component {
           >
             info
           </span>
-        </FancySubtitle> */}
+        </FancySubtitle>
         <ContentContainer>
           <Tilt
             className="Tilt"
             options={{ max: 35, reverse: false, scale: 1, speed: 2000 }}
             style={{
               width: 'fit-content',
-              padding: '15% 35%',
-              margin: '-15% -35%',
+              padding: '5% 35% 15% 35%',
+              margin: '-5% -35% -15% -35%',
               zIndex: 1
             }}
           >
