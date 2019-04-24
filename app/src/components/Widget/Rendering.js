@@ -96,7 +96,7 @@ class Rendering extends Component {
         <Content>
           <Header>{this.props.label}</Header>
           <FlexRow>
-            <CanvasGroup>
+            <FlexRow>
               <Canvas>
                 <canvas id="best_img_canvas" width="350" height="350" />
                 <canvas
@@ -106,7 +106,7 @@ class Rendering extends Component {
                   height="75"
                 />
               </Canvas>
-            </CanvasGroup>
+            </FlexRow>
 
             {/* {this.state.playing ? (
           <FlexRow>
