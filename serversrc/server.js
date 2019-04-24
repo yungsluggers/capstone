@@ -90,21 +90,17 @@ ptyProcess.write(
   './darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights 150\r'
 )
 
-// ptyProcess.on('data', function(data) {
-//   //process.stdout.write(data)
-// })
+var respond
+
+ptyProcess.on('data', function(data) {
+  if (data.match(/([0-9]*\.[0-9]*)/g)) {
+    respond(data)
+  }
+})
 
 function doResponse(res, data, end) {
   //process.stdout.write(data)
   var end = false
-  if (data.match(/([0-9]*\.[0-9]*)/g) && !end) {
-    end = true
-    res.status(200)
-    res.json({ score: data })
-    res.end()
-    ptyProcess.removeListener('data', doResponse)
-    //console.log(ptyProcess.listeners())
-  }
 }
 
 app.post('/', (req, res) => {
@@ -116,7 +112,11 @@ app.post('/', (req, res) => {
 
   ptyProcess.write(`${filepath} ${id}\r`)
 
-  ptyProcess.on('data', data => doResponse(res, data))
+  respond = () => {
+    res.status(200)
+    res.json({ score: data })
+    res.end()
+  }
 
   // darknet.stdin.write(id)
 
