@@ -6,11 +6,13 @@ const Container = styled.div`
 `
 
 const HeaderContainer = styled.div`
-  /* position: relative; */
-  /* margin-top: 3rem; */
-  /* padding: 250px; */
-  /* margin: -250px; */
   height: 4.5rem;
+
+  @media only screen and (max-width: 800px) {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
 `
 
 const Header = styled.h1`
@@ -34,6 +36,10 @@ const OutlineTitle = styled(Header)`
   -webkit-text-stroke: 1.5px ${props => props.theme.yellow};
   color: ${props => props.theme.white};
   z-index: 1;
+
+  @media only screen and (max-width: 800px) {
+    margin-left: 15px;
+  }
 `
 
 const Subtitle = styled.p`

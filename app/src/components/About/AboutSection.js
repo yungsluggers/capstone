@@ -26,6 +26,7 @@ const Content = styled.div`
   background-color: ${props => props.theme.white};
   border: 2px solid ${props => props.theme.purple};
   padding: 1rem;
+  z-index: 1;
 
   > p {
     margin-top: 0;
@@ -184,7 +185,8 @@ class AboutSection extends Component {
             style={{
               width: 'fit-content',
               padding: '15% 35%',
-              margin: '-15% -35%'
+              margin: '-15% -35%',
+              zIndex: 1
             }}
           >
             <WordArt>

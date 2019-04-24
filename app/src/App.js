@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 import GlobalStyle, { theme } from './theme/globalStyle'
 
@@ -8,8 +8,20 @@ import WidgetContainer from './components/Widget/WidgetContainer'
 import Widget from './components/Widget/Widget'
 import AboutSection from './components/About/AboutSection'
 import GallerySection from './components/Gallery/GallerySection'
-import Link from './components/Link/Link'
 import TextCarousel from './components/TextCarousel/TextCarousel'
+
+import { ReactComponent as BeanOne } from './assets/art/bean-1.svg'
+import { ReactComponent as BeanTwo } from './assets/art/bean-2.svg'
+
+const BeanWrapper = styled.div`
+  /* width: 70%;
+  position: absolute;
+  z-index: 0;
+
+  @media only screen and (max-width: 800px) {
+    width: 100%;
+  } */
+`
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +42,18 @@ class App extends Component {
             narrow
           />
 
+          {/* <BeanWrapper> */}
+          <BeanOne
+            style={{
+              position: 'absolute',
+              top: '-10vh',
+              right: '-20vw',
+              zIndex: '0',
+              width: '75%'
+            }}
+          />
+          {/* </BeanWrapper> */}
+
           <WidgetContainer>
             <Widget />
           </WidgetContainer>
@@ -41,6 +65,17 @@ class App extends Component {
               narrow
             />
           </div>
+
+          {/* <BeanWrapper> */}
+          <BeanTwo
+            style={{
+              position: 'absolute',
+              marginTop: '-100vh',
+              left: '-25vw',
+              zIndex: '0'
+            }}
+          />
+          {/* </BeanWrapper> */}
 
           <TextCarousel />
 

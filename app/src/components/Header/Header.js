@@ -10,6 +10,8 @@ const Container = styled.div`
 
 const Icon = styled.a`
   margin-left: 2.3rem;
+  z-index: 1;
+
   @media only screen and (max-width: 800px) {
     display: none;
   }
@@ -34,6 +36,10 @@ const Signature = styled.div`
   display: flex;
   width: 100%;
   align-items: flex-end;
+
+  * {
+    z-index: 2;
+  }
 
   @media only screen and (max-width: 800px) {
     display: none;
