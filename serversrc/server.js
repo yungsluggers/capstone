@@ -94,19 +94,15 @@ ptyProcess.write(
 //   //process.stdout.write(data)
 // })
 
-function doResponse(res, data, filepath, id) {
+function doResponse(res, data, end) {
   //process.stdout.write(data)
-  if (data.indexOf('Enter Image Path:') > -1) {
-    ptyProcess.write(`${filepath}\r`)
-  }
-  if (data.indexOf('Enter id:') > -1) {
-    ptyProcess.write(`${id}\r`)
-  }
-  if (data.match(/([0-9]*\.[0-9]*)/)) {
+  if (data.match(/([0-9]*\.[0-9]*)/g) && !end) {
+    end = true
     res.status(200)
     res.json({ score: data })
     res.end()
-    //ptyProcess.removeAllListeners()
+    ptyProcess.removeAllListeners()
+    //console.log(ptyProcess.listeners())
   }
 }
 
@@ -123,23 +119,7 @@ app.post('/', (req, res) => {
   var idhuh = false
   var end = false
 
-  ptyProcess.on('data', data => {
-    // if (data.indexOf('Enter Image Path:') > -1 && !path) {
-    //   path = true
-    // }
-    // if (data.indexOf('Enter id:') > -1 && !idhuh) {
-    //   idhuh = true
-    //   ptyProcess.write(`${id}\r`)
-    // }
-    if (data.match(/([0-9]*\.[0-9]*)/g) && !end) {
-      end = true
-      res.status(200)
-      res.json({ score: data })
-      res.end()
-      ptyProcess.removeAllListeners()
-      //console.log(ptyProcess.listeners())
-    }
-  })
+  ptyProcess.on('data', doResponse(res, data, end))
 
   // darknet.stdin.write(id)
 
