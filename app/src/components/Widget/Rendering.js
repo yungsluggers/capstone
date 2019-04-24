@@ -18,9 +18,10 @@ const Content = styled.div`
   align-items: flex-start;
 `
 
-const CanvasGroup = styled.div`
+const FlexRow = styled.div`
   display: flex;
   flex-flow: row wrap;
+  align-items: center;
 `
 
 const Canvas = styled.div`
@@ -35,6 +36,7 @@ const Canvas = styled.div`
 
 const AnalyticsList = styled.div`
   display: flex;
+  margin-bottom: 3rem;
 `
 
 class FileImporter extends Component {
@@ -88,72 +90,81 @@ class Rendering extends Component {
     return (
       <Container>
         <Content>
-          <CanvasGroup>
-            <Canvas>
-              <canvas id="best_img_canvas" width="350" height="350" />
-              <canvas
-                id="test_img_canvas"
-                style={{ visibility: 'hidden' }}
-                width="75"
-                height="75"
-              />
-            </Canvas>
-          </CanvasGroup>
+          <FlexRow>
+            <FlexRow>
+              <Canvas>
+                <canvas
+                  id="best_img_canvas"
+                  width="350"
+                  height="350"
+                  style={{
+                    marginBottom: '-2rem'
+                  }}
+                />
+                <canvas
+                  id="test_img_canvas"
+                  style={{ visibility: 'hidden' }}
+                  width="75"
+                  height="75"
+                />
+              </Canvas>
+            </FlexRow>
 
-          {/* {this.state.playing ? (
+            {/* {this.state.playing ? (
             <Button onClick={this.play}>Pause</Button>
           ) : (
             <Button onClick={this.play}>Play</Button>
           )} */}
 
-          <AnalyticsList>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Elapsed time:&nbsp;</td>
-                  <td>
-                    <div id="elapsed-time" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Number of generations:&nbsp;</td>
-                  <td>
-                    <div id="number-of-generations" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Time per generation:&nbsp;</td>
-                  <td>
-                    <div id="time-per-generation" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Time per improvement:&nbsp;</td>
-                  <td>
-                    <div id="time-per-improvement" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Current fitness:&nbsp;</td>
-                  <td>
-                    <div id="current-fitness" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Highest fitness:&nbsp;</td>
-                  <td>
-                    <div id="highest-fitness" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Lowest fitness:&nbsp;</td>
-                  <td>
-                    <div id="lowest-fitness" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </AnalyticsList>
+            <AnalyticsList>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Elapsed time:&nbsp;</td>
+                    <td>
+                      <div id="elapsed-time" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Number of generations:&nbsp;</td>
+                    <td>
+                      <div id="number-of-generations" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Time per generation:&nbsp;</td>
+                    <td>
+                      <div id="time-per-generation" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Time per improvement:&nbsp;</td>
+                    <td>
+                      <div id="time-per-improvement" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Current fitness:&nbsp;</td>
+                    <td>
+                      <div id="current-fitness" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Highest fitness:&nbsp;</td>
+                    <td>
+                      <div id="highest-fitness" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lowest fitness:&nbsp;</td>
+                    <td>
+                      <div id="lowest-fitness" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </AnalyticsList>
+          </FlexRow>
 
           <br />
 

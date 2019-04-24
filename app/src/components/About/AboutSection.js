@@ -25,7 +25,7 @@ const Content = styled.div`
   word-break: break-word;
   background-color: ${props => props.theme.white};
   border: 2px solid ${props => props.theme.purple};
-  padding: 1rem;
+  padding: 2rem;
   z-index: 1;
 
   > p {

@@ -34,7 +34,7 @@ const Warning = styled.div`
 
 const row1width = 1494.33
 
-const disableAnimation = false
+const disableAnimation = true
 
 class TextCarousel extends Component {
   constructor(props) {
