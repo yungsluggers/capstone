@@ -88,6 +88,22 @@ ptyProcess.on('data', function(data) {
   process.stdout.write(data)
 })
 
+function doResponse(res, data) {
+  //process.stdout.write(data)
+  if (data.indexOf('Enter Image Path:') > -1) {
+    ptyProcess.write(`${filepath}\r`)
+  }
+  if (data.indexOf('Enter id:') > -1) {
+    ptyProcess.write(`${id}\r`)
+  }
+  if (data.match(/([0-9]*\.[0-9]*)/)) {
+    res.status(200)
+    res.json({ score: data })
+    res.end()
+    ptyProcess.removeListener('data', doResponse)
+  }
+}
+
 app.post('/', (req, res) => {
   var id = req.body.id
   var data = req.body.data
@@ -95,19 +111,10 @@ app.post('/', (req, res) => {
 
   const filepath = tempWrite.sync(data)
 
-  ptyProcess.on('data', function(data) {
-    //process.stdout.write(data)
-    if (data.indexOf('Enter Image Path:') > -1) {
-      ptyProcess.write(`${filepath}\r`)
-    }
-    if (data.indexOf('Enter id:') > -1) {
-      ptyProcess.write(`${id}\r`)
-    }
-    if (data.match(/([0-9]*\.[0-9]*)/)) {
-      res.status(200)
-      res.json({ score: data })
-      res.end()
-    }
+  console.log(ptyProcess)
+
+  ptyProcess.on('data', data => {
+    doResponse(res, data)
   })
 
   ptyProcess.write(`${filepath}\r`)
