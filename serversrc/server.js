@@ -109,7 +109,7 @@ app.post('/', (req, res) => {
   var data = req.body.data
   var imgSize = req.body.imgSize
 
-  const filepath = tempWrite.sync(data)
+  var filepath = tempWrite.sync(data)
 
   ptyProcess.write(`${filepath} ${id}\r`)
 
@@ -118,7 +118,7 @@ app.post('/', (req, res) => {
     3000
   )
 
-  respond = ptydata => {
+  respond = function(ptydata) {
     clearTimeout(fallbacktimeout)
     exec(`rm ${filepath}`)
     res.status(200)
