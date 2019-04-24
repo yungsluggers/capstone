@@ -12,12 +12,13 @@ import options from './../../data/9k.json'
 class Introduction extends Component {
   constructor(props) {
     super(props)
-    this.state = { selectedOption: null }
+    this.state = { selectedOption: null, selectedLabel: null }
   }
 
   nextStep = e => {
     e.preventDefault()
-    this.props.nextStep(this.state.selectedOption)
+    if (this.state.selectedOption && this.state.selectedLabel)
+      this.props.nextStep(this.state.selectedOption, this.state.selectedLabel)
   }
 
   back = e => {
@@ -27,7 +28,10 @@ class Introduction extends Component {
 
   handleChange = selectedOption => {
     console.log('handlechange: ', selectedOption)
-    this.setState({ selectedOption: selectedOption.value })
+    this.setState({
+      selectedOption: selectedOption.value,
+      selectedLabel: selectedOption.label
+    })
   }
 
   render() {

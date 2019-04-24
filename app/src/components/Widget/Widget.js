@@ -8,7 +8,8 @@ import Output from './Output'
 class Widget extends Component {
   state = {
     step: 1,
-    label: null
+    label: null,
+    id: null
   }
 
   reset = () => {
@@ -18,12 +19,13 @@ class Widget extends Component {
     })
   }
 
-  nextStep = label => {
+  nextStep = (id, label) => {
     const { step } = this.state
-    console.log(label)
+    console.log(id, label)
     this.setState({
       step: step + 1,
-      label
+      label,
+      id
     })
   }
 
@@ -66,6 +68,7 @@ class Widget extends Component {
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             label={this.state.label}
+            id={this.state.id}
           />
         )
 

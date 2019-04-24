@@ -33,6 +33,10 @@ const Canvas = styled.div`
   }
 `
 
+const Header = styled.div`
+  margin-bottom: 50px;
+`
+
 const AnalyticsList = styled.div`
   display: flex;
 `
@@ -88,6 +92,7 @@ class Rendering extends Component {
     return (
       <Container>
         <Content>
+          <Header>{this.props.label}</Header>
           <CanvasGroup>
             <Canvas>
               <canvas id="best_img_canvas" width="350" height="350" />
