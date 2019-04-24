@@ -134,7 +134,7 @@ app.post('/', (req, res) => {
       res.status(200)
       res.json({ score: data })
       res.end()
-      //ptyProcess.removeAllListeners()
+      ptyProcess.removeAllListeners()
     }
   })
 
