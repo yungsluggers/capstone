@@ -1,0 +1,65 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  margin-top: 0;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+  line-height: normal;
+  color: #f1f2f3;
+  background: #252626;
+  font-family: 'Work Sans', sans-serif;
+
+  /* yellow: '#FAED23', */
+  /* purple: '#433594' */
+}
+
+.flexRow {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.flexColumn {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 2rem;
+}
+
+.tableWrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+table {
+  margin-left: 25%;
+}
+
+.inputWrapper {
+  margin-left: 25%;
+  font-style: italic;
+}
+
+.inputWrapper input {
+  color: #252626;
+  font-size: 1rem;
+}
+
+.canvasWrapper {
+  margin: 1rem;
+  margin-top: 0;
+}
+
+.canvasWrapper canvas {
+  width: 350px;
+  height: 350px;
+  background: #000;
+  margin-top: 0.5rem;
+  border: 1px solid #433594;
+}
+
+#test_img_canvas {
+  height: 75px;
+  width: 75px;
+}

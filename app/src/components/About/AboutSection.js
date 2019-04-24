@@ -25,7 +25,7 @@ const Content = styled.div`
   word-break: break-word;
   background-color: ${props => props.theme.white};
   border: 2px solid ${props => props.theme.purple};
-  padding: 1rem;
+  padding: 2rem;
   z-index: 1;
 
   > p {
@@ -199,6 +199,15 @@ class AboutSection extends Component {
           </Tilt>
 
           <Content>
+            <p>
+              <Link
+                href="https://github.com/yungsluggers/capstone/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Check out the project on GitHub
+              </Link>
+            </p>
             <p>
               The image generation is done genetically. This means that we
               generate many random images then choose the best two and "breed"

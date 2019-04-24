@@ -33,8 +33,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a:hover {
-    /* background-color: ${props => props.theme.white} !important; */
-    color: '#41b984' !important;
+    color: ${props => props.theme.yellow} !important;
   }
 
   header, h1, h2, h3 {
@@ -79,7 +78,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     &:after {
-      border-bottom: 1px solid ${props => props.theme.green};
+      border-bottom: 1px solid ${props => props.theme.yellow};
     }
   }
 

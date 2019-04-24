@@ -78,7 +78,6 @@ const Title = styled.div`
 const OutlineTitle = styled(Title)`
   position: absolute;
   top: 7rem;
-  /* set the TOP value */
   margin-left: 11px;
 
   span {
@@ -86,11 +85,7 @@ const OutlineTitle = styled(Title)`
     color: ${props => props.theme.white};
     z-index: 1;
   }
-  /* line-height: 4.8rem; */
-  /* letter-spacing: -0.3rem; */
 `
-
-// const TitleWrapper
 
 const Navbar = styled.div`
   display: flex;

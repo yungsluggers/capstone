@@ -5,9 +5,8 @@ const ButtonRow = styled.div`
   flex-flow: row nowrap;
   justify-content: center;
   width: 100%;
-  margin-top: 50px;
 
-  Button {
+  button {
     margin: 50px 10px 0 10px;
   }
 `
