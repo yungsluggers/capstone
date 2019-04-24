@@ -132,7 +132,7 @@ app.post('/', (req, res) => {
       process.stdout.write('end: \n')
       end = true
       res.status(200)
-      res.json({ score: data.match(/([0-9]*\.[0-9]*)/)[0] })
+      res.json({ score: data.match(/([0-9]*\.[0-9]*)/) })
       res.end()
       //ptyProcess.removeAllListeners()
     }
