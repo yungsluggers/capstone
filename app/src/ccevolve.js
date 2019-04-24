@@ -340,8 +340,8 @@ Individual.prototype.getFitness = async function(url) {
       .then(data => data.json())
       .then(
         function(res) {
-          this.fitness = res.score
-          console.log(res.score)
+          this.fitness = res.score.match(/([0-9]*\.[0-9]*)/g)[0]
+          console.log(res.score.match(/([0-9]*\.[0-9]*)/g)[0])
           Promise.resolve()
         }.bind(this)
       )
