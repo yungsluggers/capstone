@@ -95,19 +95,20 @@ class Rendering extends Component {
       <Container>
         <Content>
           <Header>{this.props.label}</Header>
-          <CanvasGroup>
-            <Canvas>
-              <canvas id="best_img_canvas" width="350" height="350" />
-              <canvas
-                id="test_img_canvas"
-                style={{ visibility: 'hidden' }}
-                width="75"
-                height="75"
-              />
-            </Canvas>
-          </CanvasGroup>
+          <FlexRow>
+            <CanvasGroup>
+              <Canvas>
+                <canvas id="best_img_canvas" width="350" height="350" />
+                <canvas
+                  id="test_img_canvas"
+                  style={{ visibility: 'hidden' }}
+                  width="75"
+                  height="75"
+                />
+              </Canvas>
+            </CanvasGroup>
 
-          {/* {this.state.playing ? (
+            {/* {this.state.playing ? (
           <FlexRow>
             <FlexRow>
               <Canvas>
