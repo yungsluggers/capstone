@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import Tilt from 'react-tilt'
 
 import SectionHeader from '../Section/SectionHeader'
@@ -182,8 +182,8 @@ class AboutSection extends Component {
             options={{ max: 35, reverse: false, scale: 1, speed: 2000 }}
             style={{
               width: 'fit-content',
-              padding: '5% 35% 15% 35%',
-              margin: '-5% -35% -15% -35%',
+              padding: '0 35% 15% 35%',
+              margin: '0 -35% -15% -35%',
               zIndex: 1
             }}
           >
