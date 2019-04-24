@@ -88,7 +88,7 @@ ptyProcess.on('data', function(data) {
   process.stdout.write(data)
 })
 
-function doResponse(res, data) {
+function doResponse(res, data, filepath, id) {
   //process.stdout.write(data)
   if (data.indexOf('Enter Image Path:') > -1) {
     ptyProcess.write(`${filepath}\r`)
@@ -114,7 +114,7 @@ app.post('/', (req, res) => {
   console.log(ptyProcess)
 
   ptyProcess.on('data', data => {
-    doResponse(res, data)
+    doResponse(res, data, filepath, id)
   })
 
   ptyProcess.write(`${filepath}\r`)
