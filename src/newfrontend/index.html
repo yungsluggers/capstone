@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="jcanvas.js"></script>
+    <link rel="stylesheet" href="drawing.css" />
+    <meta charset="UTF-8" />
+  </head>
 
-<head>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="jcanvas.js"></script>
-  <link rel="stylesheet" href="drawing.css" />
-  <meta charset="UTF-8" />
-</head>
-
-<body>
-  <!-- <div><div id="elapsed-time"></div></div>
+  <body>
+    <!-- <div><div id="elapsed-time"></div></div>
     <div>
       number of generations:
       <div id="number-of-generations"></div>
@@ -36,10 +38,10 @@
       <div id="lowest-fitness"></div>
     </div> -->
 
-  <div class="flexColumn">
-    <div class="flexRow">
+    <div class="flexColumn">
       <div class="flexRow">
-        <!-- <div>
+        <div class="flexRow">
+          <!-- <div>
             <canvas
               id="best_img_canvas"
               width="350"
@@ -55,98 +57,97 @@
               height="75"
             />
           </div> -->
-        <div class="canvasWrapper">
-          <div>Source image</div>
-          <canvas id="orig_img_canvas" width="350" height="350"></canvas>
-        </div>
+          <div class="canvasWrapper">
+            <div>Source image</div>
+            <canvas id="orig_img_canvas" width="350" height="350"></canvas>
+          </div>
 
-        <div class="canvasWrapper">
-          <div>Current best</div>
-          <canvas id="best_img_canvas" width="350" height="350"></canvas>
-        </div>
+          <div class="canvasWrapper">
+            <div>Current best</div>
+            <canvas id="best_img_canvas" width="350" height="350"></canvas>
+          </div>
 
-        <div class="canvasWrapper">
-          <div>Test</div>
-          <canvas id="test_img_canvas" width="75" height="75"></canvas>
+          <div class="canvasWrapper">
+            <div>Test</div>
+            <canvas id="test_img_canvas" width="75" height="75"></canvas>
+          </div>
         </div>
+      </div>
+
+      <br />
+
+      <div class="tableWrapper">
+        <table>
+          <tbody>
+            <tr>
+              <td>Elapsed time:&nbsp;</td>
+              <td>
+                <div id="elapsed-time"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Number of generations:&nbsp;</td>
+              <td>
+                <div id="number-of-generations"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Time per generation:&nbsp;</td>
+              <td>
+                <div id="time-per-generation"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Time per improvement:&nbsp;</td>
+              <td>
+                <div id="time-per-improvement"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Current fitness:&nbsp;</td>
+              <td>
+                <div id="current-fitness"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Highest fitness:&nbsp;</td>
+              <td>
+                <div id="highest-fitness"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Lowest fitness:&nbsp;</td>
+              <td>
+                <div id="lowest-fitness"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="inputWrapper">
+        <br />
+        Choose a file (350x350 works best)&nbsp;
+        <input type="file" id="file_input" size="10" />
       </div>
     </div>
 
-    <br />
+    <script type="text/javascript">
+      $('#file_input').change(function(e) {
+        var URL = window.webkitURL || window.URL
+        var url = URL.createObjectURL(e.target.files[0])
+        var img = new Image()
+        img.src = url
 
-    <div class="tableWrapper">
-      <table>
-        <tbody>
-          <tr>
-            <td>Elapsed time:&nbsp;</td>
-            <td>
-              <div id="elapsed-time"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Number of generations:&nbsp;</td>
-            <td>
-              <div id="number-of-generations"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Time per generation:&nbsp;</td>
-            <td>
-              <div id="time-per-generation"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Time per improvement:&nbsp;</td>
-            <td>
-              <div id="time-per-improvement"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Current fitness:&nbsp;</td>
-            <td>
-              <div id="current-fitness"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Highest fitness:&nbsp;</td>
-            <td>
-              <div id="highest-fitness"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Lowest fitness:&nbsp;</td>
-            <td>
-              <div id="lowest-fitness"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="inputWrapper">
-      <br />
-      Choose a file (350x350 works best)&nbsp;
-      <input type="file" id="file_input" size="10" />
-    </div>
-  </div>
+        img.onload = function() {
+          var img_width = img.width
+          var img_height = img.height
 
-  <script type="text/javascript">
-    $('#file_input').change(function (e) {
-      var URL = window.webkitURL || window.URL
-      var url = URL.createObjectURL(e.target.files[0])
-      var img = new Image()
-      img.src = url
-
-      img.onload = function () {
-        var img_width = img.width
-        var img_height = img.height
-
-        init(img, img_width)
-      }
-    })
-  </script>
-  <!-- change this to make it matching a local image vs the request -->
-  <!-- <script src="testrgbawdarknet.js"></script> -->
-  <script src="ccevolvelocalimage.js"></script>
-</body>
-
+          init(img, img_width)
+        }
+      })
+    </script>
+    <!-- change this to make it matching a local image vs the request -->
+    <!-- <script src="testrgbawdarknet.js"></script> -->
+    <script src="ccevolvelocalimage.js"></script>
+  </body>
 </html>

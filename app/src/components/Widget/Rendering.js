@@ -72,7 +72,7 @@ class Rendering extends Component {
   }
 
   componentDidMount() {
-    init(this.props.label)
+    init(this.props.id)
   }
 
   nextStep = e => {

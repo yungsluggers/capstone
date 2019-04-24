@@ -753,7 +753,7 @@ async function init(img, img_width) {
     })
       .then(data => data.json())
       .then(function(res) {
-        console.log(res.score.match(/([0-9]*\.[0-9]*)/g))
+        console.log(res)
         Promise.resolve()
       })
   } catch (err) {

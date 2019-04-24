@@ -120,6 +120,7 @@ app.post('/', (req, res) => {
 
   respond = ptydata => {
     clearTimeout(fallbacktimeout)
+    exec(`rm ${filepath}`)
     res.status(200)
     res.json({ score: ptydata })
     res.end()
@@ -195,10 +196,5 @@ app.post('/', (req, res) => {
 //     }
 //   )
 // })
-
-// current status: run the index and upload an image while sshd into the server.
-// it will give u an error and then u gotta fix it
-// either cant send such a long array through the command line to darknet or need to edit darknet code to handle the right size
-// try a command with full set of image data to darknet not through the server
 
 module.exports = app
