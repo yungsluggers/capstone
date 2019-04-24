@@ -368,6 +368,7 @@ Individual.prototype.getFitness = async function(url) {
       .then(data => data.json())
       .then(
         function(res) {
+          console.log('blah: ', res.match(/([0-9]*\.[0-9]*)/g))
           this.fitness = res.score
           Promise.resolve()
         }.bind(this)
@@ -752,7 +753,7 @@ async function init(img, img_width) {
     })
       .then(data => data.json())
       .then(function(res) {
-        console.log(res.score)
+        console.log(res.score.match(/([0-9]*\.[0-9]*)/g))
         Promise.resolve()
       })
   } catch (err) {

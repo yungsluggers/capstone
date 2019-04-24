@@ -115,19 +115,20 @@ app.post('/', (req, res) => {
 
   const filepath = tempWrite.sync(data)
 
-  var path = false
-  var idhuh = false
-  var end = false
+  setTimeout(() => ptyProcess.write(`${filepath}\r`), 200)
+  setTimeout(() => ptyProcess.write(`${id}\r`), 400)
 
   ptyProcess.on('data', data => {
-    if (data.indexOf('Enter Image Path:') > -1 && !path) {
-      ptyProcess.write(`${filepath}\r`)
-      path = true
-    }
-    if (data.indexOf('Enter id:') > -1 && !idhuh) {
-      ptyProcess.write(`${id}\r`)
-      idhuh = true
-    }
+    var path = false
+    var idhuh = false
+    var end = false
+    // if (data.indexOf('Enter Image Path:') > -1 && !path) {
+    //   path = true
+    // }
+    // if (data.indexOf('Enter id:') > -1 && !idhuh) {
+    //   idhuh = true
+    //   ptyProcess.write(`${id}\r`)
+    // }
     if (data.match(/([0-9]*\.[0-9]*)/g) && !end) {
       end = true
       res.status(200)
