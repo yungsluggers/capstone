@@ -90,7 +90,7 @@ ptyProcess.write(
   './darknet classifier one_label cfg/imagenet1k.data cfg/darknet19.cfg darknet19.weights 150\r'
 )
 
-var respond
+var respond = () => {}
 
 ptyProcess.on('data', function(data) {
   if (data.match(/([0-9]*\.[0-9]*)/g)) {
