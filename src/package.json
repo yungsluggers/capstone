@@ -14,7 +14,7 @@
     "canvas": "^2.2.0",
     "canvas-webworker": "0.0.2",
     "file-system": "^2.2.2",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "line-reader": "^0.4.0"
   }
 }
