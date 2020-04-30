@@ -6,7 +6,7 @@
     "@material-ui/core": "^3.9.3",
     "@progress/kendo-react-dropdowns": "^2.8.0",
     "@progress/kendo-react-intl": "^2.8.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
