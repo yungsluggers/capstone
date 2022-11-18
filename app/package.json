@@ -11,7 +11,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-modal": "^3.8.1",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^5.0.1",
     "react-select": "^2.3.0",
     "react-select-fast-filter-options": "^0.2.3",
     "react-tilt": "^0.1.4",
